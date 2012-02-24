@@ -1,0 +1,3 @@
+[submodule "bundle/vim-delimitMate"]
+	path = bundle/vim-delimitMate
+	url = https://github.com/Raimondi/delimitMate.git
