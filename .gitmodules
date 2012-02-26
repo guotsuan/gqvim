@@ -4,3 +4,18 @@
 [submodule "vim-pathogen"]
 	path = vim-pathogen
 	url = https://github.com/tpope/vim-pathogen.git
+[submodule "bundle/vim-fuzzyfinder"]
+	path = bundle/vim-fuzzyfinder
+	url = https://github.com/vim-scripts/FuzzyFinder.git
+[submodule "bundle/vim-l9"]
+	path = bundle/vim-l9
+	url = https://github.com/vim-scripts/L9.git
+[submodule "bundle/vim-neocomplcache"]
+	path = bundle/vim-neocomplcache
+	url = https://github.com/Shougo/neocomplcache.git
+[submodule "bundle/vim-neocomplcache-snippets-complete"]
+	path = bundle/vim-neocomplcache-snippets-complete
+	url = https://github.com/Shougo/neocomplcache-snippets-complete.git
+[submodule "bundle/vim-lua-ftplugin"]
+	path = bundle/vim-lua-ftplugin
+	url = https://github.com/xolox/vim-lua-ftplugin.git
