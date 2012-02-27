@@ -31,3 +31,6 @@
 [submodule "bundle/vim-unimpaired"]
 	path = bundle/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
+[submodule "bundle/vim-voom"]
+	path = bundle/vim-voom
+	url = https://github.com/vim-scripts/VOoM.git
