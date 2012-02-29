@@ -26,10 +26,11 @@
     set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,
 
     " for tab
+    set expandtab
     set tabstop=8
     set softtabstop=4
     set shiftwidth=4
-    set nohls
+    "set nohls
 
     " backspace
     set backspace=indent,eol,start
@@ -67,7 +68,7 @@
 
     set list " wo do what o show tabs, to ensure we get them out of my files
 
-    set listchars=tab:>-,trail:- " show tabs and trailing
+    set listchars=tab:>-,trail:-,nbsp:_,extends:>,precedes:< " show tabs and trailing
 
     set matchtime=5 " how many tenths of a second to blink 
 		    " matching brackets for
@@ -289,7 +290,8 @@ set pastetoggle=<F11>
 "map <F3> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 nmap <F6> :cn<cr>
 nmap <F5> :lmake<cr>
-nmap <F2> :!/usr/local/bin/ctags -R .<cr>
+nmap <F8> :set list!<cr>
+"nmap <F2> :!/usr/local/bin/ctags -R .<cr>
 
 "{{{2 neocomplcache keybinds
 "
