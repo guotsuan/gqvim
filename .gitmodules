@@ -34,3 +34,6 @@
 [submodule "bundle/vim-voom"]
 	path = bundle/vim-voom
 	url = https://github.com/vim-scripts/VOoM.git
+[submodule "bundle/vim-powerline"]
+	path = bundle/vim-powerline
+	url = https://github.com/Lokaltog/vim-powerline.git
