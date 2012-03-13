@@ -37,3 +37,15 @@
 [submodule "bundle/vim-powerline"]
 	path = bundle/vim-powerline
 	url = https://github.com/Lokaltog/vim-powerline.git
+[submodule "bundle/vim-snipmate"]
+	path = bundle/vim-snipmate
+	url = git://github.com/msanders/snipmate.vim.git
+[submodule "bundle/vim-shell"]
+	path = bundle/vim-shell
+	url = https://github.com/xolox/vim-shell.git
+[submodule "bundle/vim-tagexplorer"]
+	path = bundle/vim-tagexplorer
+	url = https://github.com/vim-scripts/tagexplorer.vim.git
+[submodule "bundle/vim-easytags"]
+	path = bundle/vim-easytags
+	url = https://github.com/xolox/vim-easytags.git

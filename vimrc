@@ -221,7 +221,7 @@ let g:neocomplcache_enable_underbar_completion = 1
 " Set minimum syntax keyword length.
 let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplcache_enable_auto_select=1
+let g:neocomplcache_enable_auto_select=0
 "let g:neocomplcache_enable_cursor_hold_i = 1
     
 
@@ -236,9 +236,9 @@ let g:neocomplcache_dictionary_filetype_lists = {
 
 " Define keyword.
 if !exists('g:neocomplcache_keyword_patterns')
-let g:neocomplcache_keyword_patterns = {}
+    let g:neocomplcache_keyword_patterns = {}
 endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+    let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 
 if !exists('g:neocomplcache_omni_patterns')
@@ -249,7 +249,7 @@ let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-"let g:neocomplcache_disable_auto_complete =0
+let g:neocomplcache_disable_auto_complete =0
 " Key bindings for neocomplcache
 
 
@@ -273,8 +273,14 @@ let g:tex_flavor='latex'
     let delimitMate_excluded_ft = "mail,txt,text"
 "2}}}
     
+ "lua.vim
+  let g:lua_complete_omni=1
+
+  " TagExplorer
+  let TE_Ctags_Path='/usr/bin/ctags'
 
 " }}}
+
 
 "Key Bindings {{{
 
@@ -291,17 +297,15 @@ set pastetoggle=<F11>
 nmap <F6> :cn<cr>
 nmap <F5> :lmake<cr>
 nmap <F8> :set list!<cr>
-"nmap <F2> :!/usr/local/bin/ctags -R .<cr>
+nmap <F2> :UpdateTags<cr>
 
 "{{{2 neocomplcache keybinds
 "
 
 " AutoComplPop like behavior.
-let g:neocomplcache_enable_auto_select = 0
-
 
     " Maping Tab to neocomplcache
-imap  <silent><expr><Tab>  neocomplcache#sources#snippets_complete#expandable() ? 
+imap  <expr><Tab>  neocomplcache#sources#snippets_complete#expandable() ? 
       \ "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-n>" : "\<Tab>")
 smap  <Tab>  <right><Plug>(neocomplcache_snippets_jump)
 
@@ -409,5 +413,6 @@ let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey   ctermbg=3
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=lightgrey ctermbg=4
 "}}}
+
 
 
