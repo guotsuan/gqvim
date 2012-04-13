@@ -49,3 +49,9 @@
 [submodule "bundle/vim-easytags"]
 	path = bundle/vim-easytags
 	url = https://github.com/xolox/vim-easytags.git
+[submodule "bundle/python-mode"]
+	path = bundle/python-mode
+	url = https://github.com/klen/python-mode.git
+[submodule "bundle/vim-pydoc"]
+	path = bundle/vim-pydoc
+	url = https://github.com/fs111/pydoc.vim.git
