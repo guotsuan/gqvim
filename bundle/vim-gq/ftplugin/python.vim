@@ -14,5 +14,5 @@ let g:pymode_rope_guess_project=0
 
 let g:pymode_rope_vim_completion = 0
 
-let g:pymode_lint_ignore="E2,W"
+let g:pymode_lint_ignore="E2,W,E702"
 

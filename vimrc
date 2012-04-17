@@ -16,7 +16,7 @@
 
     set ignorecase
 
-    set clipboard=unnamed 
+    "set clipboard=unnamed 
     "share clipboard with system" 
 
     set wildmenu "turn on command line completion wild style"
