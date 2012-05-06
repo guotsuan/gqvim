@@ -49,10 +49,11 @@
 
 " {{{ UI
     if has("gui_running")
-	set lines=60 columns=110
 	colorscheme evening
 	set cursorcolumn 
 	set cursorline 
+        set lines=60 
+        set columns=110
     endif
 
     set laststatus=2
