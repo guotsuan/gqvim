@@ -55,3 +55,6 @@
 [submodule "bundle/vim-pydoc"]
 	path = bundle/vim-pydoc
 	url = https://github.com/fs111/pydoc.vim.git
+[submodule "bundle/vim-unite"]
+	path = bundle/vim-unite
+	url = https://github.com/Shougo/unite.vim.git

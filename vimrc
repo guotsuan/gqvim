@@ -242,15 +242,11 @@ if !exists('g:neocomplcache_keyword_patterns')
 endif
     let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
+" Plugin key-mappings.
+inoremap <expr><C-g> neocomplcache#undo_completion()
+inoremap <expr><C-l> neocomplcache#complete_common_string()
 
-if !exists('g:neocomplcache_omni_patterns')
-let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+
 let g:neocomplcache_disable_auto_complete =0
 " Key bindings for neocomplcache
 
@@ -308,7 +304,7 @@ nmap <F2> :UpdateTags<cr>
 
     " Maping Tab to neocomplcache
 imap  <expr><Tab>  neocomplcache#sources#snippets_complete#expandable() ? 
-      \ "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-n>" : "\<Tab>")
+      \ "\<Plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-n>" : "\<Tab>")
 smap  <Tab>  <right><Plug>(neocomplcache_snippets_jump)
 
 
@@ -319,6 +315,8 @@ smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string() 
+imap <C-k> <Plug>(neocomplcache_start_unite_complete)
+imap <C-q> <Plug>(neocomplcache_start_unite_quick_match)
 
 "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " recommanded key mapping
@@ -335,6 +333,8 @@ inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-R>=delimitMate#BS()\<
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 "2}}}
+"
+
 
 " fuzzyfinder keybinds"{{{2
   let g:fuf_modesDisable = []
@@ -384,21 +384,26 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 "Auto Command {{{
 au BufReadPost * if getline(1) =~ "mutt" | setf muttrc | endif
-if has("autocmd") && exists("+omnifunc")
-    autocmd Filetype *
-		\Filetypeif &omnifunc == "" |
-		\Filetypeifsetlocal omnifunc=syntaxcomplete#Complete |
-		\Completeendif
-endif
+
+"if has("autocmd") && exists("+omnifunc")
+    "autocmd Filetype *
+		"\Filetypeif &omnifunc == "" |
+		"\Filetypeifsetlocal omnifunc=syntaxcomplete#Complete |
+		"\Completeendif
+"endif
 
 "omin completion
+"
 "autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType xml setlocal omnifunc=xmlcomplete#completeTags
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+"autocmd FileType java setlocal omnifunc=VjdeCompletionFun0
+
 autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
-"autocmd FileType idlang setlocal omnifunc=javascriptcomplete#CompleteJS
+
 
 "autocmd FileType java,javascript,html,css imap  ; <C-R>=My_appendSemicolon(0,0)<CR>
 "autocmd FileType java,javascript,html,css map  ; i;<esc>
