@@ -45,6 +45,7 @@
     set encoding=utf-8
     set termencoding=utf-8
     set fileformats=unix,dos
+
 " }}}
 
 " {{{ UI
@@ -196,7 +197,14 @@
 
 " }}}
 
-" {{{ Plugins Settings
+" {{{2 Plugins Settings
+
+" easytags plugin
+"
+ let g:easytags_dynamic_files=1
+ let g:easytags_on_cursorhold=1
+ let g:easytags_python_enable=0
+ let g:easytags_by_filetype=1
 
 "{{{2 nerd comment
 "
@@ -271,23 +279,24 @@ let g:tex_flavor='latex'
     let delimitMate_excluded_ft = "mail,txt,text"
 "2}}}
     
- "lua.vim
+ "lua ftp-plugin.vim
   let g:lua_complete_omni=1
+   "let g:lua_check_synatx=
 
-  " TagExplorer
-  let TE_Ctags_Path='/usr/bin/ctags'
+"   TagExplorer
+  "let TE_Ctags_Path='/usr/bin/ctags'
 
-" }}}
+" 2}}}
 
 
 "Key Bindings {{{
 
 " for paste {{{2
-map <F10> :set paste<CR>
-map <F11> :set nopaste<CR>
-imap <F10> <C-O>:set paste<CR>
-imap <F11> <nop>
-set pastetoggle=<F11> 
+map <F9> :set paste<CR>
+map <F10> :set nopaste<CR>
+imap <F9> <C-O>:set paste<CR>
+imap <F10> <nop>
+set pastetoggle=<F10>
 "2}}}
 
 "too slow
@@ -315,7 +324,7 @@ smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 
 inoremap <expr><C-g>     neocomplcache#undo_completion()
 inoremap <expr><C-l>     neocomplcache#complete_common_string() 
-imap <C-k> <Plug>(neocomplcache_start_unite_complete)
+"imap <C-k> <Plug>(neocomplcache_start_unite_complete)
 imap <C-q> <Plug>(neocomplcache_start_unite_quick_match)
 
 "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -382,36 +391,6 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
   nnoremap <silent> sr     :FufRenewCache<CR>
   "2}}}
 
-"Auto Command {{{
-au BufReadPost * if getline(1) =~ "mutt" | setf muttrc | endif
-
-"if has("autocmd") && exists("+omnifunc")
-    "autocmd Filetype *
-		"\Filetypeif &omnifunc == "" |
-		"\Filetypeifsetlocal omnifunc=syntaxcomplete#Complete |
-		"\Completeendif
-"endif
-
-"omin completion
-"
-"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType xml setlocal omnifunc=xmlcomplete#completeTags
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
-"autocmd FileType java setlocal omnifunc=VjdeCompletionFun0
-
-autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
-
-
-"autocmd FileType java,javascript,html,css imap  ; <C-R>=My_appendSemicolon(0,0)<CR>
-"autocmd FileType java,javascript,html,css map  ; i;<esc>
-"autocmd FileType java,javascript,html,css map  ;; i<C-R>=My_appendSemicolon(2,2)<CR><esc>
-"autocmd FileType java,javascript,html,css imap  ;; <C-R>=My_appendSemicolon(2,0)<CR><esc>a
-
-"autocmd BufEnter * call DoWordComplete() 
-" }}}}
 
 "indent Guide setting {{{
 let g:indent_guides_start_level = 2
@@ -422,4 +401,99 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=lightgrey ctermbg=4
 "}}}
 
 
+"}}}
+
+"Auto Command {{{
+"
+
+au BufRead,Bufnew *.java,*.c,*.cpp
+    \ let g:easytags_include_members=1
+
+" for lejos 
+"==================================
+
+ "let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/nxt,.'} |
+ let g:neocomplcache_include_patterns={'java':'^\s*import'}
+ 
+au BufRead,BufNew */lejos/*.java
+    \ let b:classpath="/home/dccf87/usr/lejos_nxj/lib" |
+    \ let g:vjde_lib_path="/home/dccf87/usr/lejos_nxj/lib/nxt/classes.jar" |
+    \ set makeprg=nxjc\ % |
+    \ let g:vjde_javadoc_path="/home/dccf87/usr/lejos_nxj/docs/nxt/"   |
+    \ cmap up !nxj -b %:r |
+    \ setlocal path+=/home/dccf87/usr/lejos_nxj/lib/nxt |
+    \ set tags=~/tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
+    \ let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/nxt,.'} 
+
+	"g:vjde_doc_gui_height	 height of the window
+	"g:vjde_doc_gui_width	width of the window
+	"g:vjde_doc_delay	once a item selected ,delay how long.
+
+au BufEnter,BufWrite *.java 
+    \ if getline(1) =~ "lejos" |
+        \ let b:classpath="/home/dccf87/usr/lejos_nxj/lib" |
+        \ let g:vjde_lib_path="/home/dccf87/usr/lejos_nxj/lib/nxt/classes.jar" |
+        \ set makeprg=nxjc\ % |
+        \ let g:vjde_javadoc_path="/home/dccf87/usr/lejos_nxj/docs/nxt" |
+        \ cmap up !nxj -b %:r |
+        \ setlocal path+=/home/dccf87/usr/lejos_nxj/lib/nxt |
+        \ set tags=~/tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
+        \ let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/nxt,.'} |
+    \ endif
+"============================
+"
+au BufReadPost * if getline(1) =~ "mutt" | setf muttrc | endif
+
+
+"omin completion
+"==========================================================
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType xml setlocal omnifunc=xmlcomplete#completeTags
+"autocmd FileType java setlocal omnifunc=javacomplete#Complete
+"autocmd FileType java setlocal omnifunc=eclim#java#complete#CodeComplete
+autocmd FileType java setlocal omnifunc=VjdeCompletionFun0
+
+"============================================================
+autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
+
+if has("autocmd") && exists("+omnifunc")
+    autocmd Filetype *
+                \Filetypeif &omnifunc == "" |
+                \Filetypeifsetlocal omnifunc=syntaxcomplete#Complete |
+                \Completeendif
+endif
+
+autocmd Filetype java,c,cpp 
+        \ inoremap ;<cr> <end>; |
+        \ inoremap .<cr> <end>. |
+        \ inoremap ;;<cr> <down><end>;<cr> |
+        \ inoremap ..<cr> <down><end>.<cr> |
+        \ nnoremap ;; <end>a;<ESC> |
+
+"autocmd FileType java,javascript,html,css imap  ; <C-R>=My_appendSemicolon(0,0)<CR>
+"autocmd FileType java,javascript,html,css map  ; i;<esc>
+"autocmd FileType java,javascript,html,css map  ;; i<C-R>=My_appendSemicolon(2,2)<CR><esc>
+"autocmd FileType java,javascript,html,css imap  ;; <C-R>=My_appendSemicolon(2,0)<CR><esc>a
+
+"autocmd BufEnter * call DoWordComplete() 
+"
+" lua "{{{
+" =========================================
+
+au Filetype lua 
+    \ setlocal path+=/usr/share/awesome/lib |
+    \ set suffixesadd=.lua |
+    \ imap <F3> <C-o>:call xolox#lua#help()<CR> |
+    \ nmap <F3> <C-o>:call xolox#lua#help()<CR> 
+"}}} 
+" }}}
+
+" Vim command character"{{{
+
+cmap tn tabnew
+cmap mru FufMruFile
+"}}}
 

@@ -16,9 +16,6 @@
 [submodule "bundle/vim-neocomplcache-snippets-complete"]
 	path = bundle/vim-neocomplcache-snippets-complete
 	url = https://github.com/Shougo/neocomplcache-snippets-complete.git
-[submodule "bundle/vim-lua-ftplugin"]
-	path = bundle/vim-lua-ftplugin
-	url = https://github.com/xolox/vim-lua-ftplugin.git
 [submodule "bundle/vim-indent-guides"]
 	path = bundle/vim-indent-guides
 	url = https://github.com/nathanaelkane/vim-indent-guides.git
@@ -58,3 +55,6 @@
 [submodule "bundle/vim-unite"]
 	path = bundle/vim-unite
 	url = https://github.com/Shougo/unite.vim.git
+[submodule "bundle/vimproc"]
+	path = bundle/vimproc
+	url = https://github.com/Shougo/vimproc.git
