@@ -14,5 +14,6 @@ let g:pymode_rope_guess_project=0
 
 let g:pymode_rope_vim_completion = 0
 
-let g:pymode_lint_ignore="E2,W,E702"
+let g:pymode_lint_ignore="E2,W,E702,E501,E503,E303"
 
+set foldmethod=indent

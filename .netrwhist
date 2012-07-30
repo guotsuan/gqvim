@@ -1,11 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =9
+let g:netrw_dirhist_cnt =3
 let g:netrw_dirhist_1='/home/dccf87/test'
-let g:netrw_dirhist_2='/home/dccf87/projs/sat'
-let g:netrw_dirhist_3='/home/dccf87/.VirtualBox'
-let g:netrw_dirhist_4='/etc/zsh'
-let g:netrw_dirhist_5='/etc/rc.d'
-let g:netrw_dirhist_6='/home/dccf87/projs/for_review/prim_data'
-let g:netrw_dirhist_7='/home/dccf87/.vim/bundle/vim-lua-ftplugin/misc'
-let g:netrw_dirhist_8='/home/dccf87/.vim/bundle/vim-lua-ftplugin'
-let g:netrw_dirhist_9='/usr/share/awesome/lib/awful'
+let g:netrw_dirhist_2='/etc/rc.d'
+let g:netrw_dirhist_3='/etc/default'

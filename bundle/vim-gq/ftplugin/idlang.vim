@@ -1,6 +1,7 @@
 set commentstring=;%s
 set suffixesadd=.pro
 
+set number
 set iskeyword+=^,
 set isfname+=^,
 

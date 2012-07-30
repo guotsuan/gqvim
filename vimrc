@@ -440,6 +440,18 @@ au BufEnter,BufWrite *.java
         \ set tags=~/tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
         \ let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/nxt,.'} |
     \ endif
+
+au BufEnter,BufWrite *.java 
+    \ if getline(1) =~ "pc lejos" |
+        \ let g:vjde_lib_path="/home/dccf87/usr/lejos_nxj/lib/pc/pccomm.jar" |
+        \ set makeprg=nxjpcc\ % |
+        \ let g:vjde_javadoc_path="/home/dccf87/usr/lejos_nxj/docs/pc" |
+        \ setlocal path+=/home/dccf87/usr/lejos_nxj/lib/pc |
+        \ cmap up !nxjpc %:r |
+        \ let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/pc,.'} |
+    \ endif
+
+    "\ set tags=~/tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
 "============================
 "
 au BufReadPost * if getline(1) =~ "mutt" | setf muttrc | endif
@@ -467,11 +479,9 @@ if has("autocmd") && exists("+omnifunc")
 endif
 
 autocmd Filetype java,c,cpp 
-        \ inoremap ;<cr> <end>; |
-        \ inoremap .<cr> <end>. |
-        \ inoremap ;;<cr> <down><end>;<cr> |
-        \ inoremap ..<cr> <down><end>.<cr> |
-        \ nnoremap ;; <end>a;<ESC> |
+        \ inoremap ;; <end>;|
+        \ imap ;] <end>;<ESC>]}a|
+        \ nnoremap ;; <end>a;<ESC>
 
 "autocmd FileType java,javascript,html,css imap  ; <C-R>=My_appendSemicolon(0,0)<CR>
 "autocmd FileType java,javascript,html,css map  ; i;<esc>
