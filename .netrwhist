@@ -1,5 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/home/dccf87/test'
 let g:netrw_dirhist_2='/etc/rc.d'
 let g:netrw_dirhist_3='/etc/default'
+let g:netrw_dirhist_4='/home/dccf87/.vim/bundle/python-mode/autoload/pymode'
+let g:netrw_dirhist_5='/home/dccf87/.config/awesome/shifty'
+let g:netrw_dirhist_6='/home/dccf87/test'
+let g:netrw_dirhist_7='/mnt/m4sdd2/projs/jch_m2'
+let g:netrw_dirhist_8='/run/systemd/journal'
+let g:netrw_dirhist_9='/etc/rc.d'

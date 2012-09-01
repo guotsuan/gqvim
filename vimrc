@@ -16,7 +16,7 @@
 
     set ignorecase
 
-    "set clipboard=unnamed 
+    set clipboard=unnamed 
     "share clipboard with system" 
 
     set wildmenu "turn on command line completion wild style"
@@ -55,6 +55,8 @@
 	set cursorline 
         set lines=60 
         set columns=110
+        set guifont=Consolas\ 11
+        set guifontwide=Microsoft\ Yahei\ 9
     endif
 
     set laststatus=2
@@ -184,27 +186,43 @@
     set foldenable
     set foldcolumn=4
     set foldmethod=marker
-    "set foldmarker={{{,}}}
-    "set foldlevel=1000
     set foldopen=block,hor,mark,percent,quickfix,tag
 
     function SimpleFoldText() " {
         return getline(v:foldstart).' '
     endfunction " }
 
+    "set foldmarker={{{,}}}
+    "set foldlevel=1000
     "set foldtext=SimpleFoldText()
     "set foldclose=all
 
 " }}}
 
-" {{{2 Plugins Settings
+"  Plugins Settings   "  {{{ 
 
-" easytags plugin
+" Taglist Plugin   "  {{{2
+let g:Tlist_Auto_Update = 1
+  "  2}}}
+
+" Taglist Plugin   "  {{{2
+let g:Tlist_Auto_Update = 1
+"let g:tagbar_ctags_bin = ctags
+  "  2}}}
+  "
+" easytags plugin {{{2
 "
  let g:easytags_dynamic_files=1
  let g:easytags_on_cursorhold=1
- let g:easytags_python_enable=0
+ let g:easytags_python_enable=1
  let g:easytags_by_filetype=1
+ let g:easytags_auto_highlight=1
+ let g:easytags_auto_update = 1
+ let g:easytags_include_members =1   "  2}}}
+
+" vim-latex     "  {{{2
+ set grepprg=grep\ -nH\ $*
+ let g:tex_flavor = "latex"     " 2}}}
 
 "{{{2 nerd comment
 "
@@ -219,6 +237,7 @@ let mapleader=","
 
 " {{{2  neocomplcache
 " Disable AutoComplPop.
+"
 let g:acp_enableAtStartup = 0
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
@@ -230,12 +249,21 @@ let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 1
 " Set minimum syntax keyword length.
 let g:neocomplcache_min_syntax_length = 3
+
+" enable fuzzy completion
+let g:neocomplcache_enable_fuzzy_completion =1
+
+" necomp locked if iminsert
+let g:neocomplcache_lock_iminsert = 0
+
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplcache_enable_auto_select=0
-"let g:neocomplcache_enable_cursor_hold_i = 1
-    
 
-"let g:neocomplcache_delimiter_patterns= {}
+let g:neocomplcache_disable_auto_complete =0
+
+"let g:neocomplcache_vim_completefuncs.Ref = 'ref#complete'
+let g:neocomplcache_enable_cursor_hold_i = 1
+    
 
 " Define dictionary.
 let g:neocomplcache_dictionary_filetype_lists = {
@@ -245,17 +273,13 @@ let g:neocomplcache_dictionary_filetype_lists = {
 \ }
 
 " Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
+
+if !exists('g:neocomplcache_omni_patterns')
+    let g:neocomplcache_omni_patterns = {}
 endif
-    let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
-
-" Plugin key-mappings.
-inoremap <expr><C-g> neocomplcache#undo_completion()
-inoremap <expr><C-l> neocomplcache#complete_common_string()
+let g:neocomplcache_omni_patterns.lua= '[^. \t]\.\w*'
 
 
-let g:neocomplcache_disable_auto_complete =0
 " Key bindings for neocomplcache
 
 
@@ -269,35 +293,39 @@ let g:tex_flavor='latex'
 
 " {{{2 delimitMate  
     
-    let delimitMate_autoclose=1
-    let delimitMate_expand_space = 1
-    let delimitMate_expand_cr = 1
-    let delimitMate_smart_quotes = 1
-    let delimitMate_balance_matchpairs = 1
-    let delimitMate_smart_matchpairs='^\%(\w\|\!\|£\|\$\|_\|["'']\s*\S\)'
-    let delimitMate_excluded_regions = "Comment,String"
-    let delimitMate_excluded_ft = "mail,txt,text"
+    "let delimitMate_autoclose=1
+    "let delimitMate_expand_space = 0
+    "let delimitMate_expand_cr = 1
+    "let delimitMate_smart_quotes = 1
+    "let delimitMate_balance_matchpairs = 1
+    "let delimitMate_smart_matchpairs='^\%(\w\|\!\|£\|\$\|_\|["'']\s*\S\)'
+    "let delimitMate_excluded_regions = "Comment,String"
+    "let delimitMate_excluded_ft = "mail,txt,text"
+
+    "au FileType python let b:delimitMate_quotes = "\" '"
+    "au FileType python let b:delimitMate_nesting_quotes=['"']
+    "au FileType c,perl,cpp let b:delimitMate_eol_marker =";"
+    " because sometime delimitMate is not smart enough
+
 "2}}}
-    
- "lua ftp-plugin.vim
-  let g:lua_complete_omni=1
-   "let g:lua_check_synatx=
 
-"   TagExplorer
-  "let TE_Ctags_Path='/usr/bin/ctags'
+     "lua ftp-plugin.vim  "  {{{2
+      let g:lua_complete_omni=1
+      let g:lua_complete_dynamic=0
+       "let g:lua_check_synatx=
+      "  2}}} 
 
-" 2}}}
-
+" }}}
 
 "Key Bindings {{{
 
-" for paste {{{2
+" for paste  {{{2
 map <F9> :set paste<CR>
 map <F10> :set nopaste<CR>
 imap <F9> <C-O>:set paste<CR>
 imap <F10> <nop>
 set pastetoggle=<F10>
-"2}}}
+" 2}}}
 
 "too slow
 "map <F3> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
@@ -305,45 +333,74 @@ nmap <F6> :cn<cr>
 nmap <F5> :lmake<cr>
 nmap <F8> :set list!<cr>
 nmap <F2> :UpdateTags<cr>
+nnoremap <silent> <F4> :TagbarToggle<CR>
 
-"{{{2 neocomplcache keybinds
-"
 
-" AutoComplPop like behavior.
+"inoremap <Leader><Space>  <Esc>i<Space><Esc>la<Space>
+"nnoremap <Leader><Space>  <Esc>i<Space><Esc>la<Space><Esc>
+"nnoremap <Leader><Space>+  <Esc>i<Space><Esc>la<Space><Esc>
+nnoremap <Leader><Space> :call pyformat#adjustspace()<CR>
+nnoremap <Leader>s :call gqutils#selindent()<CR>
 
-    " Maping Tab to neocomplcache
-imap  <expr><Tab>  neocomplcache#sources#snippets_complete#expandable() ? 
-      \ "\<Plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-n>" : "\<Tab>")
+inoremap "" "
+nnoremap "" i"<ESC>
+nnoremap "a a"<ESC>
+
+inoremap '' '
+inoremap {{ {
+inoremap }} }
+
+inoremap (~ (
+inoremap )~ )
+
+nnoremap (( i(<ESC>
+nnoremap )) a)<ESC>
+
+nnoremap <Leader>{  :call gqutils#addcomment(nr2char(getchar()), 1)<CR>
+nnoremap <Leader>}  :call gqutils#addcomment(nr2char(getchar()), 0)<CR>
+
+"nnoremap c{ gqcomment#,
+
+ "neocomplcache keybinds  "{{{2
+
+" AutoComplPop like behaviorli. Maping Tab to neocomplcache
+"imap  <expr><Tab>  neocomplcache#sources#snippets_complete#expandable() ? 
+      "  \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<Tab>"
+
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 smap  <Tab>  <right><Plug>(neocomplcache_snippets_jump)
 
+"inoremap <expr><C-e>     neocomplcache#complete_common_string()
 
-inoremap <expr><c-e>     neocomplcache#complete_common_string()
+" Plugin key-mappings.
+inoremap <expr><C-g> neocomplcache#undo_completion()
+inoremap <expr><C-l> neocomplcache#complete_common_string()
 
 imap <C-k>     <Plug>(neocomplcache_snippets_expand)
 smap <C-k>     <Plug>(neocomplcache_snippets_expand)
 
-inoremap <expr><C-g>     neocomplcache#undo_completion()
-inoremap <expr><C-l>     neocomplcache#complete_common_string() 
-"imap <C-k> <Plug>(neocomplcache_start_unite_complete)
-imap <C-q> <Plug>(neocomplcache_start_unite_quick_match)
+"inoremap <expr><C-q>  neocomplcache#close_popup()
+"inoremap <expr><C-k>  neocomplcache#cancel_popup()
+inoremap <expr><C-y>  neocomplcache#close_popup()
+inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
 "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " recommanded key mapping
 
-" <CR>: close popup and save indent.
-inoremap <expr><CR> neocomplcache#smart_close_popup()."\<C-R>=delimitMate#ExpandReturn()\<CR>"
+inoremap <expr><silent> <CR> <SID>my_cr_function()
 
-" <TAB>: completion.
+function! s:my_cr_function()
+  return pumvisible() ? neocomplcache#close_popup() . "\<CR>" : "\<CR>"
+endfunction
 
 " <C-h>, <BS>: close popup and delete backword char.
+"inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-R>AutoClose#Backspace()\<CR>"
 inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-R>=delimitMate#BS()\<CR>"
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
-"2}}}
-"
 
+
+
+"2}}}
 
 " fuzzyfinder keybinds"{{{2
   let g:fuf_modesDisable = []
@@ -391,7 +448,6 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
   nnoremap <silent> sr     :FufRenewCache<CR>
   "2}}}
 
-
 "indent Guide setting {{{
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
@@ -399,7 +455,6 @@ let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey   ctermbg=3
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=lightgrey ctermbg=4
 "}}}
-
 
 "}}}
 
@@ -422,7 +477,7 @@ au BufRead,BufNew */lejos/*.java
     \ let g:vjde_javadoc_path="/home/dccf87/usr/lejos_nxj/docs/nxt/"   |
     \ cmap up !nxj -b %:r |
     \ setlocal path+=/home/dccf87/usr/lejos_nxj/lib/nxt |
-    \ set tags=~/tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
+    \ set tags=./tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
     \ let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/nxt,.'} 
 
 	"g:vjde_doc_gui_height	 height of the window
@@ -437,7 +492,7 @@ au BufEnter,BufWrite *.java
         \ let g:vjde_javadoc_path="/home/dccf87/usr/lejos_nxj/docs/nxt" |
         \ cmap up !nxj -b %:r |
         \ setlocal path+=/home/dccf87/usr/lejos_nxj/lib/nxt |
-        \ set tags=~/tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
+        \ set tags=./tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
         \ let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/nxt,.'} |
     \ endif
 
@@ -459,11 +514,12 @@ au BufReadPost * if getline(1) =~ "mutt" | setf muttrc | endif
 
 "omin completion
 "==========================================================
-"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType xml setlocal omnifunc=xmlcomplete#completeTags
+"autocmd FileType lua setlocal omnifunc=luacomplete#Complete
 "autocmd FileType java setlocal omnifunc=javacomplete#Complete
 "autocmd FileType java setlocal omnifunc=eclim#java#complete#CodeComplete
 autocmd FileType java setlocal omnifunc=VjdeCompletionFun0
@@ -490,6 +546,9 @@ autocmd Filetype java,c,cpp
 
 "autocmd BufEnter * call DoWordComplete() 
 "
+
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif 
+autocmd BufLeave * if pumvisible() == 0|pclose|endif
 " lua "{{{
 " =========================================
 
@@ -504,6 +563,7 @@ au Filetype lua
 " Vim command character"{{{
 
 cmap tn tabnew
+cmap vte Vtabedit
 cmap mru FufMruFile
 "}}}
 

@@ -1,12 +1,6 @@
-[submodule "bundle/vim-delimitMate"]
-	path = bundle/vim-delimitMate
-	url = https://github.com/Raimondi/delimitMate.git
 [submodule "vim-pathogen"]
 	path = vim-pathogen
 	url = https://github.com/tpope/vim-pathogen.git
-[submodule "bundle/vim-fuzzyfinder"]
-	path = bundle/vim-fuzzyfinder
-	url = https://github.com/vim-scripts/FuzzyFinder.git
 [submodule "bundle/vim-l9"]
 	path = bundle/vim-l9
 	url = https://github.com/vim-scripts/L9.git
@@ -40,9 +34,6 @@
 [submodule "bundle/vim-shell"]
 	path = bundle/vim-shell
 	url = https://github.com/xolox/vim-shell.git
-[submodule "bundle/vim-tagexplorer"]
-	path = bundle/vim-tagexplorer
-	url = https://github.com/vim-scripts/tagexplorer.vim.git
 [submodule "bundle/vim-easytags"]
 	path = bundle/vim-easytags
 	url = https://github.com/xolox/vim-easytags.git
@@ -58,3 +49,12 @@
 [submodule "bundle/vimproc"]
 	path = bundle/vimproc
 	url = https://github.com/Shougo/vimproc.git
+[submodule "bundle/fuzzyfinder"]
+	path = bundle/fuzzyfinder
+	url = https://github.com/richo/FuzzyFinder.git
+[submodule "bundle/autoclose"]
+	path = bundle/autoclose
+	url = git://github.com/Townk/vim-autoclose
+[submodule "bundle/targbar"]
+	path = bundle/targbar
+	url = https://github.com/majutsushi/tagbar.git

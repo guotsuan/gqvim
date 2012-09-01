@@ -1,0 +1,381 @@
+
+function! s:isinstring(linestr, idx) "{{{
+
+    let par_list =['''', "\""]
+    for item in par_list
+        let i = a:idx
+        let l_cnt =0 
+        while i >= 0
+            if a:linestr[i] == '''' || a:linestr[i] == "\""
+               let l_cnt += 1
+            endif
+            let i=i-1
+        endwhile
+    endfor
+
+    let len=strlen(a:linestr)
+    for item in par_list
+        let r_cnt=0
+        for item in par_list
+            let i = a:idx
+            let r_cnt =0 
+            while i <= len
+                if a:linestr[i] == '''' || a:linestr[i] == "\""
+                    let r_cnt += 1
+                endif
+                let i=i+1
+            endwhile
+        endfor
+    endfor
+
+    "Decho l_cnt
+    "Decho r_cnt
+    if l_cnt % 2 !=0 || r_cnt % 2 !=0
+        return 1
+    else
+        return 0
+    endif
+
+endfunction "}}}
+
+function! s:isoptional(linestr, idx) "{{{
+    let par_list =[['(',')']]
+    for [litem, ritem] in par_list
+        let i = a:idx
+        let l_cnt =0 
+        while i >= 0
+            if a:linestr[i] == litem
+               let l_cnt += 1
+            endif
+            if a:linestr[i] == ritem
+                let l_cnt -= 1
+            endif
+            let i=i-1
+        endwhile
+    endfor
+
+    let len=strlen(a:linestr)
+    for [litem, ritem] in par_list
+        let r_cnt=0
+        for [litem, ritem] in par_list
+            let i = a:idx
+            let cnt = 0
+            let r_cnt =0 
+            while i <= len
+                if a:linestr[i] == litem
+                    let r_cnt += 1
+                endif
+                if a:linestr[i] == ritem
+                    let r_cnt -= 1
+                endif
+                let i=i+1
+            endwhile
+        endfor
+    endfor
+
+    "Decho 'idx: ',a:idx
+    "Decho 'l_cnt: ',l_cnt
+    "Decho 'r_cnt: ',r_cnt
+
+    if l_cnt > r_cnt 
+        return 1
+    else
+        return 0
+    endif
+
+endfunction "}}}
+
+function! pyformat#adjustspace() "{{{
+
+    let org_x=col('.')
+    let org_y=line('.')
+
+    exe ':s/\s*$//g'
+
+    let op_list = ['\*\*', '==']  "{{{
+    for item in op_list
+        let start = 0
+        let idx = 1
+        let linestr = getline('.')
+        let length = strlen(linestr)
+        while idx >= 0 && start <= length
+            let linestr = getline('.')
+            let linenum = line('.')
+            let length = strlen(linestr)
+            let idx=match(linestr, item, start)
+            if idx >= 0
+                let pre_idx = idx-1
+                let suf_idx = idx+2
+                let pre_c = linestr[pre_idx]
+                let suf_c = linestr[suf_idx]
+                if s:isinstring(linestr, idx)
+                    let start=suf_idx+1
+                    continue
+                endif
+                if pre_c != ' '
+                    let x=cursor(linenum, idx+1)
+                    if x == 0
+                        exe "norm! i "
+                    endif
+                endif
+
+                Decho suf_c
+                if suf_c != ' '
+                    "exe ':s/'.item.'/'.item.' /'
+                    let x=cursor(linenum, idx+2)
+                    if x == 0
+                        exe "norm! a "
+                    endif
+                endif
+                let start=suf_idx+1
+            endif
+        endwhile
+        "let x=cursor(linenum, org_x)
+    endfor "}}}
+
+    let op_list = ['+', '-', '*', '/']  "{{{
+    for item in op_list
+        let start = 0 
+        let idx = 1
+        let linestr = getline('.')
+        let length = strlen(linestr)
+        while start <= length && idx > 0
+            let linestr = getline('.')
+            let linenum = line('.')
+            let length = strlen(linestr)
+            let idx=match(linestr, item, start)
+            if idx >= 0
+                let pre_idx = idx-1
+                let suf_idx = idx+1
+                let pre_c = linestr[pre_idx]
+                let suf_c = linestr[suf_idx]
+                if item == '*'
+                    if suf_c == '*'
+                        let start=suf_idx+1
+                        continue
+                    endif
+                endif
+
+                if s:isinstring(linestr, idx)
+                    let start=suf_idx+1
+                    continue
+                endif
+
+                if suf_c == '='
+                    let suf_idx = suf_idx+2
+                    let suf_c = linestr[suf_idx]
+                endif
+
+                if pre_c != ' '
+                    let x=cursor(linenum, pre_idx+1)
+                    if x == 0
+                        exe "norm! a "
+                    endif
+                endif
+                if suf_c != ' '
+                    let x=cursor(linenum, suf_idx+1)
+                    if x == 0
+                        exe "norm! a "
+                    endif
+                endif
+                let start=suf_idx+1 
+            endif
+        endwhile
+    endfor  "}}}
+
+    let op_list = [',', ':']  "{{{
+    for item in op_list
+        let start = 0 
+        let idx = 1
+        let linestr = getline('.')
+        let length = strlen(linestr)
+        while start <= length && idx > 0
+            let linestr = getline('.')
+            let linenum = line('.')
+            let length = strlen(linestr)
+            let idx=match(linestr, item, start)
+            if idx >= 0
+                let pre_idx = idx-1
+                let suf_idx = idx+1
+                let pre_c = linestr[pre_idx]
+                let suf_c = linestr[suf_idx]
+
+                if s:isinstring(linestr, idx)
+                    let start=suf_idx+1
+                    continue
+                endif
+
+                if pre_c == ' '
+                    let x=cursor(linenum, pre_idx+1)
+                    if x == 0
+                        exe "norm! x"
+                    endif
+                endif
+
+                if item == ':'
+                    if match(linestr, ':\s\+$') >=0
+                        Decho "dog"
+                        exe ':s/:\s\+$/:/'
+                        exe 'norm $'
+                    endif
+                    let start=suf_idx+1
+                else
+                    if suf_c != ' '
+                        let x=cursor(linenum, suf_idx)
+                        if x == 0
+                            exe "norm! a "
+                        endif
+                    else
+                        exe ':s/'.item.'\s\+/'.item.' /g'
+                    endif
+                    let start=suf_idx+1 
+                endif
+            endif
+        endwhile
+    endfor  "}}}
+
+    let op_list = ['>', '<', '!']  "{{{
+    for item in op_list
+        let start = 0 
+        let idx = 1
+        let linestr = getline('.')
+        let length = strlen(linestr)
+        while start <= length && idx > 0
+            let linestr = getline('.')
+            let linenum = line('.')
+            let length = strlen(linestr)
+            let idx=match(linestr, item, start)
+            if idx >= 0
+                let pre_idx = idx-1
+                let suf_idx = idx+1
+                let pre_c = linestr[pre_idx]
+                let suf_c = linestr[suf_idx]
+                let tomatch = item
+
+                if s:isinstring(linestr, idx)
+                    let start=suf_idx+1
+                    continue
+                endif
+
+                if item == '='
+                    if suf_c == '='
+                        let start=suf_idx+1
+                        continue
+                    endif
+                endif
+                if suf_c == '='
+                    let tomatch=tomatch.suf_c
+                    let suf_idx = suf_idx+1
+                    let suf_c = linestr[suf_idx]
+                endif
+
+                if pre_c != ' '
+                    let x=cursor(linenum, pre_idx+1)
+                    if x == 0
+                        exe "norm! a "
+                    endif
+                else
+                    exe s:trimspace(item, 1)
+                    let x=cursor(linenum, org_x)
+                endif
+
+
+                if suf_c != ' '
+                    let x=cursor(linenum, suf_idx+1)
+                    if x == 0
+                        exe "norm! a "
+                    endif
+                else
+                    exe s:trimspace(tomatch, 0)
+                    let x=cursor(linenum, org_x)
+                endif
+                let start=suf_idx+1 
+            endif
+        endwhile
+    endfor  "}}}
+
+    let op_list = ['=']  "{{{
+    let app_list=['>', '<', '!']
+    for item in op_list
+        let start = 0 
+        let idx = 1
+        let linestr = getline('.')
+        let length = strlen(linestr)
+        while start <= length && idx > 0
+            let linestr = getline('.')
+            let linenum = line('.')
+            let length = strlen(linestr)
+            let idx=match(linestr, item, start)
+            if idx >= 0
+                let pre_idx = idx-1
+                let suf_idx = idx+1
+                let pre_c = linestr[pre_idx]
+                let suf_c = linestr[suf_idx]
+
+                if s:isinstring(linestr, idx)
+                    let start=suf_idx+1
+                    continue
+                endif
+
+                if item == '='
+                    let isop=s:isoptional(linestr, idx)
+                    if isop == 1
+                        let start=suf_idx
+                        continue
+                    endif
+                    if suf_c == '='  
+                        let start=suf_idx+1
+                        continue
+                    endif
+                endif
+
+                if match(app_list, pre_c) >= 0
+                    "let suf_idx = suf_idx+1
+                    let pre_idx = pre_idx-1
+                    let pre_c = linestr[pre_idx]
+                endif
+
+                if pre_c != ' '
+                    let x=cursor(linenum, pre_idx+1)
+                    if x == 0
+                        exe "norm! a "
+                    endif
+                else
+                    exe s:trimspace(item, 1)
+                    let x=cursor(linenum, org_x)
+                endif
+                Decho suf_c
+
+                if suf_c != ' '
+                    let x=cursor(linenum, suf_idx+1)
+                    if x == 0
+                        exe "norm! a "
+                    endif
+                else
+                    exe s:trimspace(item, 0)
+                    let x=cursor(linenum, org_x)
+                endif
+
+                let start=suf_idx+1 
+            endif
+        endwhile
+        let x=cursor(linenum, org_x)
+    endfor  "}}}
+
+endfunction  "}}}
+
+function! pyformat#deletespace() "{{{
+    let linestr=getline('.')
+    let col_idx=col('.')
+endfunction "}}}
+
+function! s:trimspace(item, pos)
+    if a:pos
+        return ':s/\s\+'.a:item.'/ '.a:item.'/g'
+    else
+        exe ':s/'.a:item.'\s\+/'.a:item.' /g'
+    endif
+endfunction
+
+
+
