@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git submodule foreach git pull origin master
+#git submodule foreach git pull origin master
 
 mod_dir=`git submodule | awk '{print $2}'`
 
