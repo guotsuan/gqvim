@@ -4,12 +4,6 @@
 [submodule "bundle/vim-l9"]
 	path = bundle/vim-l9
 	url = https://github.com/vim-scripts/L9.git
-[submodule "bundle/vim-neocomplcache"]
-	path = bundle/vim-neocomplcache
-	url = https://github.com/Shougo/neocomplcache.git
-[submodule "bundle/vim-neocomplcache-snippets-complete"]
-	path = bundle/vim-neocomplcache-snippets-complete
-	url = https://github.com/Shougo/neocomplcache-snippets-complete.git
 [submodule "bundle/vim-indent-guides"]
 	path = bundle/vim-indent-guides
 	url = https://github.com/nathanaelkane/vim-indent-guides.git
@@ -43,18 +37,42 @@
 [submodule "bundle/vim-pydoc"]
 	path = bundle/vim-pydoc
 	url = https://github.com/fs111/pydoc.vim.git
-[submodule "bundle/vim-unite"]
-	path = bundle/vim-unite
-	url = https://github.com/Shougo/unite.vim.git
 [submodule "bundle/vimproc"]
 	path = bundle/vimproc
 	url = https://github.com/Shougo/vimproc.git
 [submodule "bundle/fuzzyfinder"]
 	path = bundle/fuzzyfinder
 	url = https://github.com/richo/FuzzyFinder.git
-[submodule "bundle/autoclose"]
-	path = bundle/autoclose
-	url = git://github.com/Townk/vim-autoclose
 [submodule "bundle/targbar"]
 	path = bundle/targbar
 	url = https://github.com/majutsushi/tagbar.git
+[submodule "bundle/fisa-vim-colorscheme"]
+	path = bundle/fisa-vim-colorscheme
+	url = https://github.com/fisadev/fisa-vim-colorscheme.git
+[submodule "bundle/tabman"]
+	path = bundle/tabman
+	url = https://github.com/kien/tabman.vim.git
+[submodule "bundle/fixed-task-list"]
+	path = bundle/fixed-task-list
+	url = https://github.com/fisadev/FixedTaskList.vim.git
+[submodule "bundle/conque-term"]
+	path = bundle/conque-term
+	url = https://github.com/rosenfeld/conque-term.git
+[submodule "bundle/neosnippet"]
+	path = bundle/neosnippet
+	url = https://github.com/Shougo/neosnippet.git
+[submodule "bundle/neocomplcache"]
+	path = bundle/neocomplcache
+	url = https://github.com/Shougo/neocomplcache.git
+[submodule "bundle/unite.vim"]
+	path = bundle/unite.vim
+	url = https://github.com/Shougo/unite.vim.git
+[submodule "bundle/Decho"]
+	path = bundle/Decho
+	url = https://github.com/vim-scripts/Decho.git
+[submodule "bundle/reload"]
+	path = bundle/reload
+	url = https://github.com/xolox/vim-reload.git
+[submodule "bundle/vim-quit-if-only-quickfix-buffer-left"]
+	path = bundle/vim-quit-if-only-quickfix-buffer-left
+	url = https://github.com/now/vim-quit-if-only-quickfix-buffer-left.git

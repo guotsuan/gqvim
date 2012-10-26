@@ -49,13 +49,20 @@
 " }}}
 
 " {{{ UI
+
+    if &term =~? 'xterm\|urxvt\|screen-256\|screen'
+        let &t_Co=256
+        colorscheme fisa
+    else
+        colorscheme delek
+    endif
     if has("gui_running")
-	colorscheme evening
-	set cursorcolumn 
-	set cursorline 
+        colorscheme wombat
+        set cursorcolumn 
+        set cursorline 
         set lines=60 
         set columns=110
-        set guifont=Consolas\ 11
+        set guifont=Consolas\ 12
         set guifontwide=Microsoft\ Yahei\ 9
     endif
 
@@ -254,7 +261,7 @@ let g:neocomplcache_min_syntax_length = 3
 let g:neocomplcache_enable_fuzzy_completion =1
 
 " necomp locked if iminsert
-let g:neocomplcache_lock_iminsert = 0
+"let g:neocomplcache_lock_iminsert = 0
 
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 let g:neocomplcache_enable_auto_select=0
@@ -285,12 +292,6 @@ let g:neocomplcache_omni_patterns.lua= '[^. \t]\.\w*'
 
 " 2}}}
 
-"{{{2 Latex Suite
-set grepprg=grep\ -nH\ $*
-let g:tex_flavor='latex'
-
-" 2}}}
-
 " {{{2 delimitMate  
     
     "let delimitMate_autoclose=1
@@ -306,6 +307,18 @@ let g:tex_flavor='latex'
     "au FileType python let b:delimitMate_nesting_quotes=['"']
     "au FileType c,perl,cpp let b:delimitMate_eol_marker =";"
     " because sometime delimitMate is not smart enough
+
+"2}}}
+
+" {{{2 auto-pairs is simple and used to replace dlimitMate
+    let g:AutoPairsFlyMode = 0
+    let g:AutoPairsShortcutBackInsert = '<Leader>b'
+    let g:AutoPairsMapCR = 0
+    let g:AutoPairsShortcutFastWrap = '<Leader>e'
+    let g:AutoPairsShortcutToggle = '<Leader>p'
+    let g:AutoPairsShortcutJump = '<Leader>n'
+
+    
 
 "2}}}
 
@@ -344,20 +357,33 @@ nnoremap <Leader>s :call gqutils#selindent()<CR>
 
 inoremap "" "
 nnoremap "" i"<ESC>
-nnoremap "a a"<ESC>
+nnoremap "A a"<ESC>
 
 inoremap '' '
+nnoremap '' i'<ESC>
+nnoremap 'A a'<ESC>
+
 inoremap {{ {
 inoremap }} }
+nnoremap {{ i{<ESC>
+nnoremap }} a}<ESC>
+nnoremap }i i}<ESC>
 
-inoremap (~ (
-inoremap )~ )
+inoremap [[ [
+inoremap ]] ]
+nnoremap [[ i[<ESC>
+nnoremap ]] a]<ESC>
+nnoremap ]i i]<ESC>
 
+inoremap (( (
+inoremap )) )
 nnoremap (( i(<ESC>
 nnoremap )) a)<ESC>
+nnoremap )i i)<ESC>
 
 nnoremap <Leader>{  :call gqutils#addcomment(nr2char(getchar()), 1)<CR>
 nnoremap <Leader>}  :call gqutils#addcomment(nr2char(getchar()), 0)<CR>
+
 
 "nnoremap c{ gqcomment#,
 
@@ -374,7 +400,10 @@ smap  <Tab>  <right><Plug>(neocomplcache_snippets_jump)
 
 " Plugin key-mappings.
 inoremap <expr><C-g> neocomplcache#undo_completion()
-inoremap <expr><C-l> neocomplcache#complete_common_string()
+"inoremap <expr><C-l> neocomplcache#complete_common_string()
+"
+imap <C-l>  <Plug>(neocomplcache_start_unite_complete)
+imap <C-q>  <Plug>(neocomplcache_start_unite_quick_match)
 
 imap <C-k>     <Plug>(neocomplcache_snippets_expand)
 smap <C-k>     <Plug>(neocomplcache_snippets_expand)
@@ -387,10 +416,10 @@ inoremap <expr><C-e>  neocomplcache#cancel_popup()
 "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " recommanded key mapping
 
-inoremap <expr><silent> <CR> <SID>my_cr_function()
+inoremap <expr><silent> <CR> My_cr_function().AutoPairsReturn()
 
-function! s:my_cr_function()
-  return pumvisible() ? neocomplcache#close_popup() . "\<CR>" : "\<CR>"
+function! My_cr_function()
+    return pumvisible() ? neocomplcache#close_popup() . "\<CR>": "\<CR>"
 endfunction
 
 " <C-h>, <BS>: close popup and delete backword char.
@@ -548,7 +577,7 @@ autocmd Filetype java,c,cpp
 "
 
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif 
-autocmd BufLeave * if pumvisible() == 0|pclose|endif
+"autocmd BufLeave * if pumvisible() == 0|pclose|endif
 " lua "{{{
 " =========================================
 
@@ -565,5 +594,6 @@ au Filetype lua
 cmap tn tabnew
 cmap vte Vtabedit
 cmap mru FufMruFile
+ca w!! w !sudo tee "%"
 "}}}
 
