@@ -1,8 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/etc/fonts'
-let g:netrw_dirhist_2='/etc/fonts/infinality/conf.d'
-let g:netrw_dirhist_3='/etc/systemd/system/getty.target.wants'
-let g:netrw_dirhist_4='/home/dccf87/.emacs.d'
-let g:netrw_dirhist_5='/etc/udevil'
-let g:netrw_dirhist_6='/var/log/journal'
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/dccf87/.emacs.d/el-get/auto-complete'
+let g:netrw_dirhist_2='/etc/systemd/user'
+let g:netrw_dirhist_3='/usr/share/kbd/keymaps'
+let g:netrw_dirhist_4='/etc/xdg/systemd/user'
+let g:netrw_dirhist_5='/home/dccf87/.offlineimap'

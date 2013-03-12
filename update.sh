@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#git submodule foreach git pull origin master
+git submodule foreach git pull origin master
 
 mod_dir=`git submodule | awk '{print $2}'`
 
@@ -15,4 +15,12 @@ do
     else 
         echo "manual updated, $dir_now"
     fi
+done
+
+other_dir="fuzzyfinder"
+
+for i in $other_dir
+do
+    cd "bundle/${i}"
+    hg pull
 done

@@ -8,6 +8,7 @@
     set autochdir
     set iskeyword+=_,$,@,%,# " none of these are word dividers
     "set dict+=/usr/share/dict/british
+    "let loaded_snips = 1
 
 
 "  }}}
@@ -80,7 +81,7 @@
 
     set list " wo do what o show tabs, to ensure we get them out of my files
 
-    set listchars=tab:>-,trail:-,nbsp:_,extends:>,precedes:< " show tabs and trailing
+    set listchars=tab:▷⌂,trail:•,nbsp:◊,extends:►,precedes:◄ " show tabs and trailing
 
     set matchtime=5 " how many tenths of a second to blink 
 		    " matching brackets for
@@ -193,7 +194,7 @@
     set foldenable
     set foldcolumn=4
     set foldmethod=marker
-    set foldopen=block,hor,mark,percent,quickfix,tag
+    set foldopen+=jump,insert
 
     function SimpleFoldText() " {
         return getline(v:foldstart).' '
@@ -230,6 +231,12 @@ let g:Tlist_Auto_Update = 1
 " vim-latex     "  {{{2
  set grepprg=grep\ -nH\ $*
  let g:tex_flavor = "latex"     " 2}}}
+
+" neosnippet     "  {{{2
+    if has('conceal')
+      set conceallevel=2 concealcursor=nc
+    endif
+ " 2}}}
 
 "{{{2 nerd comment
 "
@@ -311,12 +318,12 @@ let g:neocomplcache_omni_patterns.lua= '[^. \t]\.\w*'
 "2}}}
 
 " {{{2 auto-pairs is simple and used to replace dlimitMate
-    let g:AutoPairsFlyMode = 0
-    let g:AutoPairsShortcutBackInsert = '<Leader>b'
-    let g:AutoPairsMapCR = 0
-    let g:AutoPairsShortcutFastWrap = '<Leader>e'
-    let g:AutoPairsShortcutToggle = '<Leader>p'
-    let g:AutoPairsShortcutJump = '<Leader>n'
+    "let g:AutoPairsFlyMode = 0
+    "let g:AutoPairsShortcutBackInsert = '<Leader>b'
+    "let g:AutoPairsMapCR = 0
+    "let g:AutoPairsShortcutFastWrap = '<Leader>e'
+    "let g:AutoPairsShortcutToggle = '<Leader>p'
+    "let g:AutoPairsShortcutJump = '<Leader>n'
 
     
 
@@ -333,15 +340,17 @@ let g:neocomplcache_omni_patterns.lua= '[^. \t]\.\w*'
 "Key Bindings {{{
 
 " for paste  {{{2
-map <F9> :set paste<CR>
-map <F10> :set nopaste<CR>
-imap <F9> <C-O>:set paste<CR>
-imap <F10> <nop>
-set pastetoggle=<F10>
+"map <F9> :set paste<CR>
+"map <F10> :set nopaste<CR>
+"imap <F9> <C-O>:set paste<CR>
+"imap <F9> <nop>
+"set pastetoggle=<F9>
+
 " 2}}}
 
 "too slow
 "map <F3> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
+nmap <F3> <ESC>:w<cr>:!make<cr>
 nmap <F6> :cn<cr>
 nmap <F5> :lmake<cr>
 nmap <F8> :set list!<cr>
@@ -383,18 +392,26 @@ nnoremap )i i)<ESC>
 
 nnoremap <Leader>{  :call gqutils#addcomment(nr2char(getchar()), 1)<CR>
 nnoremap <Leader>}  :call gqutils#addcomment(nr2char(getchar()), 0)<CR>
-
-
 "nnoremap c{ gqcomment#,
-
+"
+"==============================================================================
  "neocomplcache keybinds  "{{{2
 
-" AutoComplPop like behaviorli. Maping Tab to neocomplcache
-"imap  <expr><Tab>  neocomplcache#sources#snippets_complete#expandable() ? 
-      "  \ "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<Tab>"
+" Supertab
 
+" not worked in previous, tested no good
+"imap <expr><TAB> neosnippet#expandable() ?
+ "\ "\<Plug>(neosnippet_expand_or_jump)"
+ "\: pumvisible() ? "\<C-n>" : "\<TAB>"
+"smap <expr><TAB> neosnippet#expandable() ?
+ "\ "\<Plug>(neosnippet_expand_or_jump)"
+ "\: "\<TAB>"
+
+" work good, but no most efficent way
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-smap  <Tab>  <right><Plug>(neocomplcache_snippets_jump)
+smap  <Tab>  <right><Plug>(neosnippet_expand_or_jump)
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 
 "inoremap <expr><C-e>     neocomplcache#complete_common_string()
 
@@ -405,18 +422,10 @@ inoremap <expr><C-g> neocomplcache#undo_completion()
 imap <C-l>  <Plug>(neocomplcache_start_unite_complete)
 imap <C-q>  <Plug>(neocomplcache_start_unite_quick_match)
 
-imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-
-"inoremap <expr><C-q>  neocomplcache#close_popup()
-"inoremap <expr><C-k>  neocomplcache#cancel_popup()
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-" recommanded key mapping
-
-inoremap <expr><silent> <CR> My_cr_function().AutoPairsReturn()
+inoremap <expr><silent> <CR> My_cr_function()
 
 function! My_cr_function()
     return pumvisible() ? neocomplcache#close_popup() . "\<CR>": "\<CR>"
