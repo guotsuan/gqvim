@@ -1,21 +1,91 @@
 "  {{{   Basic 
 "  
     set nocompatible
-    filetype indent on
-    filetype plugin on
-    syntax on
-    call pathogen#infect() 
+    filetype off
+    " old pathogen system
+    "call pathogen#infect() 
+
+    " new vundle system
+    set rtp+=~/.vim/bundle/vundle
+    set rtp+=~/.vim/bundle/vim-pathogen
+    call vundle#rc()
+
     set autochdir
     set iskeyword+=_,$,@,%,# " none of these are word dividers
     "set dict+=/usr/share/dict/british
     "let loaded_snips = 1
+    execute pathogen#infect('mybundle/{}')
 
 
 "  }}}
 
+" {{{ Bundles
+
+Bundle 'gmarik/vundle'
+Bundle 'tomasr/molokai'
+Bundle 'Indent-Guides'
+
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+
+"Surround
+Bundle 'tpope/vim-surround'
+Bundle 'CmdlineComplete'
+Bundle 'Lokaltog/powerline'
+Bundle 'Lokaltog/vim-easymotion'
+
+"Nerdcommenter"
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'majutsushi/tagbar'
+"Bundle 'Vim-JDE'
+"
+Bundle 'matchit.zip'
+Bundle 'fisadev/fisa-vim-colorscheme'
+Bundle 'fisadev/FixedTaskList.vim'
+Bundle 'kien/tabman.vim'
+Bundle 'klen/python-mode'
+
+Bundle 'Conque-Shell'
+Bundle 'Decho'
+
+Bundle 'xolox/vim-reload'
+Bundle 'xolox/vim-shell'
+
+
+Bundle 'Shougo/vimproc'
+Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/unite.vim'
+Bundle 'Shougo/neosnippet'
+
+Bundle 'honza/snipmate-snippets'
+Bundle 'VOoM'
+
+Bundle 'tpope/vim-unimpaired'
+Bundle 'tpope/vim-scriptease'
+Bundle 'tpope/vim-pathogen'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-commentary'
+
+Bundle 'davidhalter/jedi-vim'
+
+Bundle 'now/vim-quit-if-only-quickfix-buffer-left'
+
+Bundle 'vim-scripts/Wombat'
+
+Bundle 'mbbill/undotree'
+
+Bundle 'kien/ctrlp.vim'
+
+
+""}}}
+
 "  {{{ General
 
     set ignorecase
+
+    filetype plugin indent on
+
+    syntax on
 
     set clipboard=unnamed 
     "share clipboard with system" 
@@ -53,12 +123,14 @@
 
     if &term =~? 'xterm\|urxvt\|screen-256\|screen'
         let &t_Co=256
-        colorscheme fisa
+        "colorscheme fisa
+        colorscheme molokai
     else
         colorscheme delek
     endif
     if has("gui_running")
-        colorscheme wombat
+        "colorscheme wombat
+        colorscheme molokai
         set cursorcolumn 
         set cursorline 
         set lines=60 
@@ -79,9 +151,10 @@
 
     set lazyredraw " do now redraw while runing macros
 
-    set list " wo do what o show tabs, to ensure we get them out of my files
+    set nolist " wo do what o show tabs, to ensure we get them out of my files
 
-    set listchars=tab:▷⌂,trail:•,nbsp:◊,extends:►,precedes:◄ " show tabs and trailing
+    "set listchars=tab:ß⌂,trail:•,nbsp:◊,extends:►,precedes:◄ " show tabs and trailing
+    "set listchars=trail:•,nbsp:◊,extends:►,precedes:◄
 
     set matchtime=5 " how many tenths of a second to blink 
 		    " matching brackets for
@@ -335,6 +408,19 @@ let g:neocomplcache_omni_patterns.lua= '[^. \t]\.\w*'
        "let g:lua_check_synatx=
       "  2}}} 
 
+" Plugin jedi-vim"{{{
+let g:jedi#pydoc = "K"
+let g:jedi#rename_command = "<Leader>f"
+let g:jedi#autocompletion_command = "<C-Space>"
+let g:pymode_run_key = "<Leader>r""}}}
+let g:jedi#popup_on_dot=0
+let g:jedi#popup_select_first = 0
+
+if !exists('g:neocomplcache_force_omni_patterns')
+    let g:neocomplcache_force_omni_patterns = {}
+endif
+let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
+
 " }}}
 
 "Key Bindings {{{
@@ -357,6 +443,7 @@ nmap <F8> :set list!<cr>
 nmap <F2> :UpdateTags<cr>
 nnoremap <silent> <F4> :TagbarToggle<CR>
 
+nmap <leader>u :UndotreeToggle<CR>
 
 "inoremap <Leader><Space>  <Esc>i<Space><Esc>la<Space>
 "nnoremap <Leader><Space>  <Esc>i<Space><Esc>la<Space><Esc>
@@ -494,6 +581,13 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=darkgrey   ctermbg=3
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=lightgrey ctermbg=4
 "}}}
 
+" ctrlp plugin keymap "{{{
+"
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlPMixed'
+
+"}}}
+
 "}}}
 
 "Auto Command {{{
@@ -549,14 +643,17 @@ au BufEnter,BufWrite *.java
 "
 au BufReadPost * if getline(1) =~ "mutt" | setf muttrc | endif
 
+au FileType python setlocal list
+au FileType python setlocal listchars=tab:ß⌂,trail:•,nbsp:◊,extends:►,precedes:◄ 
+
 
 "omin completion
 "==========================================================
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType xml setlocal omnifunc=xmlcomplete#completeTags
+"autocmd FileType xml setlocal omnifunc=xmlcomplete#completeTags
 "autocmd FileType lua setlocal omnifunc=luacomplete#Complete
 "autocmd FileType java setlocal omnifunc=javacomplete#Complete
 "autocmd FileType java setlocal omnifunc=eclim#java#complete#CodeComplete
@@ -603,6 +700,7 @@ au Filetype lua
 cmap tn tabnew
 cmap vte Vtabedit
 cmap mru FufMruFile
-ca w!! w !sudo tee "%"
+ca w!! w !sudo tee "%" >/dev/null
+ca W w !sudo tee % > /dev/null
 "}}}
 

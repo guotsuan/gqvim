@@ -12,11 +12,12 @@ set guifont=monofur\ 13
 let g:pymode_lint = 1
 "let g:pymode_lint_checker = "pylint,pyflakes,pep8,mccabe"
 "let g:pymode_lint_checker = "pyflakes"
-let g:pymode_lint_checker = "pylint,pep8"
-let g:pymode_lint_write = 0
+let g:pymode_lint_checker = "pyflakes,pep8"
+let g:pymode_lint_write = 1
 let g:pymode_lint_onfly = 1
 let g:pymode_lint_hold = 0
 let g:pymode_lint_signs = 1
+let g:pymode_virtualenv = 1
 
 "let g:pymode_lint_ignore="E2,W,E702,E501,E503,E303"
 
@@ -35,3 +36,10 @@ let g:pymode_rope = 0
 let g:pymode_rope_guess_project=0
 let g:pymode_rope_vim_completion=0
 
+let g:jedi#goto_command = "<Leader>g"
+
+let g:jedi#pydoc = "K"
+let g:jedi#rename_command = "<Leader>f"
+let g:jedi#autocompletion_command = "<C-Space>"
+let g:pymode_run_key = "<Leader>r"
+set rnu
