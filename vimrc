@@ -165,6 +165,8 @@ Bundle 'kien/ctrlp.vim'
     set showcmd
 
     set showmatch 
+    hi MatchParen ctermbg=blue guibg=lightblue
+    hi MatchParen ctermfg=yellow guifg=yellow
 
     function MyTabLine() " {{{2
       let s = '' " complete tabline goes here
