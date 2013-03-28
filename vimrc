@@ -75,6 +75,8 @@ Bundle 'vim-scripts/Wombat'
 Bundle 'mbbill/undotree'
 
 Bundle 'kien/ctrlp.vim'
+Bundle 'LaTeX-Suite-aka-Vim-LaTeX'
+
 
 
 ""}}}
@@ -135,8 +137,8 @@ Bundle 'kien/ctrlp.vim'
         set cursorline 
         set lines=60 
         set columns=110
-        set guifont=Consolas\ 12
-        set guifontwide=Microsoft\ Yahei\ 9
+        "set guifont=Consolas\ 12
+        "set guifontwide=Microsoft\ Yahei\ 9
     endif
 
     set laststatus=2
