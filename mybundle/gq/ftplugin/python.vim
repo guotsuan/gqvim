@@ -13,11 +13,11 @@ let g:pymode_lint = 1
 "let g:pymode_lint_checker = "pylint,pyflakes,pep8,mccabe"
 "let g:pymode_lint_checker = "pyflakes"
 let g:pymode_lint_checker = "pyflakes,pep8"
-let g:pymode_lint_write = 0
-let g:pymode_lint_onfly = 1
+let g:pymode_lint_write = 1
+let g:pymode_lint_onfly = 0
 let g:pymode_lint_hold = 0
 let g:pymode_lint_signs = 1
-let g:pymode_virtualenv = 1
+let g:pymode_virtualenv = 0
 let g:pymode_folding = 1
 
 let g:pymode_lint_ignore="W,E702,E501,E503,E303"

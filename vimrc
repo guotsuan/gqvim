@@ -76,6 +76,10 @@ Bundle 'mbbill/undotree'
 
 Bundle 'kien/ctrlp.vim'
 
+Bundle 'Yggdroot/indentLine'
+
+Bundle 'plasticboy/vim-markdown'
+Bundle 'mkitt/markdown-preview.vim'
 
 ""}}}
 
@@ -135,8 +139,10 @@ Bundle 'kien/ctrlp.vim'
         set cursorline 
         set lines=60 
         set columns=110
-        set guifont=Consolas\ 12
-        set guifontwide=Microsoft\ Yahei\ 9
+        if !has("mac")
+            set guifont=Consolas\ 12
+            set guifontwide=Microsoft\ Yahei\ 9
+        endif
     endif
 
     set laststatus=2
@@ -680,6 +686,7 @@ autocmd Filetype java,c,cpp
 "autocmd FileType java,javascript,html,css map  ; i;<esc>
 "autocmd FileType java,javascript,html,css map  ;; i<C-R>=My_appendSemicolon(2,2)<CR><esc>
 "autocmd FileType java,javascript,html,css imap  ;; <C-R>=My_appendSemicolon(2,0)<CR><esc>a
+autocmd FileType markdown map <Leader>md <ESC>:MDP<CR>
 
 "autocmd BufEnter * call DoWordComplete() 
 "
