@@ -78,6 +78,10 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'LaTeX-Suite-aka-Vim-LaTeX'
 
 
+Bundle 'Yggdroot/indentLine'
+
+Bundle 'plasticboy/vim-markdown'
+Bundle 'mkitt/markdown-preview.vim'
 
 ""}}}
 
@@ -137,8 +141,15 @@ Bundle 'LaTeX-Suite-aka-Vim-LaTeX'
         set cursorline 
         set lines=60 
         set columns=110
+<<<<<<< HEAD
         "set guifont=Consolas\ 12
         "set guifontwide=Microsoft\ Yahei\ 9
+=======
+        if !has("mac")
+            set guifont=Consolas\ 12
+            set guifontwide=Microsoft\ Yahei\ 9
+        endif
+>>>>>>> 65f8811d968d8b85b0a4d2e9597930f9157c549c
     endif
 
     set laststatus=2
@@ -682,6 +693,7 @@ autocmd Filetype java,c,cpp
 "autocmd FileType java,javascript,html,css map  ; i;<esc>
 "autocmd FileType java,javascript,html,css map  ;; i<C-R>=My_appendSemicolon(2,2)<CR><esc>
 "autocmd FileType java,javascript,html,css imap  ;; <C-R>=My_appendSemicolon(2,0)<CR><esc>a
+autocmd FileType markdown map <Leader>md <ESC>:MDP<CR>
 
 "autocmd BufEnter * call DoWordComplete() 
 "
