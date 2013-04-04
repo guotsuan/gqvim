@@ -141,15 +141,10 @@ Bundle 'mkitt/markdown-preview.vim'
         set cursorline 
         set lines=60 
         set columns=110
-<<<<<<< HEAD
-        "set guifont=Consolas\ 12
-        "set guifontwide=Microsoft\ Yahei\ 9
-=======
         if !has("mac")
             set guifont=Consolas\ 12
             set guifontwide=Microsoft\ Yahei\ 9
         endif
->>>>>>> 65f8811d968d8b85b0a4d2e9597930f9157c549c
     endif
 
     set laststatus=2
