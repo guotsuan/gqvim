@@ -57,7 +57,7 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/unite.vim'
 Bundle 'Shougo/neosnippet'
 
-Bundle 'honza/snipmate-snippets'
+Bundle 'honza/vim-snippets'
 Bundle 'VOoM'
 
 Bundle 'tpope/vim-unimpaired'
@@ -75,7 +75,6 @@ Bundle 'vim-scripts/Wombat'
 Bundle 'mbbill/undotree'
 
 Bundle 'kien/ctrlp.vim'
-Bundle 'LaTeX-Suite-aka-Vim-LaTeX'
 
 
 Bundle 'Yggdroot/indentLine'
