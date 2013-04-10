@@ -71,13 +71,14 @@ Bundle 'davidhalter/jedi-vim'
 Bundle 'now/vim-quit-if-only-quickfix-buffer-left'
 
 Bundle 'vim-scripts/Wombat'
+Bundle 'bash-support.vim'
 
 Bundle 'mbbill/undotree'
 
 Bundle 'kien/ctrlp.vim'
 
 
-Bundle 'Yggdroot/indentLine'
+"Bundle 'Yggdroot/indentLine'
 
 Bundle 'plasticboy/vim-markdown'
 Bundle 'mkitt/markdown-preview.vim'
