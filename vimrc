@@ -1,20 +1,20 @@
 "  {{{   Basic 
 "  
-    set nocompatible
-    filetype off
-    " old pathogen system
-    "call pathogen#infect() 
+set nocompatible
+filetype off
+" old pathogen system
+"call pathogen#infect() 
 
-    " new vundle system
-    set rtp+=~/.vim/bundle/vundle
-    set rtp+=~/.vim/bundle/vim-pathogen
-    call vundle#rc()
+" new vundle system
+set rtp+=~/.vim/bundle/vundle
+set rtp+=~/.vim/bundle/vim-pathogen
+call vundle#rc()
 
-    set autochdir
-    set iskeyword+=_,$,@,%,# " none of these are word dividers
-    "set dict+=/usr/share/dict/british
-    "let loaded_snips = 1
-    execute pathogen#infect('mybundle/{}')
+set autochdir
+set iskeyword+=_,$,@,%,# " none of these are word dividers
+"set dict+=/usr/share/dict/british
+"let loaded_snips = 1
+execute pathogen#infect('mybundle/{}')
 
 
 "  }}}
@@ -87,206 +87,208 @@ Bundle 'mkitt/markdown-preview.vim'
 
 "  {{{ General
 
-    set ignorecase
+set ignorecase
 
-    filetype plugin indent on
+filetype plugin indent on
 
-    syntax on
+syntax on
 
-    set clipboard=unnamed 
-    "share clipboard with system" 
+set clipboard=unnamed 
+"share clipboard with system" 
 
-    set wildmenu "turn on command line completion wild style"
+set wildmenu "turn on command line completion wild style"
 
-    set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,
-		 \*.jpg,*.gif,*.png
+set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,
+             \*.jpg,*.gif,*.png
 
-    set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,
+set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,
 
-    " for tab
-    set expandtab
-    set tabstop=8
-    set softtabstop=4
-    set shiftwidth=4
-    "set nohls
+" for tab
+set expandtab
+set tabstop=8
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set smarttab
+"set nohls
 
-    " backspace
-    set backspace=indent,eol,start
+" backspace
+set backspace=indent,eol,start
 
-    set updatetime=500
+set updatetime=500
 " }}}
 
 " {{{ I18n
-    set fileencodings=utf-8,prc,taiwan,enc-cn,enc-tw,gbk,gb2312,big5,ansi
-    set fileencoding=utf-8
-    set encoding=utf-8
-    set termencoding=utf-8
-    set fileformats=unix,dos
+set fileencodings=utf-8,prc,taiwan,enc-cn,enc-tw,gbk,gb2312,big5,ansi
+set fileencoding=utf-8
+set encoding=utf-8
+set termencoding=utf-8
+set fileformats=unix,dos
 
 " }}}
 
 " {{{ UI
 
-    if &term =~? 'xterm\|urxvt\|screen-256\|screen'
-        let &t_Co=256
-        "colorscheme fisa
-        colorscheme molokai
-    else
-        colorscheme delek
+if &term =~? 'xterm\|urxvt\|screen-256\|screen'
+    let &t_Co=256
+    "colorscheme fisa
+    colorscheme molokai
+else
+    colorscheme delek
+endif
+if has("gui_running")
+    "colorscheme wombat
+    colorscheme molokai
+    set cursorcolumn 
+    set cursorline 
+    set lines=60 
+    set columns=110
+    if !has("mac")
+        set guifont=Consolas\ 12
+        set guifontwide=Microsoft\ Yahei\ 9
     endif
-    if has("gui_running")
-        "colorscheme wombat
-        colorscheme molokai
-        set cursorcolumn 
-        set cursorline 
-        set lines=60 
-        set columns=110
-        if !has("mac")
-            set guifont=Consolas\ 12
-            set guifontwide=Microsoft\ Yahei\ 9
-        endif
-    endif
+endif
 
-    set laststatus=2
-    set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \%h%m%r%=%-40(bytval=0x%B,%n%Y%)\%P
-    set showtabline=2  " 0, 1 or 2; when to use a tab pages line
-    set tabline=%!MyTabLine()  " custom tab pages line
+set laststatus=2
+set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \%h%m%r%=%-40(bytval=0x%B,%n%Y%)\%P
+set showtabline=2  " 0, 1 or 2; when to use a tab pages line
+set tabline=%!MyTabLine()  " custom tab pages line
 
-    set guitablabel=%{GuiTabLabel()}
+set guitablabel=%{GuiTabLabel()}
 
 
-    "set incsearch
+"set incsearch
 
-    set lazyredraw " do now redraw while runing macros
+set lazyredraw " do now redraw while runing macros
 
-    set nolist " wo do what o show tabs, to ensure we get them out of my files
+set nolist " wo do what o show tabs, to ensure we get them out of my files
 
-    "set listchars=tab:ß⌂,trail:•,nbsp:◊,extends:►,precedes:◄ " show tabs and trailing
-    "set listchars=trail:•,nbsp:◊,extends:►,precedes:◄
+"set listchars=tab:ß⌂,trail:•,nbsp:◊,extends:►,precedes:◄ " show tabs and trailing
+"set listchars=trail:•,nbsp:◊,extends:►,precedes:◄
 
-    set matchtime=5 " how many tenths of a second to blink 
-		    " matching brackets for
-    set nostartofline " leave my cursor where it was
+set matchtime=5 " how many tenths of a second to blink 
+                " matching brackets for
+set nostartofline " leave my cursor where it was
 
-    set ruler 
+set ruler 
 
-    set showcmd
+set showcmd
 
-    set showmatch 
-    hi MatchParen ctermbg=blue guibg=lightblue
-    hi MatchParen ctermfg=yellow guifg=yellow
+set showmatch 
+hi MatchParen ctermbg=blue guibg=lightblue
+hi MatchParen ctermfg=yellow guifg=yellow
 
-    function MyTabLine() " {{{2
-      let s = '' " complete tabline goes here
-      " loop through each tab page
-      for t in range(tabpagenr('$'))
-	" set highlight for tab number and &modified
-	let s .= '%#TabLineSel#'
-	" set the tab page number (for mouse clicks)
-	let s .= '%' . (t + 1) . 'T'
-	" set page number string
-	let s .= t + 1 . ':'
-	" get buffer names and statuses
-	let n = ''  "temp string for buffer names while we loop and check buftype
-	let m = 0  " &modified counter
-	let bc = len(tabpagebuflist(t + 1))  "counter to avoid last ' '
-	" loop through each buffer in a tab
-	for b in tabpagebuflist(t + 1)
-	  " buffer types: quickfix gets a [Q], help gets [H]{base fname}
-	  " others get 1dir/2dir/3dir/fname shortened to 1/2/3/fname
-	  if getbufvar( b, "&buftype" ) == 'help'
-	    let n .= '[H]' . fnamemodify( bufname(b), ':t:s/.txt$//' )
-	  elseif getbufvar( b, "&buftype" ) == 'quickfix'
-	    let n .= '[Q]'
-	  else
-	    let n .= pathshorten(bufname(b))
-	  endif
-	  " check and ++ tab's &modified count
-	  if getbufvar( b, "&modified" )
-	    let m += 1
-	  endif
-	  " no final ' ' added...formatting looks better done later
-	  if bc > 1
-	    let n .= ' '
-	  endif
-	  let bc -= 1
-	endfor
-	" add modified label [n+] where n pages in tab are modified
-	if m > 0
-	  let s .= '[' . m . '+]'
-	endif
-	" select the highlighting for the buffer names
-	" my default highlighting only underlines the active tab
-	" buffer names.
-	if t + 1 == tabpagenr()
-	  let s .= '%#TabLine#'
-	else
-	  let s .= '%#TabLineSel#'
-	endif
-	" add buffer names
-	let s .= n
-	" switch to no underlining and add final space to buffer list
-	let s .= '%#TabLineSel#' . ' '
-      endfor
-      " after the last tab fill with TabLineFill and reset tab page nr
-      let s .= '%#TabLineFill#%T'
-      " right-align the label to close the current tab page
-      if tabpagenr('$') > 1
-	let s .= '%=%#TabLineFill#%999Xclose'
-      endif
-      return s
-    endfunction  
-    "  2}}}
-
-    function! GuiTabLabel() " {{{2
-      let label = ''
-      let bufnrlist = tabpagebuflist(v:lnum)
-      " Add '+' if one of the buffers in the tab page is modified
-      for bufnr in bufnrlist
-	if getbufvar(bufnr, "&modified")
-	  let label = '+'
-	  break
-	endif
-      endfor
-      " Append the tab number
-      let label .= v:lnum.': '
-      " Append the buffer name
-      let name = bufname(bufnrlist[tabpagewinnr(v:lnum) - 1])
-      if name == ''
-	" give a name to no-name documents
-	if &buftype=='quickfix'
-	  let name = '[Quickfix List]'
-	else
-	  let name = '[No Name]'
-	endif
+function MyTabLine() " {{{2
+  let s = '' " complete tabline goes here
+  " loop through each tab page
+  for t in range(tabpagenr('$'))
+    " set highlight for tab number and &modified
+    let s .= '%#TabLineSel#'
+    " set the tab page number (for mouse clicks)
+    let s .= '%' . (t + 1) . 'T'
+    " set page number string
+    let s .= t + 1 . ':'
+    " get buffer names and statuses
+    let n = ''  "temp string for buffer names while we loop and check buftype
+    let m = 0  " &modified counter
+    let bc = len(tabpagebuflist(t + 1))  "counter to avoid last ' '
+    " loop through each buffer in a tab
+    for b in tabpagebuflist(t + 1)
+      " buffer types: quickfix gets a [Q], help gets [H]{base fname}
+      " others get 1dir/2dir/3dir/fname shortened to 1/2/3/fname
+      if getbufvar( b, "&buftype" ) == 'help'
+        let n .= '[H]' . fnamemodify( bufname(b), ':t:s/.txt$//' )
+      elseif getbufvar( b, "&buftype" ) == 'quickfix'
+        let n .= '[Q]'
       else
-	" get only the file name
-	let name = fnamemodify(name,":t")
+        let n .= pathshorten(bufname(b))
       endif
-      let label .= name
-      " Append the number of windows in the tab page
-      let wincount = tabpagewinnr(v:lnum, '$')
-      return label . '  [' . wincount . ']'
-    endfunction " 2}}}
+      " check and ++ tab's &modified count
+      if getbufvar( b, "&modified" )
+        let m += 1
+      endif
+      " no final ' ' added...formatting looks better done later
+      if bc > 1
+        let n .= ' '
+      endif
+      let bc -= 1
+    endfor
+    " add modified label [n+] where n pages in tab are modified
+    if m > 0
+      let s .= '[' . m . '+]'
+    endif
+    " select the highlighting for the buffer names
+    " my default highlighting only underlines the active tab
+    " buffer names.
+    if t + 1 == tabpagenr()
+      let s .= '%#TabLine#'
+    else
+      let s .= '%#TabLineSel#'
+    endif
+    " add buffer names
+    let s .= n
+    " switch to no underlining and add final space to buffer list
+    let s .= '%#TabLineSel#' . ' '
+  endfor
+  " after the last tab fill with TabLineFill and reset tab page nr
+  let s .= '%#TabLineFill#%T'
+  " right-align the label to close the current tab page
+  if tabpagenr('$') > 1
+    let s .= '%=%#TabLineFill#%999Xclose'
+  endif
+  return s
+endfunction  
+"  2}}}
 
-    set guitablabel=%{GuiTabLabel()}
+function! GuiTabLabel() " {{{2
+  let label = ''
+  let bufnrlist = tabpagebuflist(v:lnum)
+  " Add '+' if one of the buffers in the tab page is modified
+  for bufnr in bufnrlist
+    if getbufvar(bufnr, "&modified")
+      let label = '+'
+      break
+    endif
+  endfor
+  " Append the tab number
+  let label .= v:lnum.': '
+  " Append the buffer name
+  let name = bufname(bufnrlist[tabpagewinnr(v:lnum) - 1])
+  if name == ''
+    " give a name to no-name documents
+    if &buftype=='quickfix'
+      let name = '[Quickfix List]'
+    else
+      let name = '[No Name]'
+    endif
+  else
+    " get only the file name
+    let name = fnamemodify(name,":t")
+  endif
+  let label .= name
+  " Append the number of windows in the tab page
+  let wincount = tabpagewinnr(v:lnum, '$')
+  return label . '  [' . wincount . ']'
+endfunction " 2}}}
+
+set guitablabel=%{GuiTabLabel()}
 
 " }}}
 
 " {{{ Folding
-    set foldenable
-    set foldcolumn=4
-    set foldmethod=marker
-    set foldopen+=jump,insert
+set foldenable
+set foldcolumn=4
+set foldmethod=marker
+set foldopen+=jump,insert
 
-    function SimpleFoldText() " {
-        return getline(v:foldstart).' '
-    endfunction " }
+function SimpleFoldText() " {
+    return getline(v:foldstart).' '
+endfunction " }
 
-    "set foldmarker={{{,}}}
-    "set foldlevel=1000
-    "set foldtext=SimpleFoldText()
-    "set foldclose=all
+"set foldmarker={{{,}}}
+"set foldlevel=1000
+"set foldtext=SimpleFoldText()
+"set foldclose=all
 
 " }}}
 
@@ -303,22 +305,22 @@ let g:Tlist_Auto_Update = 1
   "
 " easytags plugin {{{2
 "
- let g:easytags_dynamic_files=1
- let g:easytags_on_cursorhold=1
- let g:easytags_python_enable=1
- let g:easytags_by_filetype=1
- let g:easytags_auto_highlight=1
- let g:easytags_auto_update = 1
- let g:easytags_include_members =1   "  2}}}
+let g:easytags_dynamic_files=1
+let g:easytags_on_cursorhold=1
+let g:easytags_python_enable=1
+let g:easytags_by_filetype=1
+let g:easytags_auto_highlight=1
+let g:easytags_auto_update = 1
+let g:easytags_include_members =1   "  2}}}
 
 " vim-latex     "  {{{2
- set grepprg=grep\ -nH\ $*
- let g:tex_flavor = "latex"     " 2}}}
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor = "latex"     " 2}}}
 
 " neosnippet     "  {{{2
-    if has('conceal')
-      set conceallevel=2 concealcursor=nc
-    endif
+if has('conceal')
+  set conceallevel=2 concealcursor=nc
+endif
  " 2}}}
 
 "{{{2 nerd comment
@@ -382,41 +384,12 @@ let g:neocomplcache_omni_patterns.lua= '[^. \t]\.\w*'
 
 " 2}}}
 
-" {{{2 delimitMate  
-    
-    "let delimitMate_autoclose=1
-    "let delimitMate_expand_space = 0
-    "let delimitMate_expand_cr = 1
-    "let delimitMate_smart_quotes = 1
-    "let delimitMate_balance_matchpairs = 1
-    "let delimitMate_smart_matchpairs='^\%(\w\|\!\|£\|\$\|_\|["'']\s*\S\)'
-    "let delimitMate_excluded_regions = "Comment,String"
-    "let delimitMate_excluded_ft = "mail,txt,text"
 
-    "au FileType python let b:delimitMate_quotes = "\" '"
-    "au FileType python let b:delimitMate_nesting_quotes=['"']
-    "au FileType c,perl,cpp let b:delimitMate_eol_marker =";"
-    " because sometime delimitMate is not smart enough
-
-"2}}}
-
-" {{{2 auto-pairs is simple and used to replace dlimitMate
-    "let g:AutoPairsFlyMode = 0
-    "let g:AutoPairsShortcutBackInsert = '<Leader>b'
-    "let g:AutoPairsMapCR = 0
-    "let g:AutoPairsShortcutFastWrap = '<Leader>e'
-    "let g:AutoPairsShortcutToggle = '<Leader>p'
-    "let g:AutoPairsShortcutJump = '<Leader>n'
-
-    
-
-"2}}}
-
-     "lua ftp-plugin.vim  "  {{{2
-      let g:lua_complete_omni=1
-      let g:lua_complete_dynamic=0
-       "let g:lua_check_synatx=
-      "  2}}} 
+"lua ftp-plugin.vim  "  {{{2
+let g:lua_complete_omni=1
+let g:lua_complete_dynamic=0
+"let g:lua_check_synatx=
+"  2}}} 
 
 " Plugin jedi-vim"{{{
 let g:jedi#pydoc = "K"
@@ -538,49 +511,49 @@ inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 "2}}}
 
 " fuzzyfinder keybinds"{{{2
-  let g:fuf_modesDisable = []
-  let g:fuf_mrufile_maxItem = 400
-  let g:fuf_mrucmd_maxItem = 400
-  nnoremap <silent> sj     :FufBuffer<CR>
-  nnoremap <silent> sk     :FufFileWithCurrentBufferDir<CR>
-  nnoremap <silent> sK     :FufFileWithFullCwd<CR>
-  nnoremap <silent> s<C-k> :FufFile<CR>
-  nnoremap <silent> sl     :FufCoverageFileChange<CR>
-  nnoremap <silent> sL     :FufCoverageFileChange<CR>
-  nnoremap <silent> s<C-l> :FufCoverageFileRegister<CR>
-  nnoremap <silent> sd     :FufDirWithCurrentBufferDir<CR>
-  nnoremap <silent> sD     :FufDirWithFullCwd<CR>
-  nnoremap <silent> s<C-d> :FufDir<CR>
-  nnoremap <silent> sn     :FufMruFile<CR>
-  nnoremap <silent> sN     :FufMruFileInCwd<CR>
-  nnoremap <silent> sm     :FufMruCmd<CR>
-  nnoremap <silent> su     :FufBookmarkFile<CR>
-  nnoremap <silent> s<C-u> :FufBookmarkFileAdd<CR>
-  vnoremap <silent> s<C-u> :FufBookmarkFileAddAsSelectedText<CR>
-  nnoremap <silent> si     :FufBookmarkDir<CR>
-  nnoremap <silent> s<C-i> :FufBookmarkDirAdd<CR>
-  nnoremap <silent> st     :FufTag<CR>
-  nnoremap <silent> sT     :FufTag!<CR>
-  nnoremap <silent> s<C-]> :FufTagWithCursorWord!<CR>
-  nnoremap <silent> s,     :FufBufferTag<CR>
-  nnoremap <silent> s<     :FufBufferTag!<CR>
-  vnoremap <silent> s,     :FufBufferTagWithSelectedText!<CR>
-  vnoremap <silent> s<     :FufBufferTagWithSelectedText<CR>
-  nnoremap <silent> s}     :FufBufferTagWithCursorWord!<CR>
-  nnoremap <silent> s.     :FufBufferTagAll<CR>
-  nnoremap <silent> s>     :FufBufferTagAll!<CR>
-  vnoremap <silent> s.     :FufBufferTagAllWithSelectedText!<CR>
-  vnoremap <silent> s>     :FufBufferTagAllWithSelectedText<CR>
-  nnoremap <silent> s]     :FufBufferTagAllWithCursorWord!<CR>
-  nnoremap <silent> sg     :FufTaggedFile<CR>
-  nnoremap <silent> sG     :FufTaggedFile!<CR>
-  nnoremap <silent> so     :FufJumpList<CR>
-  nnoremap <silent> sp     :FufChangeList<CR>
-  nnoremap <silent> sq     :FufQuickfix<CR>
-  nnoremap <silent> sy     :FufLine<CR>
-  nnoremap <silent> sh     :FufHelp<CR>
-  nnoremap <silent> se     :FufEditDataFile<CR>
-  nnoremap <silent> sr     :FufRenewCache<CR>
+let g:fuf_modesDisable = []
+let g:fuf_mrufile_maxItem = 400
+let g:fuf_mrucmd_maxItem = 400
+nnoremap <silent> sj     :FufBuffer<CR>
+nnoremap <silent> sk     :FufFileWithCurrentBufferDir<CR>
+nnoremap <silent> sK     :FufFileWithFullCwd<CR>
+nnoremap <silent> s<C-k> :FufFile<CR>
+nnoremap <silent> sl     :FufCoverageFileChange<CR>
+nnoremap <silent> sL     :FufCoverageFileChange<CR>
+nnoremap <silent> s<C-l> :FufCoverageFileRegister<CR>
+nnoremap <silent> sd     :FufDirWithCurrentBufferDir<CR>
+nnoremap <silent> sD     :FufDirWithFullCwd<CR>
+nnoremap <silent> s<C-d> :FufDir<CR>
+nnoremap <silent> sn     :FufMruFile<CR>
+nnoremap <silent> sN     :FufMruFileInCwd<CR>
+nnoremap <silent> sm     :FufMruCmd<CR>
+nnoremap <silent> su     :FufBookmarkFile<CR>
+nnoremap <silent> s<C-u> :FufBookmarkFileAdd<CR>
+vnoremap <silent> s<C-u> :FufBookmarkFileAddAsSelectedText<CR>
+nnoremap <silent> si     :FufBookmarkDir<CR>
+nnoremap <silent> s<C-i> :FufBookmarkDirAdd<CR>
+nnoremap <silent> st     :FufTag<CR>
+nnoremap <silent> sT     :FufTag!<CR>
+nnoremap <silent> s<C-]> :FufTagWithCursorWord!<CR>
+nnoremap <silent> s,     :FufBufferTag<CR>
+nnoremap <silent> s<     :FufBufferTag!<CR>
+vnoremap <silent> s,     :FufBufferTagWithSelectedText!<CR>
+vnoremap <silent> s<     :FufBufferTagWithSelectedText<CR>
+nnoremap <silent> s}     :FufBufferTagWithCursorWord!<CR>
+nnoremap <silent> s.     :FufBufferTagAll<CR>
+nnoremap <silent> s>     :FufBufferTagAll!<CR>
+vnoremap <silent> s.     :FufBufferTagAllWithSelectedText!<CR>
+vnoremap <silent> s>     :FufBufferTagAllWithSelectedText<CR>
+nnoremap <silent> s]     :FufBufferTagAllWithCursorWord!<CR>
+nnoremap <silent> sg     :FufTaggedFile<CR>
+nnoremap <silent> sG     :FufTaggedFile!<CR>
+nnoremap <silent> so     :FufJumpList<CR>
+nnoremap <silent> sp     :FufChangeList<CR>
+nnoremap <silent> sq     :FufQuickfix<CR>
+nnoremap <silent> sy     :FufLine<CR>
+nnoremap <silent> sh     :FufHelp<CR>
+nnoremap <silent> se     :FufEditDataFile<CR>
+nnoremap <silent> sr     :FufRenewCache<CR>
   "2}}}
 
 "indent Guide setting {{{
@@ -622,9 +595,9 @@ au BufRead,BufNew */lejos/*.java
     \ set tags=./tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
     \ let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/nxt,.'} 
 
-	"g:vjde_doc_gui_height	 height of the window
-	"g:vjde_doc_gui_width	width of the window
-	"g:vjde_doc_delay	once a item selected ,delay how long.
+        "g:vjde_doc_gui_height   height of the window
+        "g:vjde_doc_gui_width   width of the window
+        "g:vjde_doc_delay       once a item selected ,delay how long.
 
 au BufEnter,BufWrite *.java 
     \ if getline(1) =~ "lejos" |
