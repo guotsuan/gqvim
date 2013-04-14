@@ -82,6 +82,7 @@ Bundle 'kien/ctrlp.vim'
 
 Bundle 'plasticboy/vim-markdown'
 Bundle 'mkitt/markdown-preview.vim'
+"Bundle 'scrooloose/syntastic'
 
 ""}}}
 
@@ -177,6 +178,7 @@ set showcmd
 set showmatch 
 hi MatchParen ctermbg=blue guibg=lightblue
 hi MatchParen ctermfg=yellow guifg=yellow
+hi ColorColumn term=underline ctermfg=blue ctermbg=yellow guifg=blue guibg=yellow
 
 function MyTabLine() " {{{2
   let s = '' " complete tabline goes here
@@ -390,14 +392,47 @@ let g:lua_complete_omni=1
 let g:lua_complete_dynamic=0
 "let g:lua_check_synatx=
 "  2}}} 
+"
+" Pytho mode {{{
+"
+" python codes check
+let g:pymode_lint=1
+let g:pymode_lint_checker = "pyflakes,pep8,mccabe"
+let g:pymode_lint_write=1
+let g:pymode_lint_onfly=1
+let g:pymode_lint_hold=0
+let g:pymode_lint_signs=1
+let g:pymode_virtualenv=0
+let g:pymode_folding=1
+
+let g:pymode_lint_ignore="W,E702,E501,E503,E303"
+
+" pymode utils
+let g:pymode_doc=0
+let g:pymode_motion=1
+"set foldmethod=marker
+let g:pymode_indent=1
+let g:pymode_utils_whitespaces=1
+let g:pymode_folding=1
+nnoremap <Leader>ch :PyLintAuto<CR>
+
+" pymode rope
+let g:pymode_rope=1
+let g:pymode_rope_guess_project=0
+let g:pymode_rope_vim_completion=0
+
+let g:pymode_run_key="<Leader>r"
+"}}}
+
 
 " Plugin jedi-vim"{{{
+let g:jedi#goto_command = "<Leader>g"
 let g:jedi#pydoc = "K"
 let g:jedi#rename_command = "<Leader>f"
 let g:jedi#autocompletion_command = "<C-Space>"
-let g:pymode_run_key = "<Leader>r""}}}
+let g:pymode_run_key = "<Leader>r"
 let g:jedi#popup_on_dot=0
-let g:jedi#popup_select_first = 0
+let g:jedi#popup_select_first = 0  
 
 if !exists('g:neocomplcache_force_omni_patterns')
     let g:neocomplcache_force_omni_patterns = {}
