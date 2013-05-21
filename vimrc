@@ -31,7 +31,7 @@ Bundle 'FuzzyFinder'
 "Surround
 Bundle 'tpope/vim-surround'
 Bundle 'CmdlineComplete'
-Bundle 'Lokaltog/powerline'
+"Bundle 'Lokaltog/powerline'
 Bundle 'Lokaltog/vim-easymotion'
 
 "Nerdcommenter"
