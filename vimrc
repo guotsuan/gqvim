@@ -83,6 +83,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'mkitt/markdown-preview.vim'
 "Bundle 'scrooloose/syntastic'
+Bundle 'petRUShka/vim-opencl'
 
 ""}}}
 
@@ -111,6 +112,7 @@ set softtabstop=4
 set shiftwidth=4
 set expandtab
 set smarttab
+set tw=0
 "set nohls
 
 " backspace
@@ -397,15 +399,17 @@ let g:lua_complete_dynamic=0
 "
 " python codes check
 let g:pymode_lint=1
+let g:pymode_lint_ignore="W402"
 let g:pymode_lint_checker = "pyflakes,pep8,mccabe"
 let g:pymode_lint_write=1
-let g:pymode_lint_onfly=1
+let g:pymode_lint_onfly=0
 let g:pymode_lint_hold=0
 let g:pymode_lint_signs=1
 let g:pymode_virtualenv=0
-let g:pymode_folding=1
+let g:pymode_folding=0
 
 let g:pymode_lint_ignore="W,E702,E501,E503,E303"
+let g:pymode_rope_goto_def_newwin='vnew'
 
 " pymode utils
 let g:pymode_doc=0
@@ -414,7 +418,8 @@ let g:pymode_motion=1
 let g:pymode_indent=1
 let g:pymode_utils_whitespaces=1
 let g:pymode_folding=1
-nnoremap <Leader>ch :PyLintAuto<CR>
+let g:pymode_syntax_all=1
+"nnoremap <Leader>ch :PyLintAuto<CR>
 
 " pymode rope
 let g:pymode_rope=1
@@ -611,6 +616,7 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 "Auto Command {{{
 "
 
+
 au BufRead,Bufnew *.java,*.c,*.cpp
     \ let g:easytags_include_members=1
 
@@ -663,6 +669,7 @@ au BufReadPost * if getline(1) =~ "mutt" | setf muttrc | endif
 
 au FileType python setlocal list
 au FileType python setlocal listchars=tab:ß⌂,trail:•,nbsp:◊,extends:►,precedes:◄ 
+au FileType opencl setlocal commentstring=//%s
 
 
 "omin completion
@@ -722,4 +729,6 @@ cmap mru FufMruFile
 ca w!! w !sudo tee "%" >/dev/null
 ca W w !sudo tee % > /dev/null
 "}}}
+"
+hi Normal ctermbg=none
 

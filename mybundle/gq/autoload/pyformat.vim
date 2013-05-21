@@ -199,4 +199,23 @@ function! s:trimspace(item, pos)
 endfunction
 
 
+fun! pyformat#autopep8() "{{{
+    if &modifiable && &modified
+        try
+            noautocmd write
+        catch /E212/
+            echohl Error | echo "File modified and I can't save it. Cancel operation." | echohl None
+            return 0
+        endtry
+    endif
+    "py from pymode import auto
+    py import auto
+    py auto.gq_fix_file()
+    "py auto.fix_current_file()
+    cclose
+    edit
+    call pymode#WideMessage("AutoPep8 done.")
+endfunction "}}}
+
+
 
