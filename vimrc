@@ -48,16 +48,20 @@ Bundle 'klen/python-mode'
 Bundle 'Conque-Shell'
 Bundle 'Decho'
 
+Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-reload'
 Bundle 'xolox/vim-shell'
+"Bundle 'xolox/vim-lua-ftplugin'
 
 
-Bundle 'Shougo/vimproc'
-Bundle 'Shougo/neocomplcache'
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/neosnippet'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'SirVer/ultisnips'
+"Bundle 'Shougo/vimproc'
+"Bundle 'Shougo/neocomplcache'
+"Bundle 'Shougo/unite.vim'
+"Bundle 'Shougo/neosnippet'
 
-Bundle 'honza/vim-snippets'
+"Bundle 'honza/vim-snippets'
 Bundle 'VOoM'
 
 Bundle 'tpope/vim-unimpaired'
@@ -275,6 +279,23 @@ function! GuiTabLabel() " {{{2
   return label . '  [' . wincount . ']'
 endfunction " 2}}}
 
+
+function! g:UltiSnips_Complete() "{{{
+    call UltiSnips_ExpandSnippet()
+    if g:ulti_expand_res == 0
+        if pumvisible()
+            return "\<C-n>"
+        else
+            call UltiSnips_JumpForwards()
+            if g:ulti_jump_forwards_res == 0
+               return "\<TAB>"
+            endif
+        endif
+    endif
+    return ""
+endfunction
+"}}}
+
 set guitablabel=%{GuiTabLabel()}
 
 " }}}
@@ -297,6 +318,19 @@ endfunction " }
 " }}}
 
 "  Plugins Settings   "  {{{ 
+"
+
+"YCM plugin    "{{{
+"let g:ycm_add_preview_to_completeopt=1
+"}}}
+
+"Ultisnips  "{{{
+
+let g:UltiSnipsExpandTrigger="<c-k>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<c-j>"
+
+"}}}
 
 " Taglist Plugin   "  {{{2
 let g:Tlist_Auto_Update = 1
@@ -423,7 +457,7 @@ let g:pymode_syntax_all=1
 
 " pymode rope
 let g:pymode_rope=1
-let g:pymode_rope_guess_project=0
+let g:pymode_rope_guess_project=1
 let g:pymode_rope_vim_completion=0
 
 let g:pymode_run_key="<Leader>r"
@@ -518,28 +552,28 @@ nnoremap <Leader>}  :call gqutils#addcomment(nr2char(getchar()), 0)<CR>
  "\: "\<TAB>"
 
 " work good, but no most efficent way
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-smap  <Tab>  <right><Plug>(neosnippet_expand_or_jump)
-imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+"smap  <Tab>  <right><Plug>(neosnippet_expand_or_jump)
+"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 
-"inoremap <expr><C-e>     neocomplcache#complete_common_string()
+""inoremap <expr><C-e>     neocomplcache#complete_common_string()
 
-" Plugin key-mappings.
-inoremap <expr><C-g> neocomplcache#undo_completion()
-"inoremap <expr><C-l> neocomplcache#complete_common_string()
-"
-imap <C-l>  <Plug>(neocomplcache_start_unite_complete)
-imap <C-q>  <Plug>(neocomplcache_start_unite_quick_match)
+"" Plugin key-mappings.
+"inoremap <expr><C-g> neocomplcache#undo_completion()
+""inoremap <expr><C-l> neocomplcache#complete_common_string()
+""
+"imap <C-l>  <Plug>(neocomplcache_start_unite_complete)
+"imap <C-q>  <Plug>(neocomplcache_start_unite_quick_match)
 
-inoremap <expr><C-y>  neocomplcache#close_popup()
-inoremap <expr><C-e>  neocomplcache#cancel_popup()
+"inoremap <expr><C-y>  neocomplcache#close_popup()
+"inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
-inoremap <expr><silent> <CR> My_cr_function()
+"inoremap <expr><silent> <CR> My_cr_function()
 
-function! My_cr_function()
-    return pumvisible() ? neocomplcache#close_popup() . "\<CR>": "\<CR>"
-endfunction
+"function! My_cr_function()
+    "return pumvisible() ? neocomplcache#close_popup() . "\<CR>": "\<CR>"
+"endfunction
 
 " <C-h>, <BS>: close popup and delete backword char.
 "inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-R>AutoClose#Backspace()\<CR>"
