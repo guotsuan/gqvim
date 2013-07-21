@@ -34,6 +34,8 @@ Bundle 'CmdlineComplete'
 "Bundle 'Lokaltog/powerline'
 Bundle 'Lokaltog/vim-easymotion'
 
+Bundle 'hsitz/VimOrganizer'
+
 "Nerdcommenter"
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'majutsushi/tagbar'
@@ -52,6 +54,7 @@ Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-reload'
 Bundle 'xolox/vim-shell'
 "Bundle 'xolox/vim-lua-ftplugin'
+Bundle  'terryma/vim-multiple-cursors'
 
 
 Bundle 'Valloric/YouCompleteMe'
@@ -60,6 +63,7 @@ Bundle 'SirVer/ultisnips'
 "Bundle 'Shougo/neocomplcache'
 "Bundle 'Shougo/unite.vim'
 "Bundle 'Shougo/neosnippet'
+Bundle 'AndrewRadev/splitjoin.vim'
 
 "Bundle 'honza/vim-snippets'
 Bundle 'VOoM'
@@ -364,6 +368,9 @@ endif
 "{{{2 nerd comment
 "
 let mapleader=","
+let g:NERDCustomDelimiters = {
+        \ 'lisp': {'left': ';', 'leftAlt': ';', 'rightAlt': ';'}
+    \}
 
 "2}}}
 
@@ -699,7 +706,7 @@ au BufEnter,BufWrite *.java
     "\ set tags=~/tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
 "============================
 "
-au BufReadPost * if getline(1) =~ "mutt" | setf muttrc | endif
+"au BufReadPost * if getline(1) =~ "mutt" | setf muttrc | endif
 
 au FileType python setlocal list
 au FileType python setlocal listchars=tab:ß⌂,trail:•,nbsp:◊,extends:►,precedes:◄ 
@@ -717,9 +724,10 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 "autocmd FileType java setlocal omnifunc=javacomplete#Complete
 "autocmd FileType java setlocal omnifunc=eclim#java#complete#CodeComplete
 autocmd FileType java setlocal omnifunc=VjdeCompletionFun0
+autocmd FileType lisp set comments=:;,sr:;;,mb:;;,ex:;;
 
 "============================================================
-autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
+"autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
 
 if has("autocmd") && exists("+omnifunc")
     autocmd Filetype *
