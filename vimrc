@@ -24,6 +24,7 @@ execute pathogen#infect('mybundle/{}')
 Bundle 'gmarik/vundle'
 Bundle 'tomasr/molokai'
 Bundle 'Indent-Guides'
+Bundle 'TeX-9'
 
 Bundle 'L9'
 Bundle 'FuzzyFinder'
@@ -33,12 +34,12 @@ Bundle 'tpope/vim-surround'
 Bundle 'CmdlineComplete'
 "Bundle 'Lokaltog/powerline'
 Bundle 'Lokaltog/vim-easymotion'
-
 Bundle 'hsitz/VimOrganizer'
 
 "Nerdcommenter"
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'majutsushi/tagbar'
+Bundle 'bling/vim-airline'
 "Bundle 'Vim-JDE'
 "
 Bundle 'matchit.zip'
@@ -46,6 +47,7 @@ Bundle 'fisadev/fisa-vim-colorscheme'
 Bundle 'fisadev/FixedTaskList.vim'
 Bundle 'kien/tabman.vim'
 Bundle 'klen/python-mode'
+Bundle 'tpope/vim-fugitive'
 
 Bundle 'Conque-Shell'
 Bundle 'Decho'
@@ -59,12 +61,16 @@ Bundle  'terryma/vim-multiple-cursors'
 
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'SirVer/ultisnips'
-"Bundle 'Shougo/vimproc'
+Bundle 'Shougo/vimproc'
+" for system without lua
 "Bundle 'Shougo/neocomplcache'
-"Bundle 'Shougo/unite.vim'
-"Bundle 'Shougo/neosnippet'
+" for system with lua
+Bundle 'Shougo/neocomplete.vim'
+Bundle 'Shougo/neosnippet'
 Bundle 'AndrewRadev/splitjoin.vim'
+Bundle 'Shougo/vimshell'
 
+"cause duplicate
 "Bundle 'honza/vim-snippets'
 Bundle 'VOoM'
 
@@ -73,6 +79,7 @@ Bundle 'tpope/vim-scriptease'
 Bundle 'tpope/vim-pathogen'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-commentary'
+Bundle 'svermeulen/vim-easyclip'
 
 Bundle 'davidhalter/jedi-vim'
 
@@ -80,9 +87,9 @@ Bundle 'now/vim-quit-if-only-quickfix-buffer-left'
 
 Bundle 'vim-scripts/Wombat'
 Bundle 'bash-support.vim'
+Bundle 'junegunn/vim-easy-align'
 
 Bundle 'mbbill/undotree'
-
 Bundle 'kien/ctrlp.vim'
 
 
@@ -96,6 +103,9 @@ Bundle 'petRUShka/vim-opencl'
 ""}}}
 
 "  {{{ General
+
+let g:powerline_loaded = 1
+"let g:loaded_airline = 1
 
 set ignorecase
 
@@ -153,6 +163,7 @@ if has("gui_running")
     set cursorcolumn 
     set cursorline 
     set lines=60 
+    set guioptions-=T
     set columns=110
     if !has("mac")
         set guifont=Consolas\ 12
@@ -283,23 +294,6 @@ function! GuiTabLabel() " {{{2
   return label . '  [' . wincount . ']'
 endfunction " 2}}}
 
-
-function! g:UltiSnips_Complete() "{{{
-    call UltiSnips_ExpandSnippet()
-    if g:ulti_expand_res == 0
-        if pumvisible()
-            return "\<C-n>"
-        else
-            call UltiSnips_JumpForwards()
-            if g:ulti_jump_forwards_res == 0
-               return "\<TAB>"
-            endif
-        endif
-    endif
-    return ""
-endfunction
-"}}}
-
 set guitablabel=%{GuiTabLabel()}
 
 " }}}
@@ -323,22 +317,53 @@ endfunction " }
 
 "  Plugins Settings   "  {{{ 
 "
+"vim airline {{{
+let g:airline_enable_branch=1
+let g:airline_enable_tagbar=1
+let g:airline_detect_modified=1
+let g:airline_detect_iminsert=1
+let g:airline_theme='dark'
 
+let g:airline_left_sep = '»'
+"let g:airline_left_alt_sep = '▶'
+let g:airline_right_sep = '«'
+"let g:airline_right_alt_sep = '◀'
+"let g:airline_left_sep = ''
+"let g:airline_left_alt_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_right_alt_sep = ''
+"let g:airline_linecolumn_prefix = '␊ '
+let g:airline_linecolumn_prefix = '␤ '
+"let g:airline_linecolumn_prefix = '¶ '
+let g:airline_branch_prefix = '⎇  '
+"let g:airline_paste_symbol = 'ρ'
+let g:airline_paste_symbol = 'Þ'
+let g:airline_whitespace_symbol = 'Ξ'
+ "let g:airline_paste_symbol = '∥'
+ "
+ "
+ let g:airline_left_sep = '»'
+ let g:airline_left_sep = '▶'
+ let g:airline_right_sep = '«'
+ let g:airline_right_sep = '◀'
+
+
+"}}}
+"
 "YCM plugin    "{{{
 "let g:ycm_add_preview_to_completeopt=1
+let g:ycm_filetype_whitelist={'python': 1}
 "}}}
 
 "Ultisnips  "{{{
 
-let g:UltiSnipsExpandTrigger="<c-k>"
-let g:UltiSnipsJumpForwardTrigger="<c-k>"
-let g:UltiSnipsJumpBackwardTrigger="<c-j>"
+"if exists("g:loaded_neocomplete")
+    let g:UltiSnipsExpandTrigger="<c-k>"
+    let g:UltiSnipsJumpForwardTrigger="<c-k>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-j>"
+"endif
 
 "}}}
-
-" Taglist Plugin   "  {{{2
-let g:Tlist_Auto_Update = 1
-  "  2}}}
 
 " Taglist Plugin   "  {{{2
 let g:Tlist_Auto_Update = 1
@@ -357,7 +382,12 @@ let g:easytags_include_members =1   "  2}}}
 
 " vim-latex     "  {{{2
 set grepprg=grep\ -nH\ $*
-let g:tex_flavor = "latex"     " 2}}}
+let g:tex_flavor = "pdflatex"     
+let g:tex_synctex=1
+let g:tex_fold_enabled = 1
+"let g:tex_viewer = {'app': 'evince', 'target': 'pdf'}
+
+" 2}}}
 
 " neosnippet     "  {{{2
 if has('conceal')
@@ -384,7 +414,7 @@ let g:NERDCustomDelimiters = {
 "
 let g:acp_enableAtStartup = 0
 " Use neocomplcache.
-let g:neocomplcache_enable_at_startup = 1
+"let g:neocomplcache_enable_at_startup = 0
 " Use smartcase.
 let g:neocomplcache_enable_smart_case = 1
 " Use camel case completion.
@@ -429,6 +459,51 @@ let g:neocomplcache_omni_patterns.lua= '[^. \t]\.\w*'
 
 " 2}}}
 
+" {{{2  neocomplete
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+" enable fuzzy completion
+let g:neocomplete#enable_fuzzy_completion = 1
+
+" necomp locked if iminsert
+let g:neocomplete#enable_auto_select=0
+let g:neocomplete#disable_auto_complete = 0
+
+let g:neocomplete#enable_cursor_hold_i = 1
+    
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+\ 'default' : '',
+\ 'vimshell' : $HOME.'/.vimshell_hist',
+\ 'scheme' : $HOME.'/.gosh_completions'
+\ }
+
+" Define keyword.
+"
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+endif
+
+let g:neocomplete#force_omni_input_patterns.lua = '[^. \t]\.\w*'
+
+
+" Key bindings for neocomplcache
+
+
+" 2}}}
 
 "lua ftp-plugin.vim  "  {{{2
 let g:lua_complete_omni=1
@@ -441,7 +516,7 @@ let g:lua_complete_dynamic=0
 " python codes check
 let g:pymode_lint=1
 let g:pymode_lint_ignore="W402"
-let g:pymode_lint_checker = "pyflakes,pep8,mccabe"
+let g:pymode_lint_checker = "pyflakes,pep8"
 let g:pymode_lint_write=1
 let g:pymode_lint_onfly=0
 let g:pymode_lint_hold=0
@@ -470,12 +545,11 @@ let g:pymode_rope_vim_completion=0
 let g:pymode_run_key="<Leader>r"
 "}}}
 
-
 " Plugin jedi-vim"{{{
-let g:jedi#goto_command = "<Leader>g"
-let g:jedi#pydoc = "K"
+let g:jedi#goto_assignments_command = "<Leader>g"
+let g:jedi#documentation_command = "K"
 let g:jedi#rename_command = "<Leader>f"
-let g:jedi#autocompletion_command = "<C-Space>"
+let g:jedi#completion_command = "<C-Space>"
 let g:pymode_run_key = "<Leader>r"
 let g:jedi#popup_on_dot=0
 let g:jedi#popup_select_first = 0  
@@ -498,6 +572,10 @@ let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
 
 " 2}}}
 
+vnoremap <silent> <Enter> :EasyAlign<cr>
+nnoremap gm m
+
+
 "too slow
 "map <F3> :execute "vimgrep /" . expand("<cword>") . "/j **" <Bar> cw<CR>
 nmap <F3> <ESC>:w<cr>:!make<cr>
@@ -508,6 +586,7 @@ nmap <F2> :UpdateTags<cr>
 nnoremap <silent> <F4> :TagbarToggle<CR>
 
 nmap <leader>u :UndotreeToggle<CR>
+
 
 "inoremap <Leader><Space>  <Esc>i<Space><Esc>la<Space>
 "nnoremap <Leader><Space>  <Esc>i<Space><Esc>la<Space><Esc>
@@ -543,51 +622,88 @@ nnoremap )i i)<ESC>
 
 nnoremap <Leader>{  :call gqutils#addcomment(nr2char(getchar()), 1)<CR>
 nnoremap <Leader>}  :call gqutils#addcomment(nr2char(getchar()), 0)<CR>
+
 "nnoremap c{ gqcomment#,
 "
 "==============================================================================
- "neocomplcache keybinds  "{{{2
+"
+"neocomplcache keybinds  "{{{2
+"let  g:loaded_youcompleteme = 1
+"let g:loaded_neocomplete = 1
 
-" Supertab
+"au VimEnter *.py call neocomplete#init#disable()
 
-" not worked in previous, tested no good
-"imap <expr><TAB> neosnippet#expandable() ?
- "\ "\<Plug>(neosnippet_expand_or_jump)"
- "\: pumvisible() ? "\<C-n>" : "\<TAB>"
-"smap <expr><TAB> neosnippet#expandable() ?
- "\ "\<Plug>(neosnippet_expand_or_jump)"
- "\: "\<TAB>"
+function! Neo_enable() " {{{2
+    "old for netcompletcache
+    "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    "smap  <Tab>  <right><Plug>(neosnippet_expand_or_jump)
+    "imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    "smap <C-k>     <Plug>(neosnippet_expand_or_jump)
 
-" work good, but no most efficent way
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"smap  <Tab>  <right><Plug>(neosnippet_expand_or_jump)
-"imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-"smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+    "inoremap <expr><C-e>     neocomplcache#complete_common_string()
 
-""inoremap <expr><C-e>     neocomplcache#complete_common_string()
+    "inoremap <expr><C-g> neocomplcache#undo_completion()
+    "inoremap <expr><C-l> neocomplcache#complete_common_string()
+    "inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+    "inoremap <expr><C-y>  neocomplcache#close_popup()
+    "inoremap <expr><C-e>  neocomplcache#cancel_popup()
+    "inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
 
-"" Plugin key-mappings.
-"inoremap <expr><C-g> neocomplcache#undo_completion()
-""inoremap <expr><C-l> neocomplcache#complete_common_string()
-""
-"imap <C-l>  <Plug>(neocomplcache_start_unite_complete)
-"imap <C-q>  <Plug>(neocomplcache_start_unite_quick_match)
+    "inoremap <expr><silent> <CR> My_cr_function()
 
-"inoremap <expr><C-y>  neocomplcache#close_popup()
-"inoremap <expr><C-e>  neocomplcache#cancel_popup()
+    "function! My_cr_function()
+        "return pumvisible() ? neocomplcache#close_popup() . "\<CR>": "\<CR>"
+    "endfunction
+    "
+    "
+    " new for neocomplete
+    inoremap <buffer> <expr> <C-g> neocomplete#undo_completion()
+    inoremap <buffer> <expr> <C-l> neocomplete#complete_common_string()
+    inoremap <buffer> <silent> <CR>  <C-r>=<SID>my_cr_function()<CR>
+    function! s:my_cr_function()
+      return neocomplete#smart_close_popup() . "\<CR>"
+    endfunction
+    " <TAB>: completion.
+    inoremap <buffer> <expr> <TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+    " <C-h>, <BS>: close popup and delete backword char.
+    inoremap <buffer> <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <buffer> <expr> <BS> neocomplete#smart_close_popup()."\<C-h>"
+    inoremap <buffer> <expr> <C-y>  neocomplete#close_popup()
+    inoremap <buffer> <expr> <C-e>  neocomplete#cancel_popup()
 
-"inoremap <expr><silent> <CR> My_cr_function()
 
-"function! My_cr_function()
-    "return pumvisible() ? neocomplcache#close_popup() . "\<CR>": "\<CR>"
-"endfunction
+    smap <buffer> <Tab>  <right><Plug>(neosnippet_expand_or_jump)
+    imap <buffer> <C-k>k     <Plug>(neosnippet_expand_or_jump)
+    smap <buffer> <C-k>k     <Plug>(neosnippet_expand_or_jump)
 
-" <C-h>, <BS>: close popup and delete backword char.
-"inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-R>AutoClose#Backspace()\<CR>"
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+    "let g:UltiSnipsExpandTrigger="<c-k>k"
+    "let g:UltiSnipsJumpForwardTrigger="<c-k>k"
+    "let g:UltiSnipsJumpBackwardTrigger="<c-j>j"
+    if neocomplete#is_locked()
+        NeoCompleteUnlock
+    endif
+    "NeocompleteEnable()
+endfunction
 
-
-
+function! Neo_disable() "{{{2
+    "iunmap <buffer> <expr> <C-g>
+    "iunmap <buffer> <expr> <C-l>
+    "iunmap <buffer> <silent> <CR>
+    """" <TAB>: completion.
+    "iunmap <buffer> <expr> <TAB>
+    """ <C-h>, <BS>: close popup and delete backword char.
+    "iunmap <buffer> <expr> <C-h>
+    "iunmap <buffer> <expr> <BS>
+    "iunmap <buffer> <expr> <C-y>
+    "iunmap <buffer> <expr> <C-e>
+    "sunm <buffer> <Tab>
+    "iunmap <buffer> <C-k>k
+    "sunm <buffer> <C-k>k
+    "NeoCompleteDisable
+    NeoCompleteLock
+endfunction 
+    
+"nmap <S-n> <C-o>:call Neo_enable()<CR>
 
 "2}}}
 
@@ -657,6 +773,8 @@ let g:ctrlp_cmd = 'CtrlPMixed'
 "Auto Command {{{
 "
 
+au! BufRead,BufWrite,BufWritePost,BufNewFile *.org
+au BufEnter *.org  call org#SetOrgFileType()
 
 au BufRead,Bufnew *.java,*.c,*.cpp
     \ let g:easytags_include_members=1
@@ -711,7 +829,7 @@ au BufEnter,BufWrite *.java
 au FileType python setlocal list
 au FileType python setlocal listchars=tab:ß⌂,trail:•,nbsp:◊,extends:►,precedes:◄ 
 au FileType opencl setlocal commentstring=//%s
-
+"au FileType python call neocomplete#init#disable() | call youcompleteme#Enable() 
 
 "omin completion
 "==========================================================
@@ -725,16 +843,17 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 "autocmd FileType java setlocal omnifunc=eclim#java#complete#CodeComplete
 autocmd FileType java setlocal omnifunc=VjdeCompletionFun0
 autocmd FileType lisp set comments=:;,sr:;;,mb:;;,ex:;;
+"autocmd FileType python :call Neo_disable()
 
 "============================================================
 "autocmd BufEnter * if expand("%:p:h") !~ '^/tmp' | silent! lcd %:p:h | endif
 
-if has("autocmd") && exists("+omnifunc")
-    autocmd Filetype *
-                \Filetypeif &omnifunc == "" |
-                \Filetypeifsetlocal omnifunc=syntaxcomplete#Complete |
-                \Completeendif
-endif
+"if has("autocmd") && exists("+omnifunc")
+    "autocmd Filetype *
+                "\Filetypeif &omnifunc == "" |
+                "\Filetypeifsetlocal omnifunc=syntaxcomplete#Complete |
+                "\Completeendif
+"endif
 
 autocmd Filetype java,c,cpp 
         \ inoremap ;; <end>;|
@@ -752,6 +871,9 @@ autocmd FileType markdown map <Leader>md <ESC>:MDP<CR>
 
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif 
 "autocmd BufLeave * if pumvisible() == 0|pclose|endif
+
+autocmd BufRead,BufNewFile *   if &ft != 'python'  | :call Neo_enable() | else | :call Neo_disable() |  endif 
+
 " lua "{{{
 " =========================================
 
@@ -764,6 +886,7 @@ au Filetype lua
 " }}}
 
 " Vim command character"{{{
+"
 
 cmap tn tabnew
 cmap vte Vtabedit
@@ -773,4 +896,8 @@ ca W w !sudo tee % > /dev/null
 "}}}
 "
 hi Normal ctermbg=none
+
+"au BufReadPost *.py call neocomplete#init#disable()
+
+
 
