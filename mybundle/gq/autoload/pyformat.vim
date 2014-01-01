@@ -214,7 +214,7 @@ fun! pyformat#autopep8() "{{{
     "py auto.fix_current_file()
     cclose
     edit
-    call pymode#WideMessage("AutoPep8 done.")
+    call pymode#wide_message("AutoPep8 done.")
 endfunction "}}}
 
 

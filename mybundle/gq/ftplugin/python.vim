@@ -9,7 +9,7 @@ setlocal expandtab  "}}}
 
 
 setlocal colorcolumn=80
-setlocal  guifont=monofur\ 13
+"setlocal  guifont=monofur\ 13
 setlocal foldexpr=gqpyfolding#expr(v:lnum)
 setlocal foldtext=gqpyfolding#text()
 
