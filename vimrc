@@ -107,7 +107,7 @@ Bundle 'Lokaltog/powerline'
 let g:powerline_loaded = 1  "prefered the vim-airline
 
 "set regexpengine=1
-"let g:loaded_airline = 0
+let g:loaded_airline = 0
 set ignorecase
 filetype plugin indent on
 syntax on
@@ -190,7 +190,7 @@ set showtabline=2  " 0, 1 or 2; when to use a tab pages line
 set tabline=%!MyTabLine()  " custom tab pages line
 set guitablabel=%{GuiTabLabel()}
 "set incsearch
-"set nolazyredraw " do now redraw while runing macros
+"set nolz " do now redraw while runing macros
 set nolist " wo do what o show tabs, to ensure we get them out of my files
 
 "set listchars=tab:ß⌂,trail:•,nbsp:◊,extends:►,precedes:◄ " show tabs and trailing
@@ -357,8 +357,8 @@ let g:locate_mappings = 1
 "  2}}}
 
 "vim airline {{{
-let g:airline_enable_branch=0
-let g:airline_enable_tagbar=0
+let g:airline_enable_branch=1
+let g:airline_enable_tagbar=1
 let g:airline_detect_modified=1
 let g:airline_detect_iminsert=1
 let g:airline_theme='dark'
@@ -407,6 +407,12 @@ let g:easytags_auto_highlight=1
 let g:easytags_auto_update = 1
 let g:easytags_include_members =1   "  2}}}
 
+"{{{
+"vim gitgutter
+let g:gitgutter_eager = 0
+let g:gitgutter_realtime = 0
+"}}}
+"
 " vim-latex     "  {{{2
 set grepprg=grep\ -nH\ $*
 let g:tex_flavor = "pdflatex"     
