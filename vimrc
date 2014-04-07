@@ -97,7 +97,10 @@ Bundle 'Zenburn'
 Bundle 'Lokaltog/powerline'
 "Bundle 'Shougo/neocomplcache'
 "Bundle 'Yggdroot/indentLine'
-"Bundle 'honza/vim-snippets' "cause duplicate
+"Bundle 'honza/vim-snippets' 
+ Bundle 'Shougo/neosnippet-snippets'
+
+"cause duplicate
 "Bundle 'scrooloose/syntastic'
 
 ""}}}
@@ -414,13 +417,31 @@ let g:gitgutter_realtime = 0
 "}}}
 "
 " vim-latex     "  {{{2
-set grepprg=grep\ -nH\ $*
-let g:tex_flavor = "pdflatex"     
-let g:tex_synctex=1
-let g:tex_fold_enabled = 1
+"set grepprg=grep\ -nH\ $*
+"let g:tex_flavor = "pdflatex"     
+"let g:tex_synctex=1
+"let g:tex_fold_enabled = 1
 "let g:tex_viewer = {'app': 'evince', 'target': 'pdf'}
 
 " 2}}}
+
+" tex nine   " {{{2
+"
+let g:tex_flavor = "latex"     
+let g:tex_nine_config = {
+     \ 'compiler': 'pdflatex --enable-write18 ',
+      \  'viewer': {'app':'evince', 'target':'pdf'},
+      \ 'verbose': 1,
+      \ 'synctex': 0
+     \}
+"2}}}
+if has("gui_running")
+    let g:tex_nine_config.synctex = 0
+endif
+
+
+
+
 
 " neosnippet     "  {{{2
 if has('conceal')
@@ -473,6 +494,7 @@ if !exists('g:neocomplete#force_omni_input_patterns')
     let g:neocomplete#force_omni_input_patterns = {}
 endif
 let g:neocomplete#force_omni_input_patterns.lua = '[^. \t]\.\w*'
+let g:neocomplete#force_omni_input_patterns.tex = '\\ref{\|\\cite{\|\\citep{'
 
 " Key bindings for neocomplcache
 
@@ -508,7 +530,7 @@ let g:pymode_motion=1
 "set foldmethod=marker
 let g:pymode_indent=1
 let g:pymode_utils_whitespaces=1
-let g:pymode_folding=1
+let g:pymode_folding=0
 let g:pymode_syntax_all=1
 "nnoremap <Leader>ch :PyLintAuto<CR>
 
@@ -559,7 +581,7 @@ nmap <F3> <ESC>:w<cr>:!make<cr>
 nmap <F6> :cn<cr>
 nmap <F5> :lmake<cr>
 nmap <F8> :set list!<cr>
-nmap <F2> :UpdateTags<cr>
+"nmap <F2> :UpdateTags<cr>
 nnoremap <silent> <F4> :TagbarToggle<CR>
 
 nmap <leader>u :UndotreeToggle<CR>
