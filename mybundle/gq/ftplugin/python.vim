@@ -14,7 +14,10 @@ setlocal foldexpr=gqpyfolding#expr(v:lnum)
 setlocal foldtext=gqpyfolding#text()
 
 command! -buffer -nargs=0 GqAutopep8 :call pyformat#autopep8()
+command! -buffer -nargs=0 GqFixline :call pyformat#adjustline()
 nnoremap <Leader>ch :GqAutopep8<CR>
+nnoremap <Leader>cl :GqFixline<CR>
+nnoremap <Leader><Space> :GqFixline<CR>
 setlocal rnu
 
 python << EOF

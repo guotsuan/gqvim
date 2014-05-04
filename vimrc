@@ -32,6 +32,7 @@ Bundle 'Indent-Guides'
 Bundle 'TeX-9'
 Bundle 'earendel'
 Bundle 'L9'
+Bundle 'delimitMate.vim'
 " second
 Bundle 'airblade/vim-gitgutter'
 Bundle 'FuzzyFinder'
@@ -382,7 +383,8 @@ let g:airline#extensions#tabline#enabled = 1
 "
 "YCM plugin    "{{{
 "let g:ycm_add_preview_to_completeopt=1
-let g:ycm_filetype_whitelist={'python': 1}
+"let g:ycm_filetype_whitelist={'python': 1}
+nnoremap <leader>jd :YcmCompleter GoTo<CR>'
 "}}}
 
 "Ultisnips  "{{{
@@ -462,6 +464,7 @@ let g:NERDCustomDelimiters = {
 " Disable AutoComplPop.
 "let g:acp_enableAtStartup = 0
 " Use neocomplete
+let g:loaded_neocomplete = 1
 let g:neocomplete#enable_at_startup = 0
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
@@ -591,7 +594,6 @@ nmap <leader>t :TagbarToggle<CR>
 "inoremap <Leader><Space>  <Esc>i<Space><Esc>la<Space>
 "nnoremap <Leader><Space>  <Esc>i<Space><Esc>la<Space><Esc>
 "nnoremap <Leader><Space>+  <Esc>i<Space><Esc>la<Space><Esc>
-nnoremap <Leader><Space> :call pyformat#adjustspace()<CR>
 nnoremap <Leader>s :call gqutils#selindent()<CR>
 
 inoremap "" "
@@ -870,7 +872,7 @@ autocmd FileType markdown map <Leader>md <ESC>:MDP<CR>
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif 
 "autocmd BufLeave * if pumvisible() == 0|pclose|endif
 
-autocmd BufRead,BufNewFile *   if &ft != 'python'  | :call Neo_enable() | else | :call Neo_disable() |  endif 
+"autocmd BufRead,BufNewFile *   if &ft != 'python'  | :call Neo_enable() | else | :call Neo_disable() |  endif 
 
 " lua "{{{
 " =========================================

@@ -218,4 +218,10 @@ fun! pyformat#autopep8() "{{{
 endfunction "}}}
 
 
+fun! pyformat#adjustline() "{{{
+    py import auto
+    py line_in = vim.current.line
+    py vim.current.line = auto.gq_fix_line(line_in)
+endfunction  "}}}
+
 
