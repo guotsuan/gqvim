@@ -26,6 +26,8 @@ execute pathogen#infect('mybundle/{}')
 
 " {{{ Bundle Lists
 
+Bundle 'kshenoy/vim-signature'
+Bundle 'tpope/vim-dispatch'
 Bundle 'gmarik/vundle'
 Bundle 'tomasr/molokai'
 Bundle 'Indent-Guides'
@@ -103,6 +105,7 @@ Bundle 'Lokaltog/powerline'
 
 "cause duplicate
 "Bundle 'scrooloose/syntastic'
+Bundle 'vimwiki/vimwiki'
 
 ""}}}
 
@@ -330,6 +333,30 @@ endfunction " }
 let g:notes_directories = ['~/Dropbox/notes']
 "2}}}
 
+" vim-signatur {{{
+    let g:SignatureMap = {
+      \ 'Leader'             :  "gm",
+      \ 'PlaceNextMark'      :  ",",
+      \ 'ToggleMarkAtLine'   :  ".",
+      \ 'PurgeMarksAtLine'   :  "-",
+      \ 'PurgeMarks'         :  "<Space>",
+      \ 'PurgeMarkers'       :  "<BS>",
+      \ 'GotoNextLineAlpha'  :  "']",
+      \ 'GotoPrevLineAlpha'  :  "'[",
+      \ 'GotoNextSpotAlpha'  :  "`]",
+      \ 'GotoPrevSpotAlpha'  :  "`[",
+      \ 'GotoNextLineByPos'  :  "]'",
+      \ 'GotoPrevLineByPos'  :  "['",
+      \ 'GotoNextSpotByPos'  :  "]`",
+      \ 'GotoPrevSpotByPos'  :  "[`",
+      \ 'GotoNextMarker'     :  "]-",
+      \ 'GotoPrevMarker'     :  "[-",
+      \ 'GotoNextMarkerAny'  :  "]=",
+      \ 'GotoPrevMarkerAny'  :  "[=",
+      \ 'ListLocalMarks'     :  "'?",
+      \ }
+"}}}
+
 "Tabular ;{{{2
 let mapleader=','
 if exists(":Tabularize")
@@ -384,6 +411,7 @@ let g:airline#extensions#tabline#enabled = 1
 "YCM plugin    "{{{
 "let g:ycm_add_preview_to_completeopt=1
 "let g:ycm_filetype_whitelist={'python': 1}
+"let g:loaded_youcompleteme=0
 nnoremap <leader>jd :YcmCompleter GoTo<CR>'
 "}}}
 
@@ -412,8 +440,18 @@ let g:easytags_auto_highlight=1
 let g:easytags_auto_update = 1
 let g:easytags_include_members =1   "  2}}}
 
-"{{{
-"vim gitgutter
+"easyclip"{{{
+imap <c-v> <plug>EasyClipInsertModePaste
+let g:EasyClipAutoFormat=0
+let g:EasyClipUsePasteToggleDefaults = 0
+
+nmap <Leader>ff <plug>EasyClipSwapPasteForward
+nmap <Leader>dd <plug>EasyClipSwapPasteBackwards
+
+
+"}}}
+"
+"{{{ "vim gitgutter
 let g:gitgutter_eager = 0
 let g:gitgutter_realtime = 0
 "}}}
@@ -466,6 +504,8 @@ let g:NERDCustomDelimiters = {
 " Use neocomplete
 let g:loaded_neocomplete = 1
 let g:neocomplete#enable_at_startup = 0
+let g:neocomplete#enable_debug =0
+
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
@@ -515,7 +555,6 @@ let g:lua_complete_dynamic=0
 "
 " python codes check
 let g:pymode_lint=1
-let g:pymode_lint_ignore="W402"
 let g:pymode_lint_checker="pyflakes,pep8,mccabe"
 let g:pymode_lint_write=1
 let g:pymode_lint_onfly=0
@@ -524,7 +563,7 @@ let g:pymode_lint_signs=1
 let g:pymode_virtualenv=0
 let g:pymode_folding=0
 
-let g:pymode_lint_ignore="W,E702,E501,E503,E303"
+let g:pymode_lint_ignore="W,E702,E501,E503,E303,E265"
 let g:pymode_rope_goto_def_newwin='vnew'
 
 " pymode utils
@@ -575,7 +614,7 @@ set pastetoggle=<F9>
 " 2}}}
 
 vnoremap <silent> <Enter> :EasyAlign<cr>
-nnoremap gm m
+"nnoremap gm m
 
 
 "too slow
@@ -865,6 +904,8 @@ autocmd Filetype java,c,cpp
 "autocmd FileType java,javascript,html,css map  ;; i<C-R>=My_appendSemicolon(2,2)<CR><esc>
 "autocmd FileType java,javascript,html,css imap  ;; <C-R>=My_appendSemicolon(2,0)<CR><esc>a
 autocmd FileType markdown map <Leader>md <ESC>:MDP<CR>
+autocmd Filetype cfg set commentstring=#%s
+
 
 "autocmd BufEnter * call DoWordComplete() 
 "
@@ -899,6 +940,16 @@ ca W w !sudo tee % > /dev/null
 
 "au BufReadPost *.py call neocomplete#init#disable()
 
-au BufRead /tmp/mutt-* set tw=72
+autocmd BufWritePre,FileWritePre *   ks|call LastMod()|'s
+fun LastMod()
+  if line("$") > 20
+    let l = 20
+  else
+    let l = line("$")
+  endif
+  exe "1," . l . "g/Last modified: /s/Last modified: .*/Last modified: " .
+  \ strftime("%Y %b %d")
+endfun
 
+au BufRead /tmp/mutt-* set tw=72
 

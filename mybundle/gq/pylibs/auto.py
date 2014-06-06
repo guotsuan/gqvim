@@ -18,6 +18,7 @@ class Gq_Options():
     ignore = ''
     line_range = ''
     indent_size = 4
+    experimental=0
     verbose = 0
 
 
