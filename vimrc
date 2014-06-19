@@ -329,6 +329,11 @@ endfunction " }
 
 "  Plugins Settings   "  {{{ 
 "
+
+"bash-support {{{2
+let g:BASH_InsertFileHeader='no'
+"2}}}
+
 " vim-notes {{{2
 let g:notes_directories = ['~/Dropbox/notes']
 "2}}}
