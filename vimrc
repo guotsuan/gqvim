@@ -12,7 +12,7 @@ filetype off
 
 set rtp+=~/.vim/bundle/vundle
 set rtp+=~/.vim/bundle/vim-pathogen
-call vundle#rc()
+call vundle#begin()
 
 set autochdir
 set iskeyword+=_,$,@,%,#  " none of these are word dividers
@@ -24,88 +24,91 @@ execute pathogen#infect('mybundle/{}')
 "
 "  }}}
 
-" {{{ Bundle Lists
+" {{{ Plugin Lists
 
-Bundle 'kshenoy/vim-signature'
-Bundle 'tpope/vim-dispatch'
-Bundle 'gmarik/vundle'
-Bundle 'tomasr/molokai'
-Bundle 'Indent-Guides'
-Bundle 'TeX-9'
-Bundle 'earendel'
-Bundle 'L9'
-Bundle 'delimitMate.vim'
-" second
-Bundle 'airblade/vim-gitgutter'
-Bundle 'FuzzyFinder'
-Bundle 'tpope/vim-surround'
-Bundle 'CmdlineComplete'
-" second
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'hsitz/VimOrganizer'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'majutsushi/tagbar'
-Bundle 'bling/vim-airline'
-Bundle 'matchit.zip'
-"Bundle 'fisadev/fisa-vim-colorscheme'
-Bundle 'fisadev/FixedTaskList.vim'
-Bundle 'kien/tabman.vim'
-Bundle 'mtth/locate.vim'
-Bundle 'klen/python-mode'
-" second
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-endwise'
-Bundle 'xolox/vim-notes'
-Bundle 'Conque-Shell'
-Bundle 'Decho'
-Bundle 'xolox/vim-misc'
-Bundle 'xolox/vim-reload'
-Bundle 'xolox/vim-shell'
-" second hihhi
-Bundle 'terryma/vim-multiple-cursors'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'mileszs/ack.vim'
-Bundle 'SirVer/ultisnips'
-Bundle 'Shougo/vimproc'
-Bundle 'Shougo/neocomplete.vim'
-Bundle 'Shougo/neosnippet'
-Bundle 'Shougo/unite.vim'
+Plugin 'kshenoy/vim-signature'
+Plugin 'tpope/vim-dispatch'
+Plugin 'gmarik/vundle'
+Plugin 'tomasr/molokai'
+Plugin 'Indent-Guides'
+Plugin 'TeX-9'
+Plugin 'earendel'
+Plugin 'L9'
+Plugin 'delimitMate.vim'
 
-" second hihii
-Bundle 'AndrewRadev/splitjoin.vim'
-Bundle 'Shougo/vimshell'
-Bundle 'VOoM'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'tpope/vim-scriptease'
-Bundle 'tpope/vim-pathogen'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-commentary'
-Bundle 'svermeulen/vim-easyclip'
-Bundle 'davidhalter/jedi-vim'
-Bundle 'now/vim-quit-if-only-quickfix-buffer-left'
-"Bundle 'vim-scripts/Wombat'
-Bundle 'bash-support.vim'
-Bundle 'junegunn/vim-easy-align'
-Bundle 'mbbill/undotree'
-Bundle 'kien/ctrlp.vim'
-Bundle 'plasticboy/vim-markdown'
-Bundle 'mkitt/markdown-preview.vim'
-Bundle 'petRUShka/vim-opencl'
-Bundle 'xolox/vim-lua-ftplugin'
-Bundle 'godlygeek/tabular'
-Bundle 'Zenburn'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'FuzzyFinder'
+Plugin 'tpope/vim-surround'
+Plugin 'CmdlineComplete'
 
-"disable 
-"Bundle 'Vim-JDE'
-Bundle 'Lokaltog/powerline'
-"Bundle 'Shougo/neocomplcache'
-"Bundle 'Yggdroot/indentLine'
-"Bundle 'honza/vim-snippets' 
- Bundle 'Shougo/neosnippet-snippets'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'hsitz/VimOrganizer'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'majutsushi/tagbar'
+Plugin 'bling/vim-airline'
+Plugin 'matchit.zip'
+
+"Plugin 'fisadev/fisa-vim-colorscheme'
+"
+Plugin 'fisadev/FixedTaskList.vim'
+Plugin 'kien/tabman.vim'
+Plugin 'mtth/locate.vim'
+Plugin 'klen/python-mode'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-endwise'
+Plugin 'xolox/vim-notes'
+Plugin 'Conque-Shell'
+Plugin 'Decho'
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-reload'
+Plugin 'xolox/vim-shell'
+
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'mileszs/ack.vim'
+Plugin 'SirVer/ultisnips'
+Plugin 'Shougo/vimproc'
+Plugin 'Shougo/neocomplete.vim'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/unite.vim'
+
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'Shougo/vimshell'
+Plugin 'VOoM'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-scriptease'
+Plugin 'tpope/vim-pathogen'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-commentary'
+Plugin 'svermeulen/vim-easyclip'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'now/vim-quit-if-only-quickfix-buffer-left'
+
+"Plugin 'vim-scripts/Wombat'
+Plugin 'bash-support.vim'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'mbbill/undotree'
+Plugin 'kien/ctrlp.vim'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'mkitt/markdown-preview.vim'
+Plugin 'petRUShka/vim-opencl'
+Plugin 'xolox/vim-lua-ftplugin'
+Plugin 'godlygeek/tabular'
+Plugin 'Zenburn'
+
+"disabled
+"Plugin 'Vim-JDE'
+Plugin 'Lokaltog/powerline'
+"Plugin 'Shougo/neocomplcache'
+"Plugin 'Yggdroot/indentLine'
+"Plugin 'honza/vim-snippets' 
+Plugin 'Shougo/neosnippet-snippets'
 
 "cause duplicate
-"Bundle 'scrooloose/syntastic'
-Bundle 'vimwiki/vimwiki'
+"Plugin 'scrooloose/syntastic'
+Plugin 'vimwiki/vimwiki'
+
+call vundle#end()
 
 ""}}}
 
@@ -410,6 +413,7 @@ let g:airline_paste_symbol = 'Þ'
 let g:airline_whitespace_symbol = 'Ξ'
 let g:airline_detect_iminsert = 1
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts=1
 
 "}}}
 "
