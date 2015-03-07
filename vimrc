@@ -47,6 +47,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'majutsushi/tagbar'
 Plugin 'bling/vim-airline'
 Plugin 'matchit.zip'
+Plugin 'rking/ag.vim'
 
 "Plugin 'fisadev/fisa-vim-colorscheme'
 "
@@ -107,6 +108,7 @@ Plugin 'Shougo/neosnippet-snippets'
 "cause duplicate
 "Plugin 'scrooloose/syntastic'
 Plugin 'vimwiki/vimwiki'
+Plugin 'FelikZ/ctrlp-py-matcher'
 
 call vundle#end()
 
@@ -121,7 +123,7 @@ let g:loaded_airline = 0
 set ignorecase
 filetype plugin indent on
 syntax on
-set clipboard=unnamed    "share clipboard with system"
+set clipboard=unnamedplus    "share clipboard with system"
 set wildmenu "turn on command line completion wild style"
 
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,
@@ -142,6 +144,19 @@ set tw=0
 " backspace
 set backspace=indent,eol,start
 set updatetime=500
+
+"copy
+vmap <F7> "+ygv"zy`>
+"paste (Shift-F7 to paste after normal cursor, Ctrl-F7 to paste over visual selection)
+nmap <F7> "zgP
+nmap <S-F7> "zgp
+imap <F7> <C-r><C-o>z
+vmap <C-F7> "zp`]
+cmap <F7> <C-r><C-o>z
+"copy register
+
+autocmd FocusGained * let @z=@+
+
 
 "
 " }}}
@@ -189,7 +204,8 @@ if has("gui_running")
     "set guifontwide=Microsoft\ Yahei\ 9
     if !has("mac")
         ""set guifont=Consolas\ 12
-        set guifont=Monaco\ 11
+        set guifont=Monaco\ for\ Powerline\ 12
+        "set guifont=Monaco\ 11
         set guifontwide=Microsoft\ Yahei\ 9
     endif
 endif
@@ -396,8 +412,13 @@ let g:locate_mappings = 1
 "  2}}}
 
 "vim airline {{{
-let g:airline_enable_branch=1
-let g:airline_enable_tagbar=1
+"
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline#extensions#branch#displayed_head_limit = 10
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#tagbar#enabled = 1
 let g:airline_detect_modified=1
 let g:airline_detect_iminsert=1
 let g:airline_theme='dark'
@@ -406,11 +427,11 @@ let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 "let g:airline_left_sep = ''
 "let g:airline_right_sep = '«'
 "let g:airline_linecolumn_prefix = '␤ '
-let g:airline_linecolumn_prefix = '¶'
-let g:airline_branch_prefix = '⎇ '
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇ '
 "let g:airline_paste_symbol = 'ρ'
-let g:airline_paste_symbol = 'Þ'
-let g:airline_whitespace_symbol = 'Ξ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.whitespace = 'Ξ'
 let g:airline_detect_iminsert = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts=1
@@ -478,7 +499,7 @@ let g:gitgutter_realtime = 0
 "
 let g:tex_flavor = "latex"     
 let g:tex_nine_config = {
-     \ 'compiler': 'pdflatex --enable-write18 ',
+     \ 'compiler': 'pdflatex',
       \  'viewer': {'app':'evince', 'target':'pdf'},
       \ 'verbose': 1,
       \ 'synctex': 0
@@ -565,14 +586,14 @@ let g:lua_complete_dynamic=0
 " python codes check
 let g:pymode_lint=1
 let g:pymode_lint_checker="pyflakes,pep8,mccabe"
-let g:pymode_lint_write=1
+let g:pymode_lint_write=0
 let g:pymode_lint_onfly=0
-let g:pymode_lint_hold=0
+let g:pymode_lint_hold=1
 let g:pymode_lint_signs=1
 let g:pymode_virtualenv=0
 let g:pymode_folding=0
 
-let g:pymode_lint_ignore="W,E702,E501,E503,E303,E265"
+let g:pymode_lint_ignore="W,E702,E501,E503,E303,E265,E302,E2,E1"
 let g:pymode_rope_goto_def_newwin='vnew'
 
 " pymode utils
@@ -814,6 +835,7 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=lightgrey ctermbg=4
 "
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPMixed'
+let g:ctrlp_match_func = {'match': 'pymatcher#PyMatch'}
 
 "2}}}
 
