@@ -71,6 +71,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'Shougo/vimproc'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neco-vim'
 Plugin 'Shougo/unite.vim'
 
 Plugin 'AndrewRadev/splitjoin.vim'
@@ -102,7 +103,7 @@ Plugin 'Zenburn'
 Plugin 'Lokaltog/powerline'
 "Plugin 'Shougo/neocomplcache'
 "Plugin 'Yggdroot/indentLine'
-"Plugin 'honza/vim-snippets' 
+Plugin 'honza/vim-snippets' 
 Plugin 'Shougo/neosnippet-snippets'
 
 "cause duplicate
@@ -440,7 +441,7 @@ let g:airline_powerline_fonts=1
 "
 "YCM plugin    "{{{
 "let g:ycm_add_preview_to_completeopt=1
-"let g:ycm_filetype_whitelist={'python': 1}
+let g:ycm_filetype_whitelist={'python': 1, 'go':1, 'cpp': 1, 'c':1}
 "let g:loaded_youcompleteme=0
 nnoremap <leader>jd :YcmCompleter GoTo<CR>'
 "}}}
@@ -451,6 +452,7 @@ nnoremap <leader>jd :YcmCompleter GoTo<CR>'
     let g:UltiSnipsExpandTrigger="<c-k>"
     let g:UltiSnipsJumpForwardTrigger="<c-k>"
     let g:UltiSnipsJumpBackwardTrigger="<c-j>"
+    let g:UltiSnipsEnableSnipMate=1
 "endif
 
 "}}}
@@ -532,14 +534,15 @@ let g:NERDCustomDelimiters = {
 " Disable AutoComplPop.
 "let g:acp_enableAtStartup = 0
 " Use neocomplete
-let g:loaded_neocomplete = 1
-let g:neocomplete#enable_at_startup = 0
+
+"let g:loaded_neocomplete = 1
+let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_debug =0
 
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
 " Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#sources#syntax#min_keyword_length = 2
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 " enable fuzzy completion
 let g:neocomplete#enable_fuzzy_completion = 1
@@ -694,6 +697,9 @@ nnoremap )i i)<ESC>
 nnoremap <Leader>{  :call gqutils#addcomment(nr2char(getchar()), 1)<CR>
 nnoremap <Leader>}  :call gqutils#addcomment(nr2char(getchar()), 0)<CR>
 
+
+imap <buffer> <C-k>k     <Plug>(neosnippet_expand_or_jump)
+smap <buffer> <C-k>k     <Plug>(neosnippet_expand_or_jump)
 
 function! Neo_enable() " {{{2
     "old for netcompletcache
