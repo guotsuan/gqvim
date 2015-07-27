@@ -1,6 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
+let g:netrw_dirhist_cnt =5
 let g:netrw_dirhist_1='/home/dccf87/Downloads'
 let g:netrw_dirhist_2='/home/dccf87/Dropbox'
 let g:netrw_dirhist_3='/home/dccf87/projs/sph_comp/outputs/eagle/st_eagle'
 let g:netrw_dirhist_4='/var/log'
+let g:netrw_dirhist_5='/home/dccf87/.emacs.d/el-get/yasnippet/yasmate'

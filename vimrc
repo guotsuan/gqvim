@@ -1,11 +1,46 @@
 "  {{{  Basic
 "  
 set nocompatible
+
+" NeoBudle Settings {{{1 "
+
+set runtimepath+=/home/dccf87/.vim/bundle/neobundle.vim/
+
+
+call neobundle#begin(expand('/home/dccf87/.vim/ne'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" Add or remove your Bundles here:
+NeoBundle 'Shougo/vimproc.vim', {
+            \ 'build' : {
+            \     'windows' : 'tools\\update-dll-mingw',
+            \     'cygwin' : 'make -f make_cygwin.mak',
+            \     'mac' : 'make -f make_mac.mak',
+            \     'linux' : 'make',
+            \     'unix' : 'gmake',
+            \    },
+            \ }
+
+NeoBundle 'Valloric/YouCompleteMe', {
+        \ 'build' : {
+        \   'linux' : './install.sh --clang-completer --system-libclang'
+        \   },
+        \ }
+
+
+NeoBundle 'tpope/vim-obsession'
+NeoBundle 'aperezdc/vim-template'
+
+
+call neobundle#end() 
+
+" 1}}} NeoBudle Settings "
+
+
 filetype off
 
-" call pathogen#infect() 
-" old pathogen system, decrypted, switch to vundle system
-"
+"NeoBundleCheck
+
 " }}}
 
 " {{{ vundle plugin 
@@ -65,12 +100,15 @@ Plugin 'xolox/vim-reload'
 Plugin 'xolox/vim-shell'
 
 Plugin 'terryma/vim-multiple-cursors'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'mileszs/ack.vim'
 Plugin 'SirVer/ultisnips'
-Plugin 'Shougo/vimproc'
+
+" managed by NeoBudle
+"Plugin 'Shougo/vimproc'
+"Plugin 'Valloric/YouCompleteMe'
+"
 Plugin 'Shougo/neocomplete.vim'
-Plugin 'Shougo/neosnippet'
+"Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neco-vim'
 Plugin 'Shougo/unite.vim'
 
@@ -124,7 +162,7 @@ let g:loaded_airline = 0
 set ignorecase
 filetype plugin indent on
 syntax on
-set clipboard=unnamedplus    "share clipboard with system"
+"set clipboard=unnamedplus    "share clipboard with system"
 set wildmenu "turn on command line completion wild style"
 
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,
@@ -205,7 +243,8 @@ if has("gui_running")
     "set guifontwide=Microsoft\ Yahei\ 9
     if !has("mac")
         ""set guifont=Consolas\ 12
-        set guifont=Monaco\ for\ Powerline\ 12
+        "set guifont=Monaco\ for\ Powerline\ 12
+        set guifont=CPMono_v07\ Light\ 12
         "set guifont=Monaco\ 11
         set guifontwide=Microsoft\ Yahei\ 9
     endif
@@ -349,6 +388,9 @@ endfunction " }
 
 "  Plugins Settings   "  {{{ 
 "
+" vim-template {{{ "
+let g:templates_directory = '/home/dccf87/.vim/mybundle/templates'
+" }}} vim-template "
 
 "bash-support {{{2
 let g:BASH_InsertFileHeader='no'
@@ -448,12 +490,19 @@ nnoremap <leader>jd :YcmCompleter GoTo<CR>'
 
 "Ultisnips  "{{{
 
-"if exists("g:loaded_neocomplete")
-    let g:UltiSnipsExpandTrigger="<c-k>"
-    let g:UltiSnipsJumpForwardTrigger="<c-k>"
-    let g:UltiSnipsJumpBackwardTrigger="<c-j>"
-    let g:UltiSnipsEnableSnipMate=1
-"endif
+
+"imap <expr> <C-k>   neosnippet#expandable_or_jumpable()? 
+ "\ "\<Plug>(neosnippet_expand_or_jump)"
+ "\: "\<C-R>=UltiSnips#ExpandSnippetOrJump()<cr>"
+
+"smap <expr> <C-k>   neosnippet#expandable_or_jumpable()? 
+ "\ "\<Plug>(neosnippet_expand_or_jump)"
+ "\: "<Esc>:call UltiSnips#ExpandSnippet()<cr>"
+
+let g:UltiSnipsExpandTrigger="<c-k>"
+let g:UltiSnipsJumpForwardTrigger="<c-k>"
+let g:UltiSnipsJumpBackwardTrigger="<c-j>"
+let g:UltiSnipsEnableSnipMate=1
 
 "}}}
 
@@ -698,8 +747,6 @@ nnoremap <Leader>{  :call gqutils#addcomment(nr2char(getchar()), 1)<CR>
 nnoremap <Leader>}  :call gqutils#addcomment(nr2char(getchar()), 0)<CR>
 
 
-imap <buffer> <C-k>k     <Plug>(neosnippet_expand_or_jump)
-smap <buffer> <C-k>k     <Plug>(neosnippet_expand_or_jump)
 
 function! Neo_enable() " {{{2
     "old for netcompletcache
@@ -860,43 +907,43 @@ au BufRead,Bufnew *.java,*.c,*.cpp
 "==================================
 
  "let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/nxt,.'} |
- let g:neocomplcache_include_patterns={'java':'^\s*import'}
+ let g:neocompele_include_patterns={'java':'^\s*import'}
  
-au BufRead,BufNew */lejos/*.java
-    \ let b:classpath="/home/dccf87/usr/lejos_nxj/lib" |
-    \ let g:vjde_lib_path="/home/dccf87/usr/lejos_nxj/lib/nxt/classes.jar" |
-    \ set makeprg=nxjc\ % |
-    \ let g:vjde_javadoc_path="/home/dccf87/usr/lejos_nxj/docs/nxt/"   |
-    \ cmap up !nxj -b %:r |
-    \ setlocal path+=/home/dccf87/usr/lejos_nxj/lib/nxt |
-    \ set tags=./tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
-    \ let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/nxt,.'} 
+"au BufRead,BufNew */lejos/*.java
+    "\ let b:classpath="/home/dccf87/usr/lejos_nxj/lib" |
+    "\ let g:vjde_lib_path="/home/dccf87/usr/lejos_nxj/lib/nxt/classes.jar" |
+    "\ set makeprg=nxjc\ % |
+    "\ let g:vjde_javadoc_path="/home/dccf87/usr/lejos_nxj/docs/nxt/"   |
+    "\ cmap up !nxj -b %:r |
+    "\ setlocal path+=/home/dccf87/usr/lejos_nxj/lib/nxt |
+    "\ set tags=./tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
+    "\ let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/nxt,.'} 
 
         "g:vjde_doc_gui_height   height of the window
         "g:vjde_doc_gui_width   width of the window
         "g:vjde_doc_delay       once a item selected ,delay how long.
 
-au BufEnter,BufWrite *.java 
-    \ if getline(1) =~ "lejos" |
-        \ let b:classpath="/home/dccf87/usr/lejos_nxj/lib" |
-        \ let g:vjde_lib_path="/home/dccf87/usr/lejos_nxj/lib/nxt/classes.jar" |
-        \ set makeprg=nxjc\ % |
-        \ let g:vjde_javadoc_path="/home/dccf87/usr/lejos_nxj/docs/nxt" |
-        \ cmap up !nxj -b %:r |
-        \ setlocal path+=/home/dccf87/usr/lejos_nxj/lib/nxt |
-        \ set tags=./tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
-        \ let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/nxt,.'} |
-    \ endif
+"au BufEnter,BufWrite *.java 
+    "\ if getline(1) =~ "lejos" |
+        "\ let b:classpath="/home/dccf87/usr/lejos_nxj/lib" |
+        "\ let g:vjde_lib_path="/home/dccf87/usr/lejos_nxj/lib/nxt/classes.jar" |
+        "\ set makeprg=nxjc\ % |
+        "\ let g:vjde_javadoc_path="/home/dccf87/usr/lejos_nxj/docs/nxt" |
+        "\ cmap up !nxj -b %:r |
+        "\ setlocal path+=/home/dccf87/usr/lejos_nxj/lib/nxt |
+        "\ set tags=./tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
+        "\ let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/nxt,.'} |
+    "\ endif
 
-au BufEnter,BufWrite *.java 
-    \ if getline(1) =~ "pc lejos" |
-        \ let g:vjde_lib_path="/home/dccf87/usr/lejos_nxj/lib/pc/pccomm.jar" |
-        \ set makeprg=nxjpcc\ % |
-        \ let g:vjde_javadoc_path="/home/dccf87/usr/lejos_nxj/docs/pc" |
-        \ setlocal path+=/home/dccf87/usr/lejos_nxj/lib/pc |
-        \ cmap up !nxjpc %:r |
-        \ let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/pc,.'} |
-    \ endif
+"au BufEnter,BufWrite *.java 
+    "\ if getline(1) =~ "pc lejos" |
+        "\ let g:vjde_lib_path="/home/dccf87/usr/lejos_nxj/lib/pc/pccomm.jar" |
+        "\ set makeprg=nxjpcc\ % |
+        "\ let g:vjde_javadoc_path="/home/dccf87/usr/lejos_nxj/docs/pc" |
+        "\ setlocal path+=/home/dccf87/usr/lejos_nxj/lib/pc |
+        "\ cmap up !nxjpc %:r |
+        "\ let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/pc,.'} |
+    "\ endif
 
     "\ set tags=~/tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
 "============================
@@ -942,6 +989,7 @@ autocmd Filetype java,c,cpp
 "autocmd FileType java,javascript,html,css imap  ;; <C-R>=My_appendSemicolon(2,0)<CR><esc>a
 autocmd FileType markdown map <Leader>md <ESC>:MDP<CR>
 autocmd Filetype cfg set commentstring=#%s
+autocmd FileType python set comments=b:#
 
 
 "autocmd BufEnter * call DoWordComplete() 

@@ -20,6 +20,8 @@ nnoremap <Leader>cl :GqFixline<CR>
 nnoremap <Leader><Space> :GqFixline<CR>
 setlocal rnu
 
+setlocal comments=b:#
+
 python << EOF
 import sys, vim, os
 

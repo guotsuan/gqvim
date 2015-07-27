@@ -381,8 +381,8 @@ function s:SetUpForNewFiletype(filetype, forceReset)      "  {{{
     let b:sp = "=============================================================================="
     let b:myd=b:dem['left'].b:sp.b:dem['right']
 
-    inoremap  <expr> <Leader>d b:myd
-    nnoremap  <expr> <Leader>d "a".b:myd."\<ESC>"
+    "inoremap  <expr> <Leader>d b:myd
+    "nnoremap  <expr> <Leader>d "a".b:myd."\<ESC>"
 endfunction  "   }}}
 
 
