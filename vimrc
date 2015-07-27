@@ -4,7 +4,7 @@ set nocompatible
 
 " NeoBudle Settings {{{1 "
 
-set runtimepath+=/home/dccf87/.vim/bundle/neobundle.vim/
+set runtimepath+=/home/dccf87/.vim/ne/neobundle.vim/
 
 
 call neobundle#begin(expand('/home/dccf87/.vim/ne'))
@@ -39,7 +39,7 @@ call neobundle#end()
 
 filetype off
 
-"NeoBundleCheck
+NeoBundleCheck
 
 " }}}
 
@@ -389,7 +389,7 @@ endfunction " }
 "  Plugins Settings   "  {{{ 
 "
 " vim-template {{{ "
-let g:templates_directory = '/home/dccf87/.vim/mybundle/templates'
+let g:templates_directory = '/home/dccf86/.vim/mybundle/templates'
 " }}} vim-template "
 
 "bash-support {{{2
