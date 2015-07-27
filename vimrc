@@ -389,7 +389,7 @@ endfunction " }
 "  Plugins Settings   "  {{{ 
 "
 " vim-template {{{ "
-let g:templates_directory = '/home/dccf86/.vim/mybundle/templates'
+let g:templates_directory = '/home/dccf87/.vim/mybundle/templates'
 " }}} vim-template "
 
 "bash-support {{{2
@@ -909,44 +909,6 @@ au BufRead,Bufnew *.java,*.c,*.cpp
  "let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/nxt,.'} |
  let g:neocompele_include_patterns={'java':'^\s*import'}
  
-"au BufRead,BufNew */lejos/*.java
-    "\ let b:classpath="/home/dccf87/usr/lejos_nxj/lib" |
-    "\ let g:vjde_lib_path="/home/dccf87/usr/lejos_nxj/lib/nxt/classes.jar" |
-    "\ set makeprg=nxjc\ % |
-    "\ let g:vjde_javadoc_path="/home/dccf87/usr/lejos_nxj/docs/nxt/"   |
-    "\ cmap up !nxj -b %:r |
-    "\ setlocal path+=/home/dccf87/usr/lejos_nxj/lib/nxt |
-    "\ set tags=./tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
-    "\ let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/nxt,.'} 
-
-        "g:vjde_doc_gui_height   height of the window
-        "g:vjde_doc_gui_width   width of the window
-        "g:vjde_doc_delay       once a item selected ,delay how long.
-
-"au BufEnter,BufWrite *.java 
-    "\ if getline(1) =~ "lejos" |
-        "\ let b:classpath="/home/dccf87/usr/lejos_nxj/lib" |
-        "\ let g:vjde_lib_path="/home/dccf87/usr/lejos_nxj/lib/nxt/classes.jar" |
-        "\ set makeprg=nxjc\ % |
-        "\ let g:vjde_javadoc_path="/home/dccf87/usr/lejos_nxj/docs/nxt" |
-        "\ cmap up !nxj -b %:r |
-        "\ setlocal path+=/home/dccf87/usr/lejos_nxj/lib/nxt |
-        "\ set tags=./tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
-        "\ let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/nxt,.'} |
-    "\ endif
-
-"au BufEnter,BufWrite *.java 
-    "\ if getline(1) =~ "pc lejos" |
-        "\ let g:vjde_lib_path="/home/dccf87/usr/lejos_nxj/lib/pc/pccomm.jar" |
-        "\ set makeprg=nxjpcc\ % |
-        "\ let g:vjde_javadoc_path="/home/dccf87/usr/lejos_nxj/docs/pc" |
-        "\ setlocal path+=/home/dccf87/usr/lejos_nxj/lib/pc |
-        "\ cmap up !nxjpc %:r |
-        "\ let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/pc,.'} |
-    "\ endif
-
-    "\ set tags=~/tags,/home/dccf87/usr/lejos_nxj/lib/nxt/tags |
-"============================
 "
 "au BufReadPost * if getline(1) =~ "mutt" | setf muttrc | endif
 
