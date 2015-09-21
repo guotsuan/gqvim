@@ -30,6 +30,13 @@ NeoBundle 'Valloric/YouCompleteMe', {
 
 NeoBundle 'tpope/vim-obsession'
 NeoBundle 'aperezdc/vim-template'
+NeoBundle 'bruno-/vim-husk'
+NeoBundle 'vimwiki/vimwiki', {'rev' : 'dev'}
+NeoBundle 'Shougo/vimshell.vim'
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'benmills/vimux'    
+
 
 
 call neobundle#end() 
@@ -49,7 +56,7 @@ set rtp+=~/.vim/bundle/vundle
 set rtp+=~/.vim/bundle/vim-pathogen
 call vundle#begin()
 
-set autochdir
+"set autochdir
 set iskeyword+=_,$,@,%,#  " none of these are word dividers
 
 " turn off the dict, it is too slow
@@ -146,7 +153,7 @@ Plugin 'Shougo/neosnippet-snippets'
 
 "cause duplicate
 "Plugin 'scrooloose/syntastic'
-Plugin 'vimwiki/vimwiki'
+"Plugin 'vimwiki/vimwiki'
 Plugin 'FelikZ/ctrlp-py-matcher'
 
 call vundle#end()
@@ -162,7 +169,7 @@ let g:loaded_airline = 0
 set ignorecase
 filetype plugin indent on
 syntax on
-"set clipboard=unnamedplus    "share clipboard with system"
+set clipboard=unnamed   "share clipboard with system"
 set wildmenu "turn on command line completion wild style"
 
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,
@@ -243,10 +250,11 @@ if has("gui_running")
     "set guifontwide=Microsoft\ Yahei\ 9
     if !has("mac")
         ""set guifont=Consolas\ 12
-        "set guifont=Monaco\ for\ Powerline\ 12
-        set guifont=CPMono_v07\ Light\ 12
+        set guifont=Monaco\ for\ Powerline\ 11
+        "set guifont=CPMono_v07\ Light\ 12
         "set guifont=Monaco\ 11
-        set guifontwide=Microsoft\ Yahei\ 9
+        "set guifont=Monaco\ 11
+        set guifontwide=Microsoft\ Yahei\ 10
     endif
 endif
 
@@ -389,7 +397,7 @@ endfunction " }
 "  Plugins Settings   "  {{{ 
 "
 " vim-template {{{ "
-let g:templates_directory = '/home/dccf87/.vim/mybundle/templates'
+let g:templates_directory = ['/home/dccf87/.vim/mybundle/templates']
 " }}} vim-template "
 
 "bash-support {{{2
@@ -525,6 +533,7 @@ let g:easytags_include_members =1   "  2}}}
 imap <c-v> <plug>EasyClipInsertModePaste
 let g:EasyClipAutoFormat=0
 let g:EasyClipUsePasteToggleDefaults = 0
+let g:EasyClipShareYanks = 0
 
 nmap <Leader>ff <plug>EasyClipSwapPasteForward
 nmap <Leader>dd <plug>EasyClipSwapPasteBackwards
@@ -745,6 +754,7 @@ nnoremap )i i)<ESC>
 
 nnoremap <Leader>{  :call gqutils#addcomment(nr2char(getchar()), 1)<CR>
 nnoremap <Leader>}  :call gqutils#addcomment(nr2char(getchar()), 0)<CR>
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 
 
@@ -960,7 +970,8 @@ autocmd FileType python set comments=b:#
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif 
 "autocmd BufLeave * if pumvisible() == 0|pclose|endif
 
-"autocmd BufRead,BufNewFile *   if &ft != 'python'  | :call Neo_enable() | else | :call Neo_disable() |  endif 
+"autocmd FileType python,go,c,cpp NeoBundleSource 'Valloric/YouCompleteMe'
+
 
 " lua "{{{
 " =========================================
@@ -977,6 +988,7 @@ au Filetype lua
 "
 
 cmap tn tabnew
+cmap U Unite
 cmap vte Vtabedit
 cmap mru FufMruFile
 ca w!! w !sudo tee "%" >/dev/null
@@ -988,7 +1000,7 @@ ca W w !sudo tee % > /dev/null
 "au BufReadPost *.py call neocomplete#init#disable()
 
 autocmd BufWritePre,FileWritePre *   ks|call LastMod()|'s
-fun LastMod()
+fun! LastMod()
   if line("$") > 20
     let l = 20
   else
@@ -999,4 +1011,5 @@ fun LastMod()
 endfun
 
 au BufRead /tmp/mutt-* set tw=72
+
 
