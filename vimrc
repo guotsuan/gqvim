@@ -41,6 +41,7 @@ NeoBundle 'Shougo/unite-outline'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'shime/vim-livedown'
+NeoBundle 'guotsuan/my-custom.vim'
 if has('nvim')
     NeoBundle 'Shougo/deoplete.nvim'
 endif
@@ -61,7 +62,6 @@ NeoBundleCheck
 " {{{ vundle plugin 
 
 set rtp+=~/.vim/bundle/vundle
-set rtp+=~/.vim/bundle/vim-pathogen
 call vundle#begin()
 
 "set autochdir
@@ -70,8 +70,6 @@ set iskeyword+=_,$,@,%,#  " none of these are word dividers
 " turn off the dict, it is too slow
 " set dict+=/usr/share/dict/british
 
-execute pathogen#infect('mybundle/{}')
-"
 "  }}}
 
 " {{{ Plugin Lists
@@ -133,7 +131,6 @@ Plugin 'Shougo/vimshell'
 Plugin 'VOoM'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-scriptease'
-Plugin 'tpope/vim-pathogen'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
 Plugin 'svermeulen/vim-easyclip'
