@@ -23,7 +23,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 
 NeoBundle 'Valloric/YouCompleteMe', {
         \ 'build' : {
-        \   'linux' : './install.sh --clang-completer --system-libclang'
+        \   'linux' : './install.py --clang-completer --system-libclang'
         \   },
         \ }
 
@@ -36,6 +36,14 @@ NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'benmills/vimux'    
+NeoBundle 'Shougo/neco-syntax'
+NeoBundle 'Shougo/unite-outline'
+NeoBundle 'vim-airline/vim-airline'
+NeoBundle 'vim-airline/vim-airline-themes'
+NeoBundle 'shime/vim-livedown'
+if has('nvim')
+    NeoBundle 'Shougo/deoplete.nvim'
+endif
 
 
 
@@ -72,7 +80,7 @@ Plugin 'kshenoy/vim-signature'
 Plugin 'tpope/vim-dispatch'
 Plugin 'gmarik/vundle'
 Plugin 'tomasr/molokai'
-Plugin 'Indent-Guides'
+"Plugin 'Indent-Guides'
 Plugin 'TeX-9'
 Plugin 'earendel'
 Plugin 'L9'
@@ -87,7 +95,6 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'hsitz/VimOrganizer'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'majutsushi/tagbar'
-Plugin 'bling/vim-airline'
 Plugin 'matchit.zip'
 Plugin 'rking/ag.vim'
 
@@ -114,7 +121,9 @@ Plugin 'SirVer/ultisnips'
 "Plugin 'Shougo/vimproc'
 "Plugin 'Valloric/YouCompleteMe'
 "
-Plugin 'Shougo/neocomplete.vim'
+if has("lua") 
+    Plugin 'Shougo/neocomplete.vim'
+endif
 "Plugin 'Shougo/neosnippet'
 Plugin 'Shougo/neco-vim'
 Plugin 'Shougo/unite.vim'
@@ -136,11 +145,12 @@ Plugin 'bash-support.vim'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'mbbill/undotree'
 Plugin 'kien/ctrlp.vim'
+Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'mkitt/markdown-preview.vim'
+"Plugin 'mkitt/markdown-preview.vim'
+"Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'petRUShka/vim-opencl'
 Plugin 'xolox/vim-lua-ftplugin'
-Plugin 'godlygeek/tabular'
 Plugin 'Zenburn'
 
 "disabled
@@ -237,6 +247,7 @@ colorscheme zenburn
 "colorscheme molokai
 
 if has("gui_running")
+    set lines=999 columns=999
     "colorscheme wombat
     "colorscheme molokai
     colorscheme earendel
@@ -245,12 +256,16 @@ if has("gui_running")
     set cursorline 
     "set lines=60 
     "set columns=110
-    set guioptions-=T
+    set guioptions=agimt
     "set guifont=Monaco\ 11
     "set guifontwide=Microsoft\ Yahei\ 9
     if !has("mac")
         ""set guifont=Consolas\ 12
-        set guifont=Monaco\ for\ Powerline\ 11
+        "set guifont=Monaco\ for\ Powerline\ 11
+        "set guifont=Mensch\ for\ Powerline:h12
+        set guifont=Inconsolata\ for\ Powerline\ 13
+        "set guifont=Mensch\ 11
+        "set guifont=Mensch\ for\ Powerline\ 11
         "set guifont=CPMono_v07\ Light\ 12
         "set guifont=Monaco\ 11
         "set guifont=Monaco\ 11
@@ -396,6 +411,19 @@ endfunction " }
 
 "  Plugins Settings   "  {{{ 
 "
+
+if has("nvim")
+    let g:python3_host_prog = '/usr/bin/python'
+    let g:deoplete#enable_at_startup = 1
+    if !exists("g:deoplete#omni_patterns")
+        let g:deoplete#omni_patterns = {}
+    endif
+    let g:deoplete#omni_patterns.python = '[^. \t]\.\w*'
+
+endif
+
+let g:vim_markdown_folding_disabled = 1
+
 " vim-template {{{ "
 let g:templates_directory = ['/home/dccf87/.vim/mybundle/templates']
 " }}} vim-template "
@@ -472,7 +500,7 @@ let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#tagbar#enabled = 1
 let g:airline_detect_modified=1
 let g:airline_detect_iminsert=1
-let g:airline_theme='dark'
+let g:airline_theme='bubblegum'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 "let g:airline_left_sep = ''
@@ -566,7 +594,7 @@ let g:tex_nine_config = {
      \}
 "2}}}
 if has("gui_running")
-    let g:tex_nine_config.synctex = 0
+    let g:tex_nine_config.synctex = 1
 endif
 
 
@@ -596,6 +624,12 @@ let g:NERDCustomDelimiters = {
 "let g:loaded_neocomplete = 1
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_debug =0
+
+if !exists('g:neocomplete#sources')
+  let g:neocomplete#sources = {}
+endif
+
+let g:neocomplete#sources.lua = ['_']
 
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
@@ -630,15 +664,24 @@ endif
 let g:neocomplete#force_omni_input_patterns.lua = '[^. \t]\.\w*'
 let g:neocomplete#force_omni_input_patterns.tex = '\\ref{\|\\cite{\|\\citep{'
 
+if !exists('g:neocomplete#sources')
+    let g:neocomplete#sources = {}
+endif
+
+
 " Key bindings for neocomplcache
 
 
 " 2}}}
 
 "lua ftplugin.vim  "  {{{2
-let g:lua_define_completefunc = 0
+let g:lua_define_completefunc = 1
 let g:lua_complete_omni=0
 let g:lua_complete_dynamic=0
+let g:lua_check_globas = 1
+let g:lua_complete_globals = 1
+let g:lua_complete_library = 1
+let g:lua_define_omnifunc = 1
 "let g:lua_check_synatx=
 "  2}}} 
 "
@@ -668,7 +711,7 @@ let g:pymode_syntax_all=1
 "nnoremap <Leader>ch :PyLintAuto<CR>
 
 " pymode rope
-let g:pymode_rope=1
+let g:pymode_rope=0
 let g:pymode_rope_guess_project=1
 let g:pymode_rope_vim_completion=0
 
@@ -934,6 +977,7 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 "autocmd FileType xml setlocal omnifunc=xmlcomplete#completeTags
 autocmd FileType lua setlocal omnifunc=xolox#lua#completefunc
+"autocmd FileType lua setlocal com=xolox#lua#completefunc
 "autocmd FileType java setlocal omnifunc=javacomplete#Complete
 "autocmd FileType java setlocal omnifunc=eclim#java#complete#CodeComplete
 autocmd FileType java setlocal omnifunc=VjdeCompletionFun0
@@ -959,7 +1003,7 @@ autocmd Filetype java,c,cpp
 "autocmd FileType java,javascript,html,css map  ; i;<esc>
 "autocmd FileType java,javascript,html,css map  ;; i<C-R>=My_appendSemicolon(2,2)<CR><esc>
 "autocmd FileType java,javascript,html,css imap  ;; <C-R>=My_appendSemicolon(2,0)<CR><esc>a
-autocmd FileType markdown map <Leader>md <ESC>:MDP<CR>
+autocmd FileType markdown map <Leader>md <ESC>:LivedownPreview<CR>
 autocmd Filetype cfg set commentstring=#%s
 autocmd FileType python set comments=b:#
 
@@ -988,7 +1032,7 @@ au Filetype lua
 "
 
 cmap tn tabnew
-cmap U Unite
+"cmap U Unite
 cmap vte Vtabedit
 cmap mru FufMruFile
 ca w!! w !sudo tee "%" >/dev/null

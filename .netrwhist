@@ -1,8 +1,8 @@
 let g:netrw_dirhistmax  =10
 let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/home/dccf87/Downloads'
-let g:netrw_dirhist_2='/home/dccf87/Dropbox'
-let g:netrw_dirhist_3='/home/dccf87/projs/sph_comp/outputs/eagle/st_eagle'
-let g:netrw_dirhist_4='/var/log'
-let g:netrw_dirhist_5='/home/dccf87/.emacs.d/el-get/yasnippet/yasmate'
-let g:netrw_dirhist_6='/home/dccf87/.oh-my-zsh/themes'
+let g:netrw_dirhist_1='/srv/http/runalyze/inc/install'
+let g:netrw_dirhist_2='/home/dccf87/.config/awesome'
+let g:netrw_dirhist_3='/home/dccf87/bin'
+let g:netrw_dirhist_4='/home/dccf87'
+let g:netrw_dirhist_5='/home/dccf87/.config/awesome/treesome/.git'
+let g:netrw_dirhist_6='/home/dccf87/Dropbox/Germany/banc_splip'
