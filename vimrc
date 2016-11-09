@@ -4,10 +4,10 @@ set nocompatible
 
 " NeoBudle Settings {{{1 "
 
-set runtimepath+=/home/dccf87/.vim/ne/neobundle.vim/
+set runtimepath+=$HOME/.vim/ne/neobundle.vim/
 
 
-call neobundle#begin(expand('/home/dccf87/.vim/ne'))
+call neobundle#begin(expand('$HOME/.vim/ne'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Add or remove your Bundles here:
@@ -422,7 +422,7 @@ endif
 let g:vim_markdown_folding_disabled = 1
 
 " vim-template {{{ "
-let g:templates_directory = ['/home/dccf87/.vim/mybundle/templates']
+let g:templates_directory = ['$HOME/.vim/mybundle/templates']
 " }}} vim-template "
 
 "bash-support {{{2
