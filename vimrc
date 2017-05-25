@@ -244,7 +244,7 @@ colorscheme zenburn
 "colorscheme molokai
 
 if has("gui_running")
-    set lines=999 columns=999
+    set lines=300 columns=140
     "colorscheme wombat
     "colorscheme molokai
     colorscheme earendel
@@ -267,7 +267,10 @@ if has("gui_running")
         "set guifont=Monaco\ 11
         "set guifont=Monaco\ 11
         set guifontwide=Microsoft\ Yahei\ 10
+    else
+        set guifont=Menlo\ Regular:h14
     endif
+
 endif
 
 set laststatus=2
@@ -503,14 +506,24 @@ let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 "let g:airline_left_sep = ''
 "let g:airline_right_sep = '«'
 "let g:airline_linecolumn_prefix = '␤ '
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇ '
-"let g:airline_paste_symbol = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.whitespace = 'Ξ'
+if has("mac")
+    "let g:airline_symbols.linenr = '¶'
+    "let g:airline_symbols.branch = '⎇ '
+    ""let g:airline_paste_symbol = 'ρ'
+    "let g:airline_symbols.paste = 'Þ'
+    "let g:airline_symbols.whitespace = 'Ξ'
+    let g:airline_powerline_fonts=0
+else
+    "let g:airline_symbols.linenr = '¶'
+    "let g:airline_symbols.branch = '⎇ '
+    ""let g:airline_paste_symbol = 'ρ'
+    "let g:airline_symbols.paste = 'Þ'
+    "let g:airline_symbols.whitespace = 'Ξ'
+    let g:airline_powerline_fonts=1
+endif
+
 let g:airline_detect_iminsert = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts=1
 
 "}}}
 "
