@@ -21,12 +21,12 @@ NeoBundle 'Shougo/vimproc.vim', {
             \    },
             \ }
 
-NeoBundle 'Valloric/YouCompleteMe', {
-        \ 'build' :  {
-        \   'linux' : './install.py --clang-completer --system-libclang',
-        \   'mac' : './install.py --clang-completer',
-        \      },
-        \ }
+"NeoBundle 'Valloric/YouCompleteMe', {
+        "\ 'build' :  {
+        "\   'linux' : './install.py --clang-completer --system-libclang',
+        "\   'mac' : './install.py --clang-completer',
+        "\      },
+        "\ }
 
 
 NeoBundle 'tpope/vim-obsession'
@@ -118,7 +118,7 @@ Plugin 'SirVer/ultisnips'
 
 " managed by NeoBudle
 "Plugin 'Shougo/vimproc'
-"Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/YouCompleteMe'
 "
 if has("lua") 
     Plugin 'Shougo/neocomplete.vim'
