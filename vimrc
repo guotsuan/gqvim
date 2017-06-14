@@ -22,9 +22,10 @@ NeoBundle 'Shougo/vimproc.vim', {
             \ }
 
 NeoBundle 'Valloric/YouCompleteMe', {
-        \ 'build' : {
-        \   'linux' : './install.py --clang-completer --system-libclang'
-        \   },
+        \ 'build' :  {
+        \   'linux' : './install.py --clang-completer --system-libclang',
+        \   'mac' : './install.py --clang-completer',
+        \      },
         \ }
 
 
