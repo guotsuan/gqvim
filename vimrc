@@ -520,7 +520,7 @@ else
     ""let g:airline_paste_symbol = 'ρ'
     "let g:airline_symbols.paste = 'Þ'
     "let g:airline_symbols.whitespace = 'Ξ'
-    let g:airline_powerline_fonts=1
+    let g:airline_powerline_fonts=0
 endif
 
 let g:airline_detect_iminsert = 1
