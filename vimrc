@@ -42,7 +42,7 @@ NeoBundle 'Shougo/unite-outline'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'shime/vim-livedown'
-NeoBundle 'guotsuan/my-custom.vim'
+
 if has('nvim')
     NeoBundle 'Shougo/deoplete.nvim'
 endif
@@ -115,6 +115,8 @@ Plugin 'xolox/vim-shell'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'mileszs/ack.vim'
 Plugin 'SirVer/ultisnips'
+Plugin 'guotsuan/my-custom.vim'
+
 
 " managed by NeoBudle
 "Plugin 'Shougo/vimproc'
