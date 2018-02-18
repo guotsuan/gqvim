@@ -243,6 +243,9 @@ set fileformats=unix,dos
 let &t_Co=256
 colorscheme zenburn
 "colorscheme molokai
+"
+let os=substitute(system('uname'), '\n', '', '')
+
 
 if has("gui_running")
     set lines=300 columns=140
@@ -257,7 +260,7 @@ if has("gui_running")
     set guioptions=agimt
     "set guifont=Monaco\ 11
     "set guifontwide=Microsoft\ Yahei\ 9
-    if !has("mac")
+    if os == 'Darwin' || os == 'Mac'
         ""set guifont=Consolas\ 12
         "set guifont=Monaco\ for\ Powerline\ 11
         "set guifont=Mensch\ for\ Powerline:h12
@@ -507,7 +510,7 @@ let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 "let g:airline_left_sep = ''
 "let g:airline_right_sep = '«'
 "let g:airline_linecolumn_prefix = '␤ '
-if has("mac")
+if os == 'Darmin' || os == 'Mac'
     "let g:airline_symbols.linenr = '¶'
     "let g:airline_symbols.branch = '⎇ '
     ""let g:airline_paste_symbol = 'ρ'
