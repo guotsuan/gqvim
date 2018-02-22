@@ -1,174 +1,120 @@
 "  {{{  Basic
 "  
 set nocompatible
-
-" NeoBudle Settings {{{1 "
-
-set runtimepath+=$HOME/.vim/ne/neobundle.vim/
-
-
-call neobundle#begin(expand('$HOME/.vim/ne'))
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" Add or remove your Bundles here:
-NeoBundle 'Shougo/vimproc.vim', {
-            \ 'build' : {
-            \     'windows' : 'tools\\update-dll-mingw',
-            \     'cygwin' : 'make -f make_cygwin.mak',
-            \     'mac' : 'make -f make_mac.mak',
-            \     'linux' : 'make',
-            \     'unix' : 'gmake',
-            \    },
-            \ }
-
-"NeoBundle 'Valloric/YouCompleteMe', {
-        "\ 'build' :  {
-        "\   'linux' : './install.py --clang-completer --system-libclang',
-        "\   'mac' : './install.py --clang-completer',
-        "\      },
-        "\ }
-
-
-NeoBundle 'tpope/vim-obsession'
-NeoBundle 'aperezdc/vim-template'
-NeoBundle 'bruno-/vim-husk'
-NeoBundle 'vimwiki/vimwiki', {'rev' : 'dev'}
-NeoBundle 'Shougo/vimshell.vim'
-NeoBundle 'Shougo/neomru.vim'
-NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'benmills/vimux'    
-NeoBundle 'Shougo/neco-syntax'
-NeoBundle 'Shougo/unite-outline'
-NeoBundle 'vim-airline/vim-airline'
-NeoBundle 'vim-airline/vim-airline-themes'
-NeoBundle 'shime/vim-livedown'
-
-if has('nvim')
-    NeoBundle 'Shougo/deoplete.nvim'
-endif
-
-
-
-call neobundle#end() 
-
-" 1}}} NeoBudle Settings "
-
-
-filetype off
-
-NeoBundleCheck
-
-" }}}
-
-" {{{ vundle plugin 
-
-set rtp+=~/.vim/bundle/vundle
-call vundle#begin()
-
-"set autochdir
 set iskeyword+=_,$,@,%,#  " none of these are word dividers
 
-" turn off the dict, it is too slow
-" set dict+=/usr/share/dict/british
-
-"  }}}
-
-" {{{ Plugin Lists
-
-Plugin 'kshenoy/vim-signature'
-Plugin 'tpope/vim-dispatch'
-Plugin 'gmarik/vundle'
-Plugin 'tomasr/molokai'
-"Plugin 'Indent-Guides'
-Plugin 'TeX-9'
-Plugin 'earendel'
-Plugin 'L9'
-Plugin 'delimitMate.vim'
-
-Plugin 'airblade/vim-gitgutter'
-Plugin 'FuzzyFinder'
-Plugin 'tpope/vim-surround'
-Plugin 'CmdlineComplete'
-
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'hsitz/VimOrganizer'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'majutsushi/tagbar'
-Plugin 'matchit.zip'
-Plugin 'rking/ag.vim'
-
-"Plugin 'fisadev/fisa-vim-colorscheme'
-"
-Plugin 'fisadev/FixedTaskList.vim'
-Plugin 'kien/tabman.vim'
-Plugin 'mtth/locate.vim'
-Plugin 'klen/python-mode'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-endwise'
-Plugin 'xolox/vim-notes'
-Plugin 'Conque-Shell'
-Plugin 'Decho'
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-reload'
-Plugin 'xolox/vim-shell'
-
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'mileszs/ack.vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'guotsuan/my-custom.vim'
-
-
-" managed by NeoBudle
-"Plugin 'Shougo/vimproc'
-Plugin 'Valloric/YouCompleteMe'
-"
-if has("lua") 
-    Plugin 'Shougo/neocomplete.vim'
+" Plugin Settings {{{1 "
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
-"Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neco-vim'
-Plugin 'Shougo/unite.vim'
 
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'Shougo/vimshell'
-Plugin 'VOoM'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-scriptease'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-commentary'
-Plugin 'svermeulen/vim-easyclip'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'now/vim-quit-if-only-quickfix-buffer-left'
+call plug#begin('~/.vim/plugged')
 
-"Plugin 'vim-scripts/Wombat'
-Plugin 'bash-support.vim'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'mbbill/undotree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
-"Plugin 'mkitt/markdown-preview.vim'
-"Plugin 'JamshedVesuna/vim-markdown-preview'
-Plugin 'petRUShka/vim-opencl'
-Plugin 'xolox/vim-lua-ftplugin'
-Plugin 'Zenburn'
+
+" Add or remove your Plug here:
+Plug 'Shougo/vimproc.vim', {  'do' :  'make -f make_mac.mak'}
+"\     'linux' : 'make',
+"\     'unix' : 'gmake',
+
+Plug 'tpope/vim-sensible'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
+Plug 'tpope/vim-obsession'
+Plug 'aperezdc/vim-template'
+Plug 'bruno-/vim-husk'
+Plug 'vimwiki/vimwiki', {'rev' : 'dev'}
+Plug 'Shougo/vimshell.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'thinca/vim-quickrun'
+Plug 'benmills/vimux'    
+Plug 'Shougo/neco-syntax'
+Plug 'Shougo/unite-outline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'shime/vim-livedown'
+
+Plug 'kshenoy/vim-signature'
+Plug 'tpope/vim-dispatch'
+Plug 'gmarik/vundle'
+Plug 'tomasr/molokai'
+Plug 'nathanaelkane/Indent-Guides'
+Plug 'lervag/vimtex'
+Plug 'vim-scripts/earendel'
+Plug 'jiangmiao/auto-pairs'
+
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-surround'
+"Plug 'CmdlineComplete'
+Plug 'junegunn/fzf'
+
+Plug 'Lokaltog/vim-easymotion'
+Plug 'hsitz/VimOrganizer'
+Plug 'scrooloose/nerdcommenter'
+Plug 'majutsushi/tagbar'
+Plug 'rking/ag.vim'
+
+Plug 'fisadev/FixedTaskList.vim'
+Plug 'kien/tabman.vim'
+Plug 'mtth/locate.vim'
+Plug 'klen/python-mode'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-endwise'
+Plug 'xolox/vim-notes'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-reload'
+Plug 'xolox/vim-shell'
+
+Plug 'terryma/vim-multiple-cursors'
+Plug 'mileszs/ack.vim'
+Plug 'SirVer/ultisnips'
+Plug 'guotsuan/my-custom.vim'
+
+Plug 'Shougo/neco-vim'
+Plug 'Shougo/unite.vim'
+
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'Shougo/vimshell'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-scriptease'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+Plug 'svermeulen/vim-easyclip'
+Plug 'davidhalter/jedi-vim'
+Plug 'now/vim-quit-if-only-quickfix-buffer-left'
+
+Plug 'junegunn/vim-easy-align'
+Plug 'mbbill/undotree'
+Plug 'kien/ctrlp.vim'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'petRUShka/vim-opencl'
+Plug 'xolox/vim-lua-ftplugin'
+Plug 'jnurmine/zenburn'
+Plug 'honza/vim-snippets' 
+Plug 'Shougo/neosnippet-snippets'
+Plug 'FelikZ/ctrlp-py-matcher'
 
 "disabled
-"Plugin 'Vim-JDE'
-Plugin 'Lokaltog/powerline'
-"Plugin 'Shougo/neocomplcache'
-"Plugin 'Yggdroot/indentLine'
-Plugin 'honza/vim-snippets' 
-Plugin 'Shougo/neosnippet-snippets'
-
+"
+"Plugin 'fisadev/fisa-vim-colorscheme'
+"Plug 'Shougo/neosnippet'
+"Plug 'vim-scripts/Wombat'
+"Plug 'Vim-JDE'
+"Plug 'Lokaltog/powerline'
+"Plug 'Yggdroot/indentLine'
+"Plug 'mkitt/markdown-preview.vim'
+"Plug 'JamshedVesuna/vim-markdown-preview'
 "cause duplicate
-"Plugin 'scrooloose/syntastic'
-"Plugin 'vimwiki/vimwiki'
-Plugin 'FelikZ/ctrlp-py-matcher'
+"
+"Plug 'scrooloose/syntastic'
+"Plug 'vimwiki/vimwiki'
 
-call vundle#end()
+call plug#end() 
 
-""}}}
+" 1}}} 
+
+"  }}}
 
 "  {{{ General
 "
@@ -536,8 +482,11 @@ let g:airline#extensions#tabline#enabled = 1
 "YCM plugin    "{{{
 "let g:ycm_add_preview_to_completeopt=1
 let g:ycm_filetype_whitelist={'python': 1, 'go':1, 'cpp': 1, 'c':1}
+let g:ycm_filetype_blacklist={'tex':1}
 "let g:loaded_youcompleteme=0
 nnoremap <leader>jd :YcmCompleter GoTo<CR>'
+
+let g:ycm_filetype_specific_completion_to_disable = { 'tex': 1, 'latex': 1 }
 "}}}
 
 "Ultisnips  "{{{
@@ -632,60 +581,6 @@ let g:NERDCustomDelimiters = {
 
 "2}}}
 
-"   neocomplete {{{2
-" Disable AutoComplPop.
-"let g:acp_enableAtStartup = 0
-" Use neocomplete
-
-"let g:loaded_neocomplete = 1
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_debug =0
-
-if !exists('g:neocomplete#sources')
-  let g:neocomplete#sources = {}
-endif
-
-let g:neocomplete#sources.lua = ['_']
-
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 2
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-" enable fuzzy completion
-let g:neocomplete#enable_fuzzy_completion = 1
-" necomp locked if iminsert
-let g:neocomplete#enable_auto_select=0
-let g:neocomplete#disable_auto_complete = 0
-let g:neocomplete#enable_cursor_hold_i = 1
-    
-
-" Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-\ 'default' : '',
-\ 'vimshell' : $HOME.'/.vimshell_hist',
-\ 'scheme' : $HOME.'/.gosh_completions'
-\ }
-
-" Define keyword.
-"
-if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-if !exists('g:neocomplete#force_omni_input_patterns')
-    let g:neocomplete#force_omni_input_patterns = {}
-endif
-let g:neocomplete#force_omni_input_patterns.lua = '[^. \t]\.\w*'
-let g:neocomplete#force_omni_input_patterns.tex = '\\ref{\|\\cite{\|\\citep{'
-
-if !exists('g:neocomplete#sources')
-    let g:neocomplete#sources = {}
-endif
-
-
-" Key bindings for neocomplcache
 
 
 " 2}}}
@@ -743,10 +638,6 @@ let g:pymode_run_key = "<Leader>r"
 let g:jedi#popup_on_dot=0
 let g:jedi#popup_select_first = 0  
 
-if !exists('g:neocomplcache_force_omni_patterns')
-    let g:neocomplcache_force_omni_patterns = {}
-endif
-let g:neocomplcache_force_omni_patterns.python = '[^. \t]\.\w*'
 
 "2 }}}
 
@@ -815,135 +706,10 @@ nnoremap <Leader>{  :call gqutils#addcomment(nr2char(getchar()), 1)<CR>
 nnoremap <Leader>}  :call gqutils#addcomment(nr2char(getchar()), 0)<CR>
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
-
-
-function! Neo_enable() " {{{2
-    "old for netcompletcache
-    "inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    "smap  <Tab>  <right><Plug>(neosnippet_expand_or_jump)
-    "imap <C-k>     <Plug>(neosnippet_expand_or_jump)
-    "smap <C-k>     <Plug>(neosnippet_expand_or_jump)
-
-    "inoremap <expr><C-e>     neocomplcache#complete_common_string()
-
-    "inoremap <expr><C-g> neocomplcache#undo_completion()
-    "inoremap <expr><C-l> neocomplcache#complete_common_string()
-    "inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-    "inoremap <expr><C-y>  neocomplcache#close_popup()
-    "inoremap <expr><C-e>  neocomplcache#cancel_popup()
-    "inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-
-    "inoremap <expr><silent> <CR> My_cr_function()
-
-    "function! My_cr_function()
-        "return pumvisible() ? neocomplcache#close_popup() . "\<CR>": "\<CR>"
-    "endfunction
-    "
-    "
-    " new for neocomplete
-    "inoremap <buffer> <silent> <CR>  <C-r>=<SID>my_cr_function()<CR>
-    inoremap <buffer> <expr> <C-g> neocomplete#undo_completion()
-    inoremap <buffer> <expr> <C-l> neocomplete#complete_common_string()
-
-    function! s:my_cr_function()
-      return neocomplete#smart_close_popup() . "\<CR>"
-      "return oldmap . neocomplete#smart_close_popup() . "\<CR>"
-    endfunction
-    " <TAB>: completion.
-    inoremap <buffer> <expr> <TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-    " <C-h>, <BS>: close popup and delete backword char.
-    inoremap <buffer> <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <buffer> <expr> <BS> neocomplete#smart_close_popup()."\<C-h>"
-    inoremap <buffer> <expr> <C-y>  neocomplete#close_popup()
-    inoremap <buffer> <expr> <C-e>  neocomplete#cancel_popup()
-
-
-    smap <buffer> <Tab>  <right><Plug>(neosnippet_expand_or_jump)
-    imap <buffer> <C-k>k     <Plug>(neosnippet_expand_or_jump)
-    smap <buffer> <C-k>k     <Plug>(neosnippet_expand_or_jump)
-
-    "let g:UltiSnipsExpandTrigger="<c-k>k"
-    "let g:UltiSnipsJumpForwardTrigger="<c-k>k"
-    "let g:UltiSnipsJumpBackwardTrigger="<c-j>j"
-    if !neocomplete#is_enabled() 
-        call neocomplete#init#enable()
-    endif
-    "if neocomplete#is_locked()
-        "NeoCompleteUnlock
-    "endif
-    "NeocompleteEnable()
-endfunction
-
-function! Neo_disable() "{{{2
-    "iunmap <buffer> <expr> <C-g>
-    "iunmap <buffer> <expr> <C-l>
-    "iunmap <buffer> <silent> <CR>
-    """" <TAB>: completion.
-    "iunmap <buffer> <expr> <TAB>
-    """ <C-h>, <BS>: close popup and delete backword char.
-    "iunmap <buffer> <expr> <C-h>
-    "iunmap <buffer> <expr> <BS>
-    "iunmap <buffer> <expr> <C-y>
-    "iunmap <buffer> <expr> <C-e>
-    "sunm <buffer> <Tab>
-    "iunmap <buffer> <C-k>k
-    "sunm <buffer> <C-k>k
-    "NeoCompleteDisable
-    if neocomplete#is_enabled()
-        NeoCompleteDisable
-    endif
-    "NeoCompleteLock
-endfunction 
-    
 nnoremap <silent> <leader>gd    :GitGutterToggle<CR>
 
 "2}}}
 
-" fuzzyfinder keybinds"{{{2
-let g:fuf_modesDisable = []
-let g:fuf_mrufile_maxItem = 400
-let g:fuf_mrucmd_maxItem = 400
-nnoremap <silent> <leader>sj     :FufBuffer<CR>
-nnoremap <silent> <leader>sk     :FufFileWithCurrentBufferDir<CR>
-nnoremap <silent> <leader>sK     :FufFileWithFullCwd<CR>
-nnoremap <silent> <leader>s<C-k> :FufFile<CR>
-nnoremap <silent> <leader>sl     :FufCoverageFileChange<CR>
-nnoremap <silent> <leader>sL     :FufCoverageFileChange<CR>
-nnoremap <silent> <leader>s<C-l> :FufCoverageFileRegister<CR>
-nnoremap <silent> <leader>sd     :FufDirWithCurrentBufferDir<CR>
-nnoremap <silent> <leader>sD     :FufDirWithFullCwd<CR>
-nnoremap <silent> <leader>s<C-d> :FufDir<CR>
-nnoremap <silent> <leader>sn     :FufMruFile<CR>
-nnoremap <silent> <leader>sN     :FufMruFileInCwd<CR>
-nnoremap <silent> <leader>sm     :FufMruCmd<CR>
-nnoremap <silent> <leader>su     :FufBookmarkFile<CR>
-nnoremap <silent> <leader>s<C-u> :FufBookmarkFileAdd<CR>
-vnoremap <silent> <leader>s<C-u> :FufBookmarkFileAddAsSelectedText<CR>
-nnoremap <silent> <leader>si     :FufBookmarkDir<CR>
-nnoremap <silent> <leader>s<C-i> :FufBookmarkDirAdd<CR>
-nnoremap <silent> <leader>st     :FufTag<CR>
-nnoremap <silent> <leader>sT     :FufTag!<CR>
-nnoremap <silent> <leader>s<C-]> :FufTagWithCursorWord!<CR>
-nnoremap <silent> <leader>s,     :FufBufferTag<CR>
-nnoremap <silent> <leader>s<     :FufBufferTag!<CR>
-vnoremap <silent> <leader>s,     :FufBufferTagWithSelectedText!<CR>
-vnoremap <silent> <leader>s<     :FufBufferTagWithSelectedText<CR>
-nnoremap <silent> <leader>s}     :FufBufferTagWithCursorWord!<CR>
-nnoremap <silent> <leader>s.     :FufBufferTagAll<CR>
-nnoremap <silent> <leader>s>     :FufBufferTagAll!<CR>
-vnoremap <silent> <leader>s.     :FufBufferTagAllWithSelectedText!<CR>
-vnoremap <silent> <leader>s>     :FufBufferTagAllWithSelectedText<CR>
-nnoremap <silent> <leader>s]     :FufBufferTagAllWithCursorWord!<CR>
-nnoremap <silent> <leader>sg     :FufTaggedFile<CR>
-nnoremap <silent> <leader>sG     :FufTaggedFile!<CR>
-nnoremap <silent> <leader>so     :FufJumpList<CR>
-nnoremap <silent> <leader>sp     :FufChangeList<CR>
-nnoremap <silent> <leader>sq     :FufQuickfix<CR>
-nnoremap <silent> <leader>sy     :FufLine<CR>
-nnoremap <silent> <leader>sh     :FufHelp<CR>
-nnoremap <silent> <leader>se     :FufEditDataFile<CR>
-nnoremap <silent> <leader>sr     :FufRenewCache<CR>
-  "2}}}
 
 "indent Guide setting {{{2
 let g:indent_guides_start_level = 2
@@ -975,16 +741,12 @@ au BufRead,Bufnew *.java,*.c,*.cpp
 " for lejos 
 "==================================
 
- "let g:neocomplcache_include_paths={'java':'/home/dccf87/usr/lejos_nxj/lib/nxt,.'} |
- let g:neocompele_include_patterns={'java':'^\s*import'}
- 
-"
+
 "au BufReadPost * if getline(1) =~ "mutt" | setf muttrc | endif
 
 au FileType python setlocal list
 au FileType python setlocal listchars=tab:ß⌂,trail:•,nbsp:◊,extends:►,precedes:◄ 
 au FileType opencl setlocal commentstring=//%s
-"au FileType python call neocomplete#init#disable() | call youcompleteme#Enable() 
 
 "omin completion
 "==========================================================
@@ -998,6 +760,7 @@ autocmd FileType lua setlocal omnifunc=xolox#lua#completefunc
 "autocmd FileType java setlocal omnifunc=eclim#java#complete#CodeComplete
 autocmd FileType java setlocal omnifunc=VjdeCompletionFun0
 autocmd FileType lisp set comments=:;,sr:;;,mb:;;,ex:;;
+autocmd FileType tex let g:ycm_filetype_blacklist.tex=1
 "autocmd FileType python :call Neo_disable()
 
 "============================================================
@@ -1057,7 +820,6 @@ ca W w !sudo tee % > /dev/null
 "
 "hi Normal ctermbg=none
 
-"au BufReadPost *.py call neocomplete#init#disable()
 
 autocmd BufWritePre,FileWritePre *   ks|call LastMod()|'s
 fun! LastMod()
@@ -1071,5 +833,4 @@ fun! LastMod()
 endfun
 
 au BufRead /tmp/mutt-* set tw=72
-
 
