@@ -17,9 +17,20 @@ call plug#begin('~/.vim/plugged')
 Plug 'Shougo/vimproc.vim', {  'do' :  'make -f make_mac.mak'}
 "\     'linux' : 'make',
 "\     'unix' : 'gmake',
+"
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
+
+Plug 'zchee/deoplete-jedi', {'for': 'python'}
 
 Plug 'tpope/vim-sensible'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
+"Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
 Plug 'tpope/vim-obsession'
 Plug 'aperezdc/vim-template'
 Plug 'bruno-/vim-husk'
@@ -125,7 +136,7 @@ let g:loaded_airline = 0
 set ignorecase
 filetype plugin indent on
 syntax on
-set clipboard=unnamed   "share clipboard with system"
+"set clipboard=unnamed   "share clipboard with system"
 set wildmenu "turn on command line completion wild style"
 
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,
