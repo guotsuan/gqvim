@@ -18,12 +18,15 @@ Plug 'Shougo/vimproc.vim', {  'do' :  'make -f make_mac.mak'}
 "\     'linux' : 'make',
 "\     'unix' : 'gmake',
 
+if has('mac')
+    Plug 'junegunn/vim-xmark', {'do': 'make'}
+endif
 Plug 'tpope/vim-sensible'
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py'}
 Plug 'tpope/vim-obsession'
 Plug 'aperezdc/vim-template'
 Plug 'bruno-/vim-husk'
-Plug 'vimwiki/vimwiki', {'rev' : 'dev'}
+Plug 'vimwiki/vimwiki'
 Plug 'Shougo/vimshell.vim'
 Plug 'Shougo/neomru.vim'
 Plug 'thinca/vim-quickrun'
@@ -39,7 +42,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'gmarik/vundle'
 Plug 'tomasr/molokai'
 Plug 'nathanaelkane/vim-indent-guides'
-Plug 'lervag/vimtex'
+Plug 'lervag/vimtex', {'for' : 'tex'}
 Plug 'vim-scripts/earendel'
 Plug 'jiangmiao/auto-pairs'
 
