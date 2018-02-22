@@ -71,7 +71,7 @@ Plug 'rking/ag.vim'
 Plug 'fisadev/FixedTaskList.vim'
 Plug 'kien/tabman.vim'
 Plug 'mtth/locate.vim'
-Plug 'klen/python-mode'
+Plug 'klen/python-mode', {'for': 'tex'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-endwise'
 Plug 'xolox/vim-notes'
@@ -94,7 +94,7 @@ Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'svermeulen/vim-easyclip'
-Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim', {'for': 'python'}
 Plug 'now/vim-quit-if-only-quickfix-buffer-left'
 
 Plug 'junegunn/vim-easy-align'
@@ -495,12 +495,12 @@ let g:airline#extensions#tabline#enabled = 1
 "
 "YCM plugin    "{{{
 "let g:ycm_add_preview_to_completeopt=1
-let g:ycm_filetype_whitelist={'python': 1, 'go':1, 'cpp': 1, 'c':1}
-let g:ycm_filetype_blacklist={'tex':1}
+"let g:ycm_filetype_whitelist={'python': 1, 'go':1, 'cpp': 1, 'c':1}
+"let g:ycm_filetype_blacklist={'tex':1}
 "let g:loaded_youcompleteme=0
-nnoremap <leader>jd :YcmCompleter GoTo<CR>'
+"nnoremap <leader>jd :YcmCompleter GoTo<CR>'
 
-let g:ycm_filetype_specific_completion_to_disable = { 'tex': 1, 'latex': 1 }
+"let g:ycm_filetype_specific_completion_to_disable = { 'tex': 1, 'latex': 1 }
 "}}}
 
 "Ultisnips  "{{{
