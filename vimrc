@@ -20,11 +20,17 @@ endif
 call plug#begin('~/.vim/plugged')
 
 
+function! Buildvimproc(info)
+    let os=substitute(system('uname'), '\n', '', '')
+    if os == 'Darwin' || os == 'Mac'
+        !make -f make_mac.mak
+    elseif os == 'Linux'
+        !make
+    endif
+endfunction
+
 " Add or remove your Plug here:
-Plug 'Shougo/vimproc.vim', {  'do' :  'make -f make_mac.mak'}
-"\     'linux' : 'make',
-"\     'unix' : 'gmake',
-"
+Plug 'Shougo/vimproc.vim', {  'do' :  function('Buildvimproc')}
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
