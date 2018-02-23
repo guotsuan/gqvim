@@ -3,6 +3,13 @@
 set nocompatible
 set iskeyword+=_,$,@,%,#  " none of these are word dividers
 
+let os=substitute(system('uname'), '\n', '', '')
+
+ 
+if os == 'Darwin' || os == 'Mac'
+    let g:python3_host_prog="/usr/local/bin/python3"
+endif
+
 " Plugin Settings {{{1 "
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -50,7 +57,6 @@ Plug 'shime/vim-livedown'
 
 Plug 'kshenoy/vim-signature'
 Plug 'tpope/vim-dispatch'
-Plug 'gmarik/vundle'
 Plug 'tomasr/molokai'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'lervag/vimtex', {'for' : 'tex'}
@@ -60,7 +66,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-surround'
 "Plug 'CmdlineComplete'
-Plug 'junegunn/fzf'
+let g:fzf_install = 'yes | ./install'
+Plug 'junegunn/fzf', {'do' : g:fzf_install}
 
 Plug 'Lokaltog/vim-easymotion'
 Plug 'hsitz/VimOrganizer'
@@ -206,7 +213,6 @@ let &t_Co=256
 colorscheme zenburn
 "colorscheme molokai
 "
-let os=substitute(system('uname'), '\n', '', '')
 
 
 if has("gui_running")
@@ -848,3 +854,6 @@ endfun
 
 au BufRead /tmp/mutt-* set tw=72
 
+
+let $NVIM_PYTHON_LOG_FILE="/tmp/nvim_log"
+let $NVIM_PYTHON_LOG_LEVEL="DEBUG"
