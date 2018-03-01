@@ -148,10 +148,6 @@ call plug#end()
 let g:powerline_loaded = 1  "prefered the vim-airline
 
 "set regexpengine=1
-let g:loaded_airline = 0
-set ignorecase
-filetype plugin indent on
-syntax on
 "set clipboard=unnamed   "share clipboard with system"
 set wildmenu "turn on command line completion wild style"
 
@@ -183,6 +179,7 @@ imap <F7> <C-r><C-o>z
 vmap <C-F7> "zp`]
 cmap <F7> <C-r><C-o>z
 "copy register
+
 
 autocmd FocusGained * let @z=@+
 
@@ -786,7 +783,6 @@ autocmd FileType lua setlocal omnifunc=xolox#lua#completefunc
 "autocmd FileType java setlocal omnifunc=eclim#java#complete#CodeComplete
 autocmd FileType java setlocal omnifunc=VjdeCompletionFun0
 autocmd FileType lisp set comments=:;,sr:;;,mb:;;,ex:;;
-autocmd FileType tex let g:ycm_filetype_blacklist.tex=1
 "autocmd FileType python :call Neo_disable()
 
 "============================================================
@@ -859,5 +855,5 @@ fun! LastMod()
 endfun
 
 au BufRead /tmp/mutt-* set tw=72
-
+set ignorecase
 
