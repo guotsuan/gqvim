@@ -84,7 +84,7 @@ Plug 'rking/ag.vim'
 Plug 'fisadev/FixedTaskList.vim'
 Plug 'kien/tabman.vim'
 Plug 'mtth/locate.vim'
-Plug 'klen/python-mode', {'for': 'tex'}
+Plug 'klen/python-mode', {'for': 'python'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-endwise'
 Plug 'xolox/vim-notes'
@@ -178,6 +178,8 @@ nmap <S-F7> "zgp
 imap <F7> <C-r><C-o>z
 vmap <C-F7> "zp`]
 cmap <F7> <C-r><C-o>z
+noremap <Leader>Y "+y
+noremap <Leader>P "+p
 "copy register
 
 
