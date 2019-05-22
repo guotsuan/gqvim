@@ -84,7 +84,7 @@ Plug 'rking/ag.vim'
 Plug 'fisadev/FixedTaskList.vim'
 Plug 'kien/tabman.vim'
 Plug 'mtth/locate.vim'
-Plug 'klen/python-mode', {'for': 'python'}
+Plug 'klen/python-mode', {'for': 'python', 'branch':'develop'}
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-endwise'
 Plug 'xolox/vim-notes'
@@ -181,6 +181,7 @@ cmap <F7> <C-r><C-o>z
 noremap <Leader>Y "+y
 noremap <Leader>P "+p
 "copy register
+let maplocalleader=','
 
 
 autocmd FocusGained * let @z=@+
