@@ -7,7 +7,7 @@ let os=substitute(system('uname'), '\n', '', '')
 
  
 if os == 'Darwin' || os == 'Mac'
-    let g:python3_host_prog="/usr/local/bin/python3"
+    let g:python3_host_prog="/usr/local/opt/python@3.8/bin/python3"
 endif
 
 " Plugin Settings {{{1 "
@@ -121,6 +121,10 @@ Plug 'jnurmine/zenburn'
 Plug 'honza/vim-snippets' 
 Plug 'Shougo/neosnippet-snippets'
 Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'lighttiger2505/deoplete-vim-lsp'
+
 
 "disabled
 "
@@ -178,7 +182,10 @@ nmap <S-F7> "zgp
 imap <F7> <C-r><C-o>z
 vmap <C-F7> "zp`]
 cmap <F7> <C-r><C-o>z
-noremap <Leader>Y "+y
+noremap <Leader>Y "*y
+noremap YY "*y
+"noremap YY "*y
+
 noremap <Leader>P "+p
 "copy register
 let maplocalleader=','
@@ -845,6 +852,38 @@ ca W w !sudo tee % > /dev/null
 "
 "hi Normal ctermbg=none
 
+let g:deoplete#enable_at_startup = 1
+
+if executable('pyls')
+    " pip install python-language-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pyls',
+        \ 'cmd': {server_info->['pyls']},
+        \ 'allowlist': ['python'],
+        \ })
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
 autocmd BufWritePre,FileWritePre *   ks|call LastMod()|'s
 fun! LastMod()
