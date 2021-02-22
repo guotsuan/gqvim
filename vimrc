@@ -101,7 +101,6 @@ Plug 'Shougo/neco-vim'
 Plug 'Shougo/unite.vim'
 
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'Shougo/vimshell'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-scriptease'
 Plug 'tpope/vim-repeat'
